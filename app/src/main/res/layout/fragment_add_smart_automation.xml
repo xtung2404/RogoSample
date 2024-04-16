@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray"
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp"
+        android:paddingTop="5dp">
+        <include layout="@layout/toolbar"
+            android:id="@+id/toolbar"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/automation_type"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"/>
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_automation_type"
+            android:background="@drawable/bg_input_black_10dp"
+            android:layout_marginTop="5dp"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_continue"
+            android:text="@string/to_continue"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:background="@drawable/btn_yellow_20dp"
+            android:textAllCaps="false"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
+</layout>

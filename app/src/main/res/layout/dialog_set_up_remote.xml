@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/btn_yellow_20dp"
+        android:backgroundTint="@color/dark_blue"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/device_name"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edt_device_name"
+            android:hint=""
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_input_black_10dp"
+            android:paddingVertical="15dp"
+            android:paddingStart="5dp"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_device_manufacturer"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"/>
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_manufacture"
+            android:background="@drawable/bg_input_black_10dp"
+            android:layout_marginTop="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/group"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"/>
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_group"
+            android:background="@drawable/bg_input_black_10dp"
+            android:layout_marginTop="5dp"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_continue"
+            android:textAllCaps="false"
+            android:text="@string/to_continue"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_yellow_20dp"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
+</layout>

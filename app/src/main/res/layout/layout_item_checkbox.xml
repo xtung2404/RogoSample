@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/dark_blue">
+        <CheckBox
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/cb_code"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/txt_ir_code"
+            android:layout_weight="1"
+            android:text="@string/select_hub_device"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
+</layout>

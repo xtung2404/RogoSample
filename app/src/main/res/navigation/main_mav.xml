@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_mav"
+    app:startDestination="@id/functionFragment">
+
+    <fragment
+        android:id="@+id/functionFragment"
+        android:name="com.example.rogosample.UI.authen.FunctionFragment"
+        android:label="FunctionFragment" >
+        <action
+            android:id="@+id/action_functionFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_functionFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
+        <action
+            android:id="@+id/action_functionFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_functionFragment_to_signOutFragment"
+            app:destination="@id/signOutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.rogosample.UI.authen.SignUpFragment"
+        android:label="SignUpFragment" >
+        <action
+            android:id="@+id/action_signUpFragment_to_functionFragment"
+            app:destination="@id/functionFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.example.rogosample.UI.authen.ForgotPasswordFragment"
+        android:label="ForgotPasswordFragment" >
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_functionFragment"
+            app:destination="@id/functionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.example.rogosample.UI.authen.SignInFragment"
+        android:label="SignInFragment" >
+        <action
+            android:id="@+id/action_signInFragment_to_functionFragment"
+            app:destination="@id/functionFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_locationFunctionFragment"
+            app:destination="@id/locationFunctionFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_splashFragment"
+            app:destination="@id/splashFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signOutFragment"
+        android:name="com.example.rogosample.UI.authen.SignOutFragment"
+        android:label="SignOutFragment" >
+        <action
+            android:id="@+id/action_signOutFragment_to_functionFragment"
+            app:destination="@id/functionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/locationFunctionFragment"
+        android:name="com.example.rogosample.UI.location.LocationFunctionFragment"
+        android:label="LocationFunctionFragment" >
+        <action
+            android:id="@+id/action_locationFunctionFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_locationFunctionFragment_to_addLocationFragment"
+            app:destination="@id/addLocationFragment" />
+        <action
+            android:id="@+id/action_locationFunctionFragment_to_locationFragment"
+            app:destination="@id/locationFragment" />
+        <action
+            android:id="@+id/action_locationFunctionFragment_to_deleteLocationFragment"
+            app:destination="@id/deleteLocationFragment" />
+        <action
+            android:id="@+id/action_locationFunctionFragment_to_editLocationFragment"
+            app:destination="@id/editLocationFragment" />
+        <action
+            android:id="@+id/action_locationFunctionFragment_to_editLocationFragment2"
+            app:destination="@id/editLocationFragment" />
+        <action
+            android:id="@+id/action_locationFunctionFragment_to_generalFunction"
+            app:destination="@id/generalFunction" />
+    </fragment>
+    <fragment
+        android:id="@+id/addLocationFragment"
+        android:name="com.example.rogosample.UI.location.AddLocationFragment"
+        android:label="AddLocationFragment" >
+        <action
+            android:id="@+id/action_addLocationFragment_to_locationFunctionFragment"
+            app:destination="@id/locationFunctionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/locationFragment"
+        android:name="com.example.rogosample.UI.location.LocationFragment"
+        android:label="LocationFragment" >
+        <action
+            android:id="@+id/action_locationFragment_to_locationFunctionFragment"
+            app:destination="@id/locationFunctionFragment" />
+        <action
+            android:id="@+id/action_locationFragment_to_generalFunction"
+            app:destination="@id/generalFunction" />
+    </fragment>
+    <fragment
+        android:id="@+id/deleteLocationFragment"
+        android:name="com.example.rogosample.UI.location.DeleteLocationFragment"
+        android:label="fragment_delete_location"
+        tools:layout="@layout/fragment_delete_location" >
+        <action
+            android:id="@+id/action_deleteLocationFragment_to_locationFunctionFragment"
+            app:destination="@id/locationFunctionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.rogosample.UI.SplashFragment"
+        android:label="SplashFragment" >
+        <action
+            android:id="@+id/action_splashFragment_to_locationFunctionFragment"
+            app:destination="@id/locationFunctionFragment" />
+        <action
+            android:id="@+id/action_splashFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editLocationFragment"
+        android:name="com.example.rogosample.UI.location.EditLocationFragment"
+        android:label="EditLocationFragment" >
+        <action
+            android:id="@+id/action_editLocationFragment_to_locationFunctionFragment"
+            app:destination="@id/locationFunctionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/generalFunction"
+        android:name="com.example.rogosample.UI.GeneralFunction"
+        android:label="GeneralFunction" >
+        <action
+            android:id="@+id/action_generalFunction_to_locationFunctionFragment"
+            app:destination="@id/locationFunctionFragment" />
+        <action
+            android:id="@+id/action_generalFunction_to_groupFragment"
+            app:destination="@id/groupFragment" />
+        <action
+            android:id="@+id/action_generalFunction_to_addGroupFragment"
+            app:destination="@id/addGroupFragment" />
+        <action
+            android:id="@+id/action_generalFunction_to_deleteGroupFragment"
+            app:destination="@id/deleteGroupFragment" />
+        <action
+            android:id="@+id/action_generalFunction_to_editGroupFragment"
+            app:destination="@id/editGroupFragment" />
+        <action
+            android:id="@+id/action_generalFunction_to_locationFragment"
+            app:destination="@id/locationFragment" />
+        <action
+            android:id="@+id/action_generalFunction_to_addDeviceFragment"
+            app:destination="@id/addDeviceFragment" />
+        <action
+            android:id="@+id/action_generalFunction_to_deviceFragment"
+            app:destination="@id/deviceFragment" />
+        <action
+            android:id="@+id/action_generalFunction_to_editDeviceFragment"
+            app:destination="@id/editDeviceFragment" />
+        <action
+            android:id="@+id/action_generalFunction_to_deleteDeviceFragment"
+            app:destination="@id/deleteDeviceFragment" />
+        <action
+            android:id="@+id/action_generalFunction_to_smartSceneFragment"
+            app:destination="@id/smartSceneFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/groupFragment"
+        android:name="com.example.rogosample.UI.group.GroupFragment"
+        android:label="GroupFragment" >
+        <action
+            android:id="@+id/action_groupFragment_to_generalFunction"
+            app:destination="@id/generalFunction" />
+    </fragment>
+    <fragment
+        android:id="@+id/addGroupFragment"
+        android:name="com.example.rogosample.UI.group.AddGroupFragment"
+        android:label="AddGroupFragment" >
+        <action
+            android:id="@+id/action_addGroupFragment_to_generalFunction"
+            app:destination="@id/generalFunction" />
+    </fragment>
+    <fragment
+        android:id="@+id/deleteGroupFragment"
+        android:name="com.example.rogosample.UI.group.DeleteGroupFragment"
+        android:label="DeleteGroupFragment" >
+        <action
+            android:id="@+id/action_deleteGroupFragment_to_generalFunction"
+            app:destination="@id/generalFunction" />
+    </fragment>
+    <fragment
+        android:id="@+id/editGroupFragment"
+        android:name="com.example.rogosample.UI.group.EditGroupFragment"
+        android:label="EditGroupFragment" >
+        <action
+            android:id="@+id/action_editGroupFragment_to_generalFunction"
+            app:destination="@id/generalFunction" />
+    </fragment>
+    <fragment
+        android:id="@+id/addDeviceFragment"
+        android:name="com.example.rogosample.UI.device.AddDeviceFragment"
+        android:label="AddDeviceFragment" >
+        <action
+            android:id="@+id/action_addDeviceFragment_to_generalFunction"
+            app:destination="@id/generalFunction" />
+        <action
+            android:id="@+id/action_addDeviceFragment_to_configBoxFragment"
+            app:destination="@id/configBoxFragment" />
+        <action
+            android:id="@+id/action_addDeviceFragment_to_configMeshFragment"
+            app:destination="@id/configMeshFragment" />
+        <action
+            android:id="@+id/action_addDeviceFragment_to_configIRFragment"
+            app:destination="@id/configIRFragment" />
+        <action
+            android:id="@+id/action_addDeviceFragment_to_configZigbeeFragment"
+            app:destination="@id/configZigbeeFragment" />
+        <action
+            android:id="@+id/action_addDeviceFragment_to_learnIRFragment"
+            app:destination="@id/learnIRFragment" />
+        <action
+            android:id="@+id/action_addDeviceFragment_to_learnIRFragment2"
+            app:destination="@id/learnIRFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deviceFragment"
+        android:name="com.example.rogosample.UI.device.DeviceFragment"
+        android:label="DeviceFragment" >
+        <action
+            android:id="@+id/action_deviceFragment_to_generalFunction"
+            app:destination="@id/generalFunction" />
+        <action
+            android:id="@+id/action_deviceFragment_to_controlDeviceFragment"
+            app:destination="@id/controlDeviceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/configBoxFragment"
+        android:name="com.example.rogosample.UI.device.ConfigBoxFragment"
+        android:label="ConfigBoxFragment" >
+        <action
+            android:id="@+id/action_configBoxFragment_to_addDeviceFragment"
+            app:destination="@id/addDeviceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/configMeshFragment"
+        android:name="com.example.rogosample.UI.device.ConfigMeshFragment"
+        android:label="ConfigMeshFragment" >
+        <action
+            android:id="@+id/action_configMeshFragment_to_addDeviceFragment"
+            app:destination="@id/addDeviceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editDeviceFragment"
+        android:name="com.example.rogosample.UI.device.EditDeviceFragment"
+        android:label="EditDeviceFragment" >
+        <action
+            android:id="@+id/action_editDeviceFragment_to_generalFunction"
+            app:destination="@id/generalFunction" />
+    </fragment>
+    <fragment
+        android:id="@+id/deleteDeviceFragment"
+        android:name="com.example.rogosample.UI.device.DeleteDeviceFragment"
+        android:label="DeleteDeviceFragment" >
+        <action
+            android:id="@+id/action_deleteDeviceFragment_to_generalFunction"
+            app:destination="@id/generalFunction" />
+    </fragment>
+    <fragment
+        android:id="@+id/controlDeviceFragment"
+        android:name="com.example.rogosample.UI.device.control.ControlDeviceFragment"
+        android:label="ControlDeviceFragment" >
+        <action
+            android:id="@+id/action_controlDeviceFragment_to_deviceFragment"
+            app:destination="@id/deviceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/configIRFragment"
+        android:name="com.example.rogosample.UI.device.ConfigIRFragment"
+        android:label="ConfigIRFragment" >
+        <action
+            android:id="@+id/action_configIRFragment_to_addDeviceFragment"
+            app:destination="@id/addDeviceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/configZigbeeFragment"
+        android:name="com.example.rogosample.UI.device.ConfigZigbeeFragment"
+        android:label="ConfigZigbeeFragment" >
+        <action
+            android:id="@+id/action_configZigbeeFragment_to_addDeviceFragment"
+            app:destination="@id/addDeviceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/learnIRFragment"
+        android:name="com.example.rogosample.UI.device.ir.LearnIRFragment"
+        android:label="LearnIRFragment" >
+        <action
+            android:id="@+id/action_learnIRFragment_to_addDeviceFragment"
+            app:destination="@id/addDeviceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/smartSceneFragment"
+        android:name="com.example.rogosample.UI.smart.SmartSceneFragment"
+        android:label="SmartSceneFragment" >
+        <action
+            android:id="@+id/action_smartSceneFragment_to_generalFunction"
+            app:destination="@id/generalFunction" />
+        <action
+            android:id="@+id/action_smartSceneFragment_to_addSmartScenarioFragment"
+            app:destination="@id/addSmartScenarioFragment" />
+        <action
+            android:id="@+id/action_smartSceneFragment_to_getListScenarioFragment"
+            app:destination="@id/getListScenarioFragment" />
+        <action
+            android:id="@+id/action_smartSceneFragment_to_editSmartScenarioFragment"
+            app:destination="@id/editSmartScenarioFragment" />
+        <action
+            android:id="@+id/action_smartSceneFragment_to_deleteSmartFragment"
+            app:destination="@id/deleteSmartFragment" />
+        <action
+            android:id="@+id/action_smartSceneFragment_to_addSmartScheduleFragment"
+            app:destination="@id/addSmartScheduleFragment" />
+        <action
+            android:id="@+id/action_smartSceneFragment_to_editSmartScheduleFragment"
+            app:destination="@id/editSmartScheduleFragment" />
+        <action
+            android:id="@+id/action_smartSceneFragment_to_addSmartAutomationFragment"
+            app:destination="@id/addSmartAutomationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addSmartScenarioFragment"
+        android:name="com.example.rogosample.UI.smart.scenario.AddSmartScenarioFragment"
+        android:label="AddSmartScenarioFragment" >
+        <action
+            android:id="@+id/action_addSmartScenarioFragment_to_smartSceneFragment"
+            app:destination="@id/smartSceneFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/getListScenarioFragment"
+        android:name="com.example.rogosample.UI.smart.GetListScenarioFragment"
+        android:label="GetListScenarioFragment" >
+        <action
+            android:id="@+id/action_getListScenarioFragment_to_smartSceneFragment"
+            app:destination="@id/smartSceneFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editSmartScenarioFragment"
+        android:name="com.example.rogosample.UI.smart.scenario.EditSmartScenarioFragment"
+        android:label="EditSmartScenarioFragment" >
+        <action
+            android:id="@+id/action_editSmartScenarioFragment_to_smartSceneFragment"
+            app:destination="@id/smartSceneFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deleteSmartFragment"
+        android:name="com.example.rogosample.UI.smart.DeleteSmartFragment"
+        android:label="DeleteSmartFragment" >
+        <action
+            android:id="@+id/action_deleteSmartFragment_to_smartSceneFragment"
+            app:destination="@id/smartSceneFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addSmartScheduleFragment"
+        android:name="com.example.rogosample.UI.smart.schedule.AddSmartScheduleFragment"
+        android:label="AddSmartScheduleFragment" >
+        <action
+            android:id="@+id/action_addSmartScheduleFragment_to_smartSceneFragment"
+            app:destination="@id/smartSceneFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editSmartScheduleFragment"
+        android:name="com.example.rogosample.UI.smart.schedule.EditSmartScheduleFragment"
+        android:label="EditSmartScheduleFragment" >
+        <action
+            android:id="@+id/action_editSmartScheduleFragment_to_smartSceneFragment"
+            app:destination="@id/smartSceneFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addSmartAutomationFragment"
+        android:name="com.example.rogosample.UI.smart.automation.AddSmartAutomationFragment"
+        android:label="AddSmartAutomationFragment" >
+        <action
+            android:id="@+id/action_addSmartAutomationFragment_to_smartSceneFragment"
+            app:destination="@id/smartSceneFragment" />
+        <action
+            android:id="@+id/action_addSmartAutomationFragment_to_addStairSwitchFragment"
+            app:destination="@id/addStairSwitchFragment" />
+        <action
+            android:id="@+id/action_addSmartAutomationFragment_to_addSmartNotificationFragment"
+            app:destination="@id/addSmartNotificationFragment" />
+        <action
+            android:id="@+id/action_addSmartAutomationFragment_to_addSmartSelfReverseFragment"
+            app:destination="@id/addSmartSelfReverseFragment" />
+        <action
+            android:id="@+id/action_addSmartAutomationFragment_to_addSmartAdvanceFragment"
+            app:destination="@id/addSmartAdvanceFragment" />
+        <action
+            android:id="@+id/action_addSmartAutomationFragment_to_editSmartStairSwitchFragment"
+            app:destination="@id/editSmartStairSwitchFragment" />
+        <action
+            android:id="@+id/action_addSmartAutomationFragment_to_editSmartNotificationFragment"
+            app:destination="@id/editSmartNotificationFragment" />
+        <action
+            android:id="@+id/action_addSmartAutomationFragment_to_editSmartAdvanceFragment"
+            app:destination="@id/editSmartAdvanceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addStairSwitchFragment"
+        android:name="com.example.rogosample.UI.smart.automation.AddSmartStairSwitchFragment"
+        android:label="AddStairSwitchFragment" >
+        <action
+            android:id="@+id/action_addStairSwitchFragment_to_addSmartAutomationFragment"
+            app:destination="@id/addSmartAutomationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addSmartNotificationFragment"
+        android:name="com.example.rogosample.UI.smart.automation.AddSmartNotificationFragment"
+        android:label="AddSmartNotificationFragment" >
+        <action
+            android:id="@+id/action_addSmartNotificationFragment_to_addSmartAutomationFragment"
+            app:destination="@id/addSmartAutomationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addSmartSelfReverseFragment"
+        android:name="com.example.rogosample.UI.smart.automation.AddSmartSelfReverseFragment"
+        android:label="AddSmartSelfReverseFragment" >
+        <action
+            android:id="@+id/action_addSmartSelfReverseFragment_to_addSmartAutomationFragment"
+            app:destination="@id/addSmartAutomationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addSmartAdvanceFragment"
+        android:name="com.example.rogosample.UI.smart.automation.AddSmartAdvanceFragment"
+        android:label="AddSmartAdvanceFragment" >
+        <action
+            android:id="@+id/action_addSmartAdvanceFragment_to_addSmartAutomationFragment"
+            app:destination="@id/addSmartAutomationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editSmartStairSwitchFragment"
+        android:name="com.example.rogosample.UI.smart.automation.editAutomation.EditSmartStairSwitchFragment"
+        android:label="EditSmartStairSwitchFragment" >
+        <action
+            android:id="@+id/action_editSmartStairSwitchFragment_to_addSmartAutomationFragment"
+            app:destination="@id/addSmartAutomationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editSmartNotificationFragment"
+        android:name="com.example.rogosample.UI.smart.automation.editAutomation.EditSmartNotificationFragment"
+        android:label="EditSmartNotificationFragment" >
+        <action
+            android:id="@+id/action_editSmartNotificationFragment_to_addSmartAutomationFragment"
+            app:destination="@id/addSmartAutomationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editSmartAdvanceFragment"
+        android:name="com.example.rogosample.UI.smart.automation.editAutomation.EditSmartAdvanceFragment"
+        android:label="EditSmartAdvanceFragment" >
+        <action
+            android:id="@+id/action_editSmartAdvanceFragment_to_addSmartAutomationFragment"
+            app:destination="@id/addSmartAutomationFragment" />
+    </fragment>
+</navigation>

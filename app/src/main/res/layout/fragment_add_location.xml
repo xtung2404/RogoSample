@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray"
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp"
+        android:paddingTop="5dp">
+        <include layout="@layout/toolbar"
+            android:id="@+id/toolbar"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/location_name"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edt_location_name"
+            android:hint=""
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_input_black_10dp"
+            android:paddingVertical="15dp"
+            android:paddingStart="5dp"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/location_type"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"/>
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_location_type"
+            android:background="@drawable/bg_input_black_10dp"
+            android:paddingVertical="10dp"
+            android:layout_marginTop="5dp"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_add_location"
+            android:text="@string/add_location"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:background="@drawable/btn_yellow_20dp"
+            android:textAllCaps="false"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
+</layout>
