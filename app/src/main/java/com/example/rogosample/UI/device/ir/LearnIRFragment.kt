@@ -30,31 +30,17 @@ import com.example.rogosample.`object`.DeviceLearnIr
 import com.example.rogosample.`object`.IrCode
 import rogo.iot.module.rogocore.basesdk.ILogR
 import rogo.iot.module.rogocore.basesdk.callback.RequestCallback
-import rogo.iot.module.rogocore.basesdk.define.IoTCmdConst
-import rogo.iot.module.rogocore.basesdk.define.IoTDeviceSubType
-import rogo.iot.module.rogocore.basesdk.define.IoTDeviceType
-import rogo.iot.module.rogocore.basesdk.define.IoTIrCapacity
+import rogo.iot.module.rogocore.basesdk.callback.SuccessStatus
 import rogo.iot.module.rogocore.basesdk.define.IoTIrCodeFan
 import rogo.iot.module.rogocore.basesdk.define.IoTIrCodeTV
-import rogo.iot.module.rogocore.basesdk.define.IoTManufacturer
-import rogo.iot.module.rogocore.basesdk.define.IoTSmartMode
-import rogo.iot.module.rogocore.deprecated.define.IoTCmdType
-import rogo.iot.module.rogocore.deprecated.define.IoTIrCodeAc
-import rogo.iot.module.rogocore.deprecated.define.IoTIrCodeOld
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.callback.CheckIrHubInfoCallback
 import rogo.iot.module.rogocore.sdk.callback.LearnIrCallback
 import rogo.iot.module.rogocore.sdk.callback.SuccessCallback
-import rogo.iot.module.rogocore.sdk.define.IoTSmartSceneType
-import rogo.iot.module.rogocore.sdk.define.IoTSmartType
-import rogo.iot.module.rogocore.sdk.define.ir.IoTIrPrtc
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
 import rogo.iot.module.rogocore.sdk.entity.IoTGroup
 import rogo.iot.module.rogocore.sdk.entity.IoTIrProtocolInfo
 import rogo.iot.module.rogocore.sdk.entity.IoTIrRemote
-import rogo.iot.module.rogocore.sdk.entity.smart.IoTSmartCmd
-import rogo.iot.module.rogocore.sdk.entity.smart.IoTSmartTrigger
-import rogo.iot.module.rogocore.sdk.entity.smart.IoTTargetCmd
 
 class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
     override val layoutId: Int
@@ -65,7 +51,7 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
     private val irCodeToLearn = arrayListOf<Int>()
     private val irCodeLearned = arrayListOf<Int>()
     private var currentPos = -1
-    private var protocolInfo: IoTIrProtocolInfo?= null
+    private var protocolInfo: IoTIrProtocolInfo? = null
     private lateinit var txtLearnIr: TextView
     private lateinit var btnContinue: AppCompatButton
     private lateinit var btnRetry: AppCompatButton
@@ -89,6 +75,7 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
     private val groupSpinnerAdapter by lazy {
         GroupSpinnerAdapter(requireContext(), SmartSdk.groupHandler().all.toMutableList())
     }
+
     private lateinit var manufacturerSpinnerAdapter: ManufacturerSpinnerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -98,6 +85,7 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
         setUpRemoteDialog.setContentView(R.layout.dialog_set_up_remote)
         super.onCreate(savedInstanceState)
     }
+
     override fun initVariable() {
         super.initVariable()
         binding.apply {
@@ -134,12 +122,13 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
             * */
             spinnerType.onItemSelectedListener = object : OnItemSelectedListener {
                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                    binding.lnIrCode.visibility = View.VISIBLE
                     p0?.let {
-                        when(it.getItemAtPosition(p2)) {
+                        when (it.getItemAtPosition(p2)) {
                             DeviceLearnIr.FAN -> {
+                                lnFanTv.visibility = View.VISIBLE
+                                lnAc.visibility = View.GONE
                                 irList.clear()
-                                for(i in listOf<Int>(
+                                for (i in listOf<Int>(
                                     IoTIrCodeFan.POWER,
                                     IoTIrCodeFan.POWER_ON,
                                     IoTIrCodeFan.POWER_OFF,
@@ -157,10 +146,14 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
                                 )) {
                                     irList.add(IrCode(i, getIrCodeFanName(i)))
                                 }
+                                irCodeAdapter.notifyDataSetChanged()
                             }
+
                             DeviceLearnIr.TV -> {
+                                lnFanTv.visibility = View.VISIBLE
+                                lnAc.visibility = View.GONE
                                 irList.clear()
-                                for(i in listOf<Int>(
+                                for (i in listOf<Int>(
                                     IoTIrCodeTV.POWER,
                                     IoTIrCodeTV.POWER_ON,
                                     IoTIrCodeTV.POWER_OFF,
@@ -190,24 +183,31 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
                                 )) {
                                     irList.add(IrCode(i, getIrCodeTVName(i)))
                                 }
+                                irCodeAdapter.notifyDataSetChanged()
                             }
-                            DeviceLearnIr.AIRCON -> {
-                                for(i in listOf<Int>(
-                                    IoTIrCodeAc.POWER_OFF,
-                                    IoTIrCodeAc.TEMP_29,
-                                    IoTIrCodeAc.TEMP_30_AS_POWER_ON,
-                                    IoTIrCodeAc.UNDERFINE
-                                )) {
 
-                                }
+                            DeviceLearnIr.AIRCON -> {
+                                lnFanTv.visibility = View.GONE
+                                lnAc.visibility = View.VISIBLE
+                                manufacturerSpinnerAdapter =
+                                    ManufacturerSpinnerAdapter(requireContext(),
+                                        getDeviceName.getClassInfo().entries.filter { data ->
+                                            SmartSdk.learnIrDeviceHandler()
+                                                .getSupportManufacturers((spinnerType.selectedItem as DeviceLearnIr).type)
+                                                .contains(
+                                                    data.value
+                                                )
+                                        }.toList()
+                                    )
+                                spinnerManufacture.adapter = manufacturerSpinnerAdapter
                             }
                         }
                     }
-                    irCodeAdapter.notifyDataSetChanged()
                 }
 
                 override fun onNothingSelected(p0: AdapterView<*>?) {
-                    binding.lnIrCode.visibility = View.GONE
+                    lnFanTv.visibility = View.GONE
+                    lnAc.visibility = View.GONE
                 }
 
             }
@@ -220,13 +220,65 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
                     binding.lnDeviceType.visibility = View.GONE
                 }
             }
+
+            spinnerManufacture.onItemSelectedListener = object : OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    parent?.let {
+                        SmartSdk.learnIrDeviceHandler().getIrRemotes(
+                            (it.getItemAtPosition(position) as Map.Entry<String, Int>).value,
+                            (spinnerType.selectedItem as DeviceLearnIr).type,
+                            object : RequestCallback<Collection<IoTIrRemote>> {
+                                override fun onSuccess(p0: Collection<IoTIrRemote>?) {
+                                    p0?.let { remoteList ->
+                                        ILogR.D(
+                                            "tung", "IrRemote",
+                                            remoteList.first().tempRange.toList(),
+                                            remoteList.first().modes.toList(),
+                                            remoteList.first().fans.toList(),
+                                            remoteList.first().tempAllowIn.toList(),
+                                            remoteList.first().fanAllowIn.toList()
+                                        )
+                                        SmartSdk.learnIrDeviceHandler().preloadTestIrRemote(
+                                            (it.getItemAtPosition(position) as Map.Entry<String, Int>).value,
+                                            (spinnerType.selectedItem as DeviceLearnIr).type,
+                                            remoteList.first().rid,
+                                            SuccessStatus {status ->
+                                                if (status) {
+                                                    lnAcControl.visibility = View.VISIBLE
+
+                                                } else {
+                                                    lnAcControl.visibility = View.GONE
+                                                }
+                                            }
+                                        )
+                                    }
+                                }
+
+                                override fun onFailure(p0: Int, p1: String?) {
+
+                                }
+                            }
+                        )
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+
+            }
             /*
             * Get codes that users want to learn
             * */
             btnConfirm.setOnClickListener {
                 irCodeToLearn.clear()
                 irCodeLearned.clear()
-                for(i in irList) {
+                for (i in irList) {
                     if (i.isChecked == true) {
                         irCodeToLearn.add(i.irId)
                     }
@@ -246,11 +298,15 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
         learnIrDialog.show()
         btnContinue.visibility = View.GONE
         btnRetry.visibility = View.GONE
-        if(!irCodeLearned.contains(irCodeToLearn[currentPos])) {
-            if(binding.spinnerType.selectedItem as DeviceLearnIr == DeviceLearnIr.FAN) {
-                txtLearnIr.text = "Hướng điều khiển vào thiết bị hồng ngoại và nhấn nút ${getString(getIrCodeFanName(irCodeToLearn[currentPos]))}"
+        if (!irCodeLearned.contains(irCodeToLearn[currentPos])) {
+            if (binding.spinnerType.selectedItem as DeviceLearnIr == DeviceLearnIr.FAN) {
+                txtLearnIr.text = "Hướng điều khiển vào thiết bị hồng ngoại và nhấn nút ${
+                    getString(getIrCodeFanName(irCodeToLearn[currentPos]))
+                }"
             } else {
-                txtLearnIr.text = "Hướng điều khiển vào thiết bị hồng ngoại và nhấn nút ${getString(getIrCodeTVName(irCodeToLearn[currentPos]))}"
+                txtLearnIr.text = "Hướng điều khiển vào thiết bị hồng ngoại và nhấn nút ${
+                    getString(getIrCodeTVName(irCodeToLearn[currentPos]))
+                }"
             }
             SmartSdk.learnIrDeviceHandler().learnIr(
                 (binding.spinnerHub.selectedItem as IoTDevice).uuid,
@@ -260,6 +316,7 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
         }
 
     }
+
     private val learnIrCallback = object : LearnIrCallback {
         override fun onRequestLearnIrStatus(success: Boolean) {
 
@@ -267,12 +324,14 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
 
         override fun onIrRawLearned(requestId: Int, irProtocol: IoTIrProtocolInfo?) {
             protocolInfo = irProtocol
-            if(irCodeToLearn.size > irCodeLearned.size) {
+            if (irCodeToLearn.size > irCodeLearned.size) {
                 btnContinue.visibility = View.VISIBLE
-                if(binding.spinnerType.selectedItem as DeviceLearnIr == DeviceLearnIr.FAN) {
-                    txtLearnIr.text = "Học thành công ${getString(getIrCodeFanName(irCodeToLearn[currentPos]))}"
+                if (binding.spinnerType.selectedItem as DeviceLearnIr == DeviceLearnIr.FAN) {
+                    txtLearnIr.text =
+                        "Học thành công ${getString(getIrCodeFanName(irCodeToLearn[currentPos]))}"
                 } else {
-                    txtLearnIr.text = "Học thành công ${getString(getIrCodeTVName(irCodeToLearn[currentPos]))}"
+                    txtLearnIr.text =
+                        "Học thành công ${getString(getIrCodeTVName(irCodeToLearn[currentPos]))}"
                 }
                 irCodeLearned.add(irCodeToLearn[currentPos])
             } else {
@@ -301,7 +360,7 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
             learnIrDialog.dismiss()
         }
         btnContinue.setOnClickListener {
-            if(irCodeToLearn.size > irCodeLearned.size) {
+            if (irCodeToLearn.size > irCodeLearned.size) {
                 currentPos++
                 startLearning()
             } else {
@@ -310,7 +369,7 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
             }
         }
         btnRetry.setOnClickListener {
-            if(irCodeToLearn.size != 0) {
+            if (irCodeToLearn.size != 0) {
                 startLearning()
             }
         }
@@ -334,10 +393,13 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
         * */
         manufacturerSpinnerAdapter = ManufacturerSpinnerAdapter(requireContext(),
             getDeviceName.getClassInfo().entries.filter {
-            SmartSdk.learnIrDeviceHandler().getSupportManufacturers((binding.spinnerType.selectedItem as DeviceLearnIr).type).contains(
-                it.value
-            )
-        }.toList())
+                SmartSdk.learnIrDeviceHandler()
+                    .getSupportManufacturers((binding.spinnerType.selectedItem as DeviceLearnIr).type)
+                    .contains(
+                        it.value
+                    )
+            }.toList()
+        )
         manufacturerSpinner.adapter = manufacturerSpinnerAdapter
 
         /*

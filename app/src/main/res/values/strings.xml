@@ -82,6 +82,7 @@
     <string name="enter_the_code_on_the_box_device">Enter the code on the box device</string>
     <string name="select_hub_device">Select hub_device</string>
     <string name="select_ir_device_type">Select device type to learn IR</string>
+    <string name="select_available_ir_code">Select available IR code</string>
     <string name="select_device_manufacturer">Select manufacturer</string>
     <string name="select_button_to_learn">Select button to learn</string>
     <string name="select_wifi_ssd">Select Wifi SSD</string>
@@ -217,4 +218,5 @@
     <string name="select_elm_ext">Select second element</string>
     <string name="select_device_ext">Select second device</string>
     <string name="select_trigger">Select trigger</string>
+    <string name="ac_mode">AC mode</string>
 </resources>

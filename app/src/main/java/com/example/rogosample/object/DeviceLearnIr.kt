@@ -15,7 +15,8 @@ enum class DeviceLearnIr(
     companion object {
         fun getDeviceTypes() = arrayListOf<DeviceLearnIr>(
             FAN,
-            TV
+            TV,
+            AIRCON
         )
     }
 }
