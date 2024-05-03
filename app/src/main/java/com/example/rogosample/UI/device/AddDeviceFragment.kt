@@ -11,6 +11,7 @@ import com.example.rogosample.adapter.FunctionAdapter
 import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentAddDeviceBinding
 import com.example.rogosample.`object`.Function
+import rogo.iot.module.rogocore.sdk.define.ir.IoTIrPrtc
 
 class AddDeviceFragment : BaseFragment<FragmentAddDeviceBinding>() {
     override val layoutId: Int
@@ -32,8 +33,11 @@ class AddDeviceFragment : BaseFragment<FragmentAddDeviceBinding>() {
                 Function.ADDIR -> {
                     findNavController().navigate(R.id.configIRFragment)
                 }
-                else -> {
+                Function.ADDIRREMOTE -> {
                     findNavController().navigate(R.id.learnIRFragment)
+                }
+                else -> {
+                    findNavController().navigate(R.id.learnIrAcFragment)
                 }
             }
         })

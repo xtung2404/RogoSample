@@ -28,6 +28,7 @@ enum class Function(
     ADDZIGBEE(R.string.add_zigbee_device),
     ADDIR(R.string.add_device_ir),
     ADDIRREMOTE(R.string.add_ir_remote),
+    ADDIRREMOTEAC(R.string.add_ir_remote),
     SMARTSCENARIO(R.string.smart_scenario),
     SMARTSCHEDULE(R.string.smart_schedule),
     SMARTAUTOMATION(R.string.smart_automation),
@@ -78,7 +79,8 @@ enum class Function(
             ADDBLE,
             ADDZIGBEE,
             ADDIR,
-            ADDIRREMOTE
+            ADDIRREMOTE,
+            ADDIRREMOTEAC
         )
         fun getSMARTFuncs() = arrayListOf<Function>(
             SMARTSCENARIO,

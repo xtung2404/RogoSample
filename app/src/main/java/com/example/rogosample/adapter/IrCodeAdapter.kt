@@ -11,7 +11,7 @@ import com.example.rogosample.databinding.LayoutItemCheckboxBinding
 import com.example.rogosample.`object`.IrCode
 
 class IrCodeAdapter(
-): ListAdapter<IrCode, IrCodeAdapter.IrCodeViewHolder>(object : DiffUtil.ItemCallback<IrCode>() {
+) : ListAdapter<IrCode, IrCodeAdapter.IrCodeViewHolder>(object : DiffUtil.ItemCallback<IrCode>() {
     override fun areItemsTheSame(oldItem: IrCode, newItem: IrCode): Boolean {
         return oldItem.irId == newItem.irId && oldItem.isChecked == newItem.isChecked && oldItem.irName == newItem.irName
     }
@@ -21,15 +21,12 @@ class IrCodeAdapter(
     }
 
 }) {
-    inner class IrCodeViewHolder(private val binding: LayoutItemCheckboxBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class IrCodeViewHolder(private val binding: LayoutItemCheckboxBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bindData(irCode: IrCode) {
             binding.txtIrCode.text = binding.root.context.getString(irCode.irName)
             binding.cbCode.isChecked = irCode.isChecked == true
-            binding.cbCode.setOnCheckedChangeListener(object : OnCheckedChangeListener {
-                override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
-                    irCode.isChecked = p1
-                }
-            })
+            binding.cbCode.setOnCheckedChangeListener { _, p1 -> irCode.isChecked = p1 }
         }
     }
 
