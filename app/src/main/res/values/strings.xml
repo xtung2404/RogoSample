@@ -85,6 +85,8 @@
     <string name="select_ir_device_type">Select device type to learn IR</string>
     <string name="select_available_ir_code">Select available IR code</string>
     <string name="select_device_manufacturer">Select manufacturer</string>
+    <string name="select_protocol">Select protocol</string>
+    <string name="select_add_ir_remote_type">Select add Ir Remote type</string>
     <string name="select_button_to_learn">Select button to learn</string>
     <string name="select_wifi_ssd">Select Wifi SSD</string>
     <string name="device_name">Device name</string>
@@ -229,4 +231,6 @@
     <string name="low">Low</string>
     <string name="high">High</string>
     <string name="normal">Normal</string>
+    <string name="raw">Raw</string>
+    <string name="protocol">Protocol</string>
 </resources>
