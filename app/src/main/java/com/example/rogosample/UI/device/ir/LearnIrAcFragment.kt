@@ -9,6 +9,7 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Spinner
@@ -26,11 +27,9 @@ import com.example.rogosample.base.getDeviceName
 import com.example.rogosample.databinding.FragmentLearnIrAcBinding
 import com.example.rogosample.`object`.AcControlItem
 import com.example.rogosample.`object`.DeviceLearnIr
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import rogo.iot.module.rogocore.basesdk.callback.RequestCallback
 import rogo.iot.module.rogocore.basesdk.callback.SuccessStatus
+import rogo.iot.module.rogocore.basesdk.define.IoTDeviceType
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.callback.CheckIrHubInfoCallback
 import rogo.iot.module.rogocore.sdk.callback.SuccessCallback
@@ -45,7 +44,7 @@ class LearnIrAcFragment : BaseFragment<FragmentLearnIrAcBinding>() {
         get() = R.layout.fragment_learn_ir_ac
 
     private val irDeviceList = arrayListOf<IoTDevice>()
-    private var protocolInfo: IoTIrProtocolInfo? = null
+    private lateinit var protocolInfo: IoTIrProtocolInfo
     private var acMode: Int = 0
     private var fanSpeed: Int = 0
     private var tempMax: Int = 30
@@ -152,9 +151,10 @@ class LearnIrAcFragment : BaseFragment<FragmentLearnIrAcBinding>() {
         super.initVariable()
         binding.apply {
             toolbar.btnBack.setOnClickListener {
+                SmartSdk.learnIrDeviceHandler().stopLearnIr()
                 findNavController().popBackStack()
             }
-            toolbar.txtTitle.text = resources.getString(R.string.add_ir_remote)
+            toolbar.txtTitle.text = resources.getString(R.string.add_ir_ac_remote)
             spinnerHub.adapter = iRDeviceAdapter
             rvAcMode.adapter = acModeAdapter
             rvFanSpeed.adapter = fanSpeedAdapter
@@ -209,13 +209,35 @@ class LearnIrAcFragment : BaseFragment<FragmentLearnIrAcBinding>() {
                     position: Int,
                     id: Long
                 ) {
+                    SmartSdk.learnIrDeviceHandler().stopLearnIr()
                     parent?.let {
                         when((it.getItemAtPosition(position) as Int)) {
                             R.string.protocol -> {
                                 lnProtocol.visibility = View.VISIBLE
+                                acModeAdapter.submitList(
+                                    AcControlItem.getAcModeList()
+                                )
+                                acModeAdapter.notifyDataSetChanged()
+                                fanSpeedAdapter.submitList(
+                                    AcControlItem.getFanSpeedList()
+                                )
+                                fanSpeedAdapter.notifyDataSetChanged()
+                                val protocolList = IoTIrPrtc.getPrtcAcByManufacturer((spinnerManufacture.selectedItem as Map.Entry<String, Int>).value).toList()
+                                if(protocolList.isEmpty()) {
+                                    lnAddProtocol.visibility = View.GONE
+
+                                } else {
+                                    lnAddProtocol.visibility = View.VISIBLE
+                                    protocolAdapter = TimeSpinnerAdapter(
+                                        requireContext(),
+                                        protocolList
+                                    )
+                                    spinnerProtocol.adapter = protocolAdapter
+                                }
                             }
                             else -> {
                                 lnProtocol.visibility = View.GONE
+
                             }
                         }
                     }
@@ -238,12 +260,30 @@ class LearnIrAcFragment : BaseFragment<FragmentLearnIrAcBinding>() {
                         lnAcControl.visibility = View.GONE
                         fanSpeedList.clear()
                         acModeList.clear()
+                        SmartSdk.learnIrDeviceHandler().stopLearnIr()
                         when(spinnerAddType.selectedItem as Int) {
                             R.string.protocol -> {
-                                protocolAdapter = TimeSpinnerAdapter(
-                                    requireContext(),
-                                    IoTIrPrtc.getPrtcAcByManufacturer((it.getItemAtPosition(position) as Map.Entry<String, Int>).value).toList()
+                                fanSpeedList = AcControlItem.getFanSpeedList()
+                                acModeList = AcControlItem.getAcModeList()
+                                acModeAdapter.submitList(
+                                    acModeList
                                 )
+                                acModeAdapter.notifyDataSetChanged()
+                                fanSpeedAdapter.submitList(
+                                    fanSpeedList
+                                )
+                                fanSpeedAdapter.notifyDataSetChanged()
+                                val protocolList = IoTIrPrtc.getPrtcAcByManufacturer((it.getItemAtPosition(position) as Map.Entry<String, Int>).value).toList()
+                                if(protocolList.isEmpty()) {
+                                    lnAddProtocol.visibility = View.GONE
+                                } else {
+                                    lnAddProtocol.visibility = View.VISIBLE
+                                    protocolAdapter = TimeSpinnerAdapter(
+                                        requireContext(),
+                                        protocolList
+                                    )
+                                    spinnerProtocol.adapter = protocolAdapter
+                                }
                             }
                             else -> {
                                 SmartSdk.learnIrDeviceHandler().getIrRemotes(
@@ -265,15 +305,21 @@ class LearnIrAcFragment : BaseFragment<FragmentLearnIrAcBinding>() {
                                                                     acMode.itemId
                                                                 )
                                                             }.toMutableList()
-                                                            acModeList.first().isChecked = true
+                                                            if(acModeList.isNotEmpty()) {
+                                                                acModeList.first().isChecked = true
+                                                            }
                                                             acModeAdapter.submitList(acModeList)
+                                                            acModeAdapter.notifyDataSetChanged()
                                                             fanSpeedList = AcControlItem.getFanSpeedList().filter { fanSpeed ->
                                                                 remoteList.first().fans.contains(
                                                                     fanSpeed.itemId
                                                                 )
                                                             }.toMutableList()
-                                                            fanSpeedList.first().isChecked = true
+                                                            if(!fanSpeedList.isEmpty()) {
+                                                                fanSpeedList.first().isChecked = true
+                                                            }
                                                             fanSpeedAdapter.submitList(fanSpeedList)
+                                                            fanSpeedAdapter.notifyDataSetChanged()
                                                             tempMin = remoteList.first().tempRange[0]
                                                             tempMax = remoteList.first().tempRange[1]
                                                             currentTemp = tempMax
@@ -298,6 +344,25 @@ class LearnIrAcFragment : BaseFragment<FragmentLearnIrAcBinding>() {
                 override fun onNothingSelected(parent: AdapterView<*>?) {
 
                 }
+            }
+
+            spinnerProtocol.onItemSelectedListener = object : OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    SmartSdk.learnIrDeviceHandler().stopLearnIr()
+                    parent?.let {
+                        lnAcControl.visibility = View.VISIBLE
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    lnAcControl.visibility = View.GONE
+                }
+
             }
 
             btnMinus.setOnClickListener{
@@ -411,7 +476,9 @@ class LearnIrAcFragment : BaseFragment<FragmentLearnIrAcBinding>() {
             currentTemp,
             fanSpeed,
             SuccessStatus {
-
+                if (!it) {
+                    showNoti(R.string.set_up_fail)
+                }
             }
         )
     }
@@ -445,6 +512,7 @@ class LearnIrAcFragment : BaseFragment<FragmentLearnIrAcBinding>() {
 
                 override fun onSuccess(item: IoTDevice?) {
                     dialogLoading.dismiss()
+                    SmartSdk.learnIrDeviceHandler().stopLearnIr()
                     showNoti(R.string.add_success)
                 }
 
@@ -454,9 +522,10 @@ class LearnIrAcFragment : BaseFragment<FragmentLearnIrAcBinding>() {
 
     private fun addRemoteProtocol(deviceName: String, groupUuid: String) {
         dialogLoading.show()
-        protocolInfo?.irp = binding.spinnerProtocol.selectedItem as Int
-        protocolInfo?.manufacturer = (binding.spinnerManufacture.selectedItem as Map.Entry<String, Int>).value
-        protocolInfo?.deviceType = DeviceLearnIr.AIRCON.type
+        protocolInfo = IoTIrProtocolInfo()
+        protocolInfo.irp = binding.spinnerProtocol.selectedItem as Int
+        protocolInfo.manufacturer = (binding.spinnerManufacture.selectedItem as Map.Entry<String, Int>).value
+        protocolInfo.deviceType = IoTDeviceType.AC
 
         ioTIrRemote?.tempRange = intArrayOf(tempMax, tempMin)
         for(item in fanSpeedList) {
@@ -485,6 +554,7 @@ class LearnIrAcFragment : BaseFragment<FragmentLearnIrAcBinding>() {
 
                 override fun onSuccess(item: IoTDevice?) {
                     dialogLoading.dismiss()
+                    SmartSdk.learnIrDeviceHandler().stopLearnIr()
                     showNoti(R.string.add_success)
                 }
 

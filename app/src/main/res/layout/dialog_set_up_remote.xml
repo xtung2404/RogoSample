@@ -32,20 +32,27 @@
             android:paddingVertical="15dp"
             android:paddingStart="5dp"
             android:layout_marginTop="10dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/select_device_manufacturer"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
-        <Spinner
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/spinner_manufacture"
-            android:background="@drawable/bg_input_black_10dp"
-            android:layout_marginTop="5dp"/>
+            android:id="@+id/ln_manufacturer"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/select_device_manufacturer"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"/>
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner_manufacture"
+                android:background="@drawable/bg_input_black_10dp"
+                android:layout_marginTop="5dp"/>
+        </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

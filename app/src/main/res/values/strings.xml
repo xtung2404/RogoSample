@@ -233,4 +233,5 @@
     <string name="normal">Normal</string>
     <string name="raw">Raw</string>
     <string name="protocol">Protocol</string>
+    <string name="waiting_time">Waiting time</string>
 </resources>
