@@ -39,8 +39,20 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
                 val email = edtEmail.text.toString()
                 val password = edtPassword.text.toString()
                 val username = edtUsername.text.toString()
-                if(email.isEmpty() || password.isEmpty()) {
-                    showNoti(R.string.check_your_information)
+                if(username.isEmpty()) {
+                    SmartSdk.signIn(SignInDefaultEmailPhoneMethod(email, password), object : AuthRequestCallback{
+                        override fun onSuccess() {
+                            dialogLoading.dismiss()
+                            lnOptions.visibility = View.VISIBLE
+                        }
+
+                        override fun onFailure(p0: Int, p1: String?) {
+                            dialogLoading.dismiss()
+                            p1?.let {
+                                showNoti(it)
+                            }
+                        }
+                    })
                 } else {
                     SmartSdk.signIn(SignInDefaultEmailPhoneMethod(username, email, password), object : AuthRequestCallback{
                         override fun onSuccess() {
