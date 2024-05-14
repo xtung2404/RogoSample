@@ -91,7 +91,7 @@ class LearnIrAcFragment : BaseFragment<FragmentLearnIrAcBinding>() {
                     notifyChange()
                 }
                 else -> {
-
+                    testCmdProtocol()
                 }
             }
         })
@@ -128,7 +128,7 @@ class LearnIrAcFragment : BaseFragment<FragmentLearnIrAcBinding>() {
                     notifyFanChange()
                 }
                 else -> {
-
+                    testCmdProtocol()
                 }
             }
 
