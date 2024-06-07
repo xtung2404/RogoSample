@@ -34,47 +34,57 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
             /*
             * sign in with email, password, username
             * */
-            btnSignIn.setOnClickListener {
-                dialogLoading.show()
-                val email = edtEmail.text.toString()
-                val password = edtPassword.text.toString()
-                val username = edtUsername.text.toString()
-                if(username.isEmpty()) {
-                    SmartSdk.signIn(SignInDefaultEmailPhoneMethod(email, password), object : AuthRequestCallback{
-                        override fun onSuccess() {
-                            dialogLoading.dismiss()
-                            lnOptions.visibility = View.VISIBLE
-                        }
-
-                        override fun onFailure(p0: Int, p1: String?) {
-                            dialogLoading.dismiss()
-                            p1?.let {
-                                showNoti(it)
-                            }
-                        }
-                    })
-                } else {
-                    SmartSdk.signIn(SignInDefaultEmailPhoneMethod(username, email, password), object : AuthRequestCallback{
-                        override fun onSuccess() {
-                            dialogLoading.dismiss()
-                            lnOptions.visibility = View.VISIBLE
-                        }
-
-                        override fun onFailure(p0: Int, p1: String?) {
-                            dialogLoading.dismiss()
-                            p1?.let {
-                                showNoti(it)
-                            }
-                        }
-                    })
-                }
-            }
+//            btnSignIn.setOnClickListener {
+//                dialogLoading.show()
+//                val email = edtEmail.text.toString()
+//                val password = edtPassword.text.toString()
+//                val username = edtUsername.text.toString()
+//                if(username.isEmpty()) {
+//                    SmartSdk.signIn(SignInDefaultEmailPhoneMethod(email, password), object : AuthRequestCallback{
+//                        override fun onSuccess() {
+//                            dialogLoading.dismiss()
+//                            lnOptions.visibility = View.VISIBLE
+//                        }
+//
+//                        override fun onFailure(p0: Int, p1: String?) {
+//                            dialogLoading.dismiss()
+//                            p1?.let {
+//                                showNoti(it)
+//                            }
+//                        }
+//                    })
+//                } else {
+//                    SmartSdk.signIn(SignInDefaultEmailPhoneMethod(username, email, password), object : AuthRequestCallback{
+//                        override fun onSuccess() {
+//                            dialogLoading.dismiss()
+//                            lnOptions.visibility = View.VISIBLE
+//                        }
+//
+//                        override fun onFailure(p0: Int, p1: String?) {
+//                            dialogLoading.dismiss()
+//                            p1?.let {
+//                                showNoti(it)
+//                            }
+//                        }
+//                    })
+//                }
+//            }
             btnToLocation.setOnClickListener {
                 findNavController().navigate(R.id.locationFunctionFragment)
             }
             btnToSignOut.setOnClickListener {
                 findNavController().navigate(R.id.signOutFragment)
             }
+            btnSignIn.setOnClickListener {
+                var list = arrayListOf(1,1,0, 0, 1)
+                list.shuffle()
+                presenceView.drawNew(
+                    list
+                )
+            }
+            presenceView.drawNew(
+                arrayListOf(0, 1, 0, 1, 0)
+            )
         }
     }
 }

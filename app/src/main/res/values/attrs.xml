@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PresenceView">
+        <attr name="verticalLineColor" format="color"/>
+        <attr name="horizontalLineColor" format="color"/>
+        <attr name="columnNumber" format="integer"/>
+        <attr name="rowNumber" format="integer"/>
+        <attr name="indicatorWidth" format="integer"/>
+    </declare-styleable>
+</resources>
