@@ -147,9 +147,9 @@ class PresenceView: View {
                 mFgPaint?.let {
                     canvas.drawRect(
                         ((width / columnNumber).toFloat() * Math.ceil(((columnNumber) / 2).toDouble())).toFloat(),
-                        (width / columnNumber) * (i).toFloat(),
+                        (height / columnNumber) * (i).toFloat(),
                         ((width / columnNumber).toFloat() * Math.ceil(((columnNumber) / 2).toDouble())).toFloat() + (width / columnNumber),
-                        (width / columnNumber) * (i).toFloat() - 3f + (width / columnNumber),
+                        (height / columnNumber) * (i).toFloat() + (height / columnNumber),
                         it
                     )
                 }
@@ -157,9 +157,9 @@ class PresenceView: View {
                 mBgPaint?.let {
                     canvas.drawRect(
                         ((width / columnNumber).toFloat() * Math.ceil(((columnNumber) / 2).toDouble())).toFloat(),
-                        (width / columnNumber) * (i).toFloat(),
+                        (height / columnNumber) * (i).toFloat(),
                         ((width / columnNumber).toFloat() * Math.ceil(((columnNumber) / 2).toDouble())).toFloat() + (width / columnNumber),
-                        (width / columnNumber) * (i).toFloat() + (width / columnNumber) - 3f,
+                        (height / columnNumber) * (i).toFloat() + (height / columnNumber),
                         it
                     )
                 }
