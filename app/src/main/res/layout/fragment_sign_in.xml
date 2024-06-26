@@ -22,7 +22,7 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="8dp"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
             android:background="@drawable/bg_input_black_10dp"
             android:paddingVertical="15dp"
             android:paddingStart="5dp"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="8dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="8dp"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,14 +52,15 @@
             android:background="@drawable/bg_input_black_10dp"
             android:paddingVertical="15dp"
             android:paddingStart="5dp"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="8dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/password"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,7 +70,7 @@
             android:background="@drawable/bg_input_black_10dp"
             android:paddingVertical="15dp"
             android:paddingStart="5dp"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="8dp"/>
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -116,10 +117,5 @@
                 android:textAllCaps="false"
                 android:layout_marginTop="10dp"/>
         </LinearLayout>
-        <com.example.rogosample.view.PresenceView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/presence_view"
-            android:layout_marginTop="8dp"/>
     </LinearLayout>
 </layout>

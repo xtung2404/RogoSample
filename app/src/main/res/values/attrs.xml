@@ -5,6 +5,7 @@
         <attr name="horizontalLineColor" format="color"/>
         <attr name="columnNumber" format="integer"/>
         <attr name="rowNumber" format="integer"/>
+        <attr name="presenceColor" format="color"/>
         <attr name="indicatorWidth" format="integer"/>
     </declare-styleable>
 </resources>

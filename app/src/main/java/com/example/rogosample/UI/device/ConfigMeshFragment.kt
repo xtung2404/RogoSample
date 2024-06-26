@@ -160,13 +160,15 @@ class ConfigMeshFragment : BaseFragment<FragmentConfigMeshBinding>() {
     * config the device scanned
     * */
     private fun startConfig(ioTBleScanned: IoTBleScanned) {
-        binding.lnDevice.visibility = View.VISIBLE
         this.ioTBleScanned = ioTBleScanned
         binding.edtDeviceName.setText(ioTBleScanned.ioTProductModel.name)
         SmartSdk.configMeshHandler().preSetupDevice(
             (binding.spinnerHub.selectedItem as IoTDevice).uuid,
             ioTBleScanned.uuidMesh, object: SetupDeviceCallback {
                 override fun onProgress(id: String?, progress: Int, msg: String?) {
+                    if (progress == 20) {
+                        binding.lnDevice.visibility = View.VISIBLE
+                    }
                     binding.txtProgress.text = progress.toString()
                 }
 
@@ -175,6 +177,7 @@ class ConfigMeshFragment : BaseFragment<FragmentConfigMeshBinding>() {
                 }
 
                 override fun onSetupFailure(errorCode: Int, msg: String) {
+                    dialogLoading.dismiss()
                     binding.txtProgress.text = msg
                 }
 

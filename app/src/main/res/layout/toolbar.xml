@@ -11,9 +11,10 @@
         android:orientation="horizontal"
         android:gravity="center_vertical">
         <androidx.appcompat.widget.AppCompatImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:id="@+id/btn_back"
+            android:padding="8dp"
             android:src="@drawable/ic_back"
             android:background="@drawable/btn_yellow_circle"
             android:tint="@color/yellow"/>

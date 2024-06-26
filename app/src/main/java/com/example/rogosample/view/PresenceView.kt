@@ -54,7 +54,7 @@ class PresenceView: View {
                 context.obtainStyledAttributes(attrs, R.styleable.PresenceView, defStyleAttr, 0)
             horizontalLineColor = attr.getColor(
                 R.styleable.PresenceView_horizontalLineColor,
-                Color.parseColor("#FFFFFF")
+                Color.parseColor("#8F8F8F")
             )
             verticalLineColor = attr.getColor(
                 R.styleable.PresenceView_verticalLineColor,
@@ -74,7 +74,10 @@ class PresenceView: View {
             )
             mBgPaint!!.strokeWidth = indicatorWidth.toFloat()
             mBgPaint!!.color = horizontalLineColor
-            mFgPaint!!.color = horizontalLineColor
+            mFgPaint!!.color = attr.getColor(
+                R.styleable.PresenceView_presenceColor,
+                Color.parseColor("#FFFFFF")
+            )
             horizontalLinePaint!!.color = horizontalLineColor
             verticalLinePaint!!.color = verticalLineColor
             attr.recycle()
@@ -112,14 +115,23 @@ class PresenceView: View {
                 startY += height / rowNumber
             }
         }
+//        mBgPaint?.let {
+//            canvas.drawRoundRect(
+//                0f,
+//                0f,
+//                width.toFloat(),
+//                height.toFloat(),
+//                30f,
+//                30f,
+//                it
+//            )
+//        }
         mBgPaint?.let {
-            canvas.drawRoundRect(
+            canvas.drawRect(
                 0f,
                 0f,
                 width.toFloat(),
                 height.toFloat(),
-                30f,
-                30f,
                 it
             )
         }
@@ -145,13 +157,21 @@ class PresenceView: View {
         for((i, value) in presenceList.withIndex()) {
             if (value == 1) {
                 mFgPaint?.let {
-                    canvas.drawRect(
-                        ((width / columnNumber).toFloat() * Math.ceil(((columnNumber) / 2).toDouble())).toFloat(),
-                        (height / columnNumber) * (i).toFloat(),
-                        ((width / columnNumber).toFloat() * Math.ceil(((columnNumber) / 2).toDouble())).toFloat() + (width / columnNumber),
-                        (height / columnNumber) * (i).toFloat() + (height / columnNumber),
-                        it
+//                    canvas.drawRect(
+//                        ((width / columnNumber).toFloat() * Math.ceil(((columnNumber) / 2).toDouble())).toFloat(),
+//                        (height / columnNumber) * (i).toFloat(),
+//                        ((width / columnNumber).toFloat() * Math.ceil(((columnNumber) / 2).toDouble())).toFloat() + (width / columnNumber),
+//                        (height / columnNumber) * (i).toFloat() + (height / columnNumber),
+//                        it
+//                    )
+                    val d = resources.getDrawable(R.drawable.ic_people, null)
+                    d.setBounds(
+                        ((width / columnNumber) * Math.ceil((columnNumber / 2).toDouble()).toInt()),
+                        (height / columnNumber) * (i),
+                        (((width / columnNumber) * Math.ceil((columnNumber / 2).toDouble()) + (width / columnNumber))).toInt(),
+                        (height / columnNumber) * (i) + (height / columnNumber),
                     )
+                    d.draw(canvas)
                 }
             } else {
                 mBgPaint?.let {

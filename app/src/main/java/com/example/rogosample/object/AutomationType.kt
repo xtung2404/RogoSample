@@ -28,6 +28,9 @@ enum class AutomationType(
     PRESENCE_UNPRESENCE(IoTAttribute.PRESENSCE_EVT),
     PRESENCE_DETECTED(IoTAttribute.PRESENSCE_EVT, 1),
     PRESENCE_UNDETECTED(IoTAttribute.PRESENSCE_EVT, 0),
+    BOTH_MOTION(IoTAttribute.MOTION_EVT),
+    MOTION_DETECTED(IoTAttribute.MOTION_EVT, 1),
+    MOTION_UNDETECTED(IoTAttribute.MOTION_EVT, 0),
     LUX_CHANGE(IoTAttribute.LUX_EVT);
 
     companion object {

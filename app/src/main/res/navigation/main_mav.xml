@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_mav"
-    app:startDestination="@id/functionFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/functionFragment"
@@ -179,6 +179,9 @@
         <action
             android:id="@+id/action_generalFunction_to_smartSceneFragment"
             app:destination="@id/smartSceneFragment" />
+        <action
+            android:id="@+id/action_generalFunction_to_controlSwitchGroupFragment"
+            app:destination="@id/controlSwitchGroupFragment" />
     </fragment>
     <fragment
         android:id="@+id/groupFragment"
@@ -485,5 +488,13 @@
         <action
             android:id="@+id/action_learnIrAcFragment_to_addDeviceFragment"
             app:destination="@id/addDeviceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/controlSwitchGroupFragment"
+        android:name="com.example.rogosample.UI.device.control.ControlSwitchGroupFragment"
+        android:label="ControlSwitchGroupFragment" >
+        <action
+            android:id="@+id/action_controlSwitchGroupFragment_to_generalFunction"
+            app:destination="@id/generalFunction" />
     </fragment>
 </navigation>

@@ -25,6 +25,7 @@ import rogo.iot.module.rogocore.basesdk.callback.RequestCallback
 import rogo.iot.module.rogocore.basesdk.define.IoTAutomationType
 import rogo.iot.module.rogocore.basesdk.define.IoTCmdConst
 import rogo.iot.module.rogocore.basesdk.define.IoTCondition
+import rogo.iot.module.rogocore.basesdk.define.IoTDeviceType
 import rogo.iot.module.rogocore.basesdk.define.IoTSmartZoneCfg
 import rogo.iot.module.rogocore.basesdk.define.IoTTriggerTimeCfg
 import rogo.iot.module.rogocore.basesdk.define.IoTTriggerType
@@ -41,13 +42,14 @@ class AddSmartAdvanceFragment : BaseFragment<FragmentAddSmartAdvanceBinding>() {
     override val layoutId: Int
         get() = R.layout.fragment_add_smart_advance
 
+    private var condition = -1
     private var ioTSmartTrigger: IoTSmartTrigger? = null
     private val elmList = arrayListOf<ELement>()
     private var elmExtList = arrayListOf<ELement>()
     private var smartUUID: String? = null
     private val cmdsMap = hashMapOf<Int, IoTTargetCmd>()
     private var ioTTargetCmd: IoTTargetCmd? = null
-    private var cmdValue = intArrayOf()
+    private var automationValue = intArrayOf()
     private var deviceList = listOf<IoTDevice>()
     private var deviceExtList = listOf<IoTDevice>()
     private val hourFirstAdapter by lazy {
@@ -70,9 +72,7 @@ class AddSmartAdvanceFragment : BaseFragment<FragmentAddSmartAdvanceBinding>() {
         TimeSpinnerAdapter(requireContext(), (0..30).toList())
     }
 
-    private val commandSpinnerAdapter by lazy {
-        CommandSpinnerAdapter(requireContext(), Command.getCmdList())
-    }
+    private lateinit var commandSpinnerAdapter: AutomationTypeAdapter
 
     private val commandExtSpinnerAdapter by lazy {
         CommandSpinnerAdapter(requireContext(), Command.getCmdList())
@@ -88,8 +88,6 @@ class AddSmartAdvanceFragment : BaseFragment<FragmentAddSmartAdvanceBinding>() {
             notifyExtChange(it)
         })
     }
-
-
     /*
     * Add the elmOwn
     * */
@@ -99,43 +97,6 @@ class AddSmartAdvanceFragment : BaseFragment<FragmentAddSmartAdvanceBinding>() {
             elementExtCheckAdapter.submitList(elmExtList.filter {
                 it.elmIndex != ioTSmartTrigger?.elm
             })
-            when (binding.spinnerCommand.selectedItem as Command) {
-                Command.ON -> {
-                    cmdValue = intArrayOf(Command.ON.cmdAttribute, Command.ON.cmdType)
-                }
-
-                Command.OFF -> {
-                    cmdValue = intArrayOf(Command.OFF.cmdAttribute, Command.OFF.cmdType)
-                }
-
-                Command.OPEN -> {
-                    cmdValue = intArrayOf(Command.OPEN.cmdAttribute, Command.OPEN.cmdType)
-                }
-
-                Command.CLOSE -> {
-                    cmdValue = intArrayOf(Command.CLOSE.cmdAttribute, Command.CLOSE.cmdType)
-                }
-
-                Command.BRIGHTNESS -> {
-                    cmdValue = intArrayOf(
-                        Command.BRIGHTNESS.cmdAttribute,
-                        binding.sbBrightness.progress,
-                        binding.sbKelvin.progress
-                    )
-                }
-
-                Command.COLOR -> {
-                    cmdValue = intArrayOf(
-                        (binding.sbHue.progress * 0.2F).toInt(),
-                        binding.sbSaturation.progress.toInt(),
-                        1
-                    )
-                }
-
-                else -> {
-
-                }
-            }
             elmList.forEach { elm ->
                 elm.isChecked = elm.elmIndex == change.first
             }
@@ -225,6 +186,7 @@ class AddSmartAdvanceFragment : BaseFragment<FragmentAddSmartAdvanceBinding>() {
             }
             toolbar.txtTitle.text = resources.getString(R.string.add_smart_advance)
             rvElement.adapter = elementCheckAdapter
+            commandSpinnerAdapter = AutomationTypeAdapter(requireContext(), AutomationType.getAutomationTypeList())
             spinnerCommand.adapter = commandSpinnerAdapter
             spinnerFirstHour.adapter = hourFirstAdapter
             spinnerFirstMinute.adapter = minuteFirstAdapter
@@ -279,25 +241,14 @@ class AddSmartAdvanceFragment : BaseFragment<FragmentAddSmartAdvanceBinding>() {
             spinnerCommand.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                     p0?.let {
-                        val ioTCommand = it.getItemAtPosition(p2) as Command
-                        when (ioTCommand) {
-                            Command.BRIGHTNESS -> {
-                                lnBrightness.visibility = View.VISIBLE
-                                lnSaturation.visibility = View.GONE
-                            }
-
-                            Command.COLOR -> {
-                                lnSaturation.visibility = View.VISIBLE
-                                lnBrightness.visibility = View.GONE
-                            }
-
-                            else -> {
-                                lnBrightness.visibility = View.GONE
-                                lnSaturation.visibility = View.GONE
-                            }
+                        val typeSelected = it.getItemAtPosition(p2) as AutomationType
+                        if(typeSelected.automationType != null) {
+                            automationValue = intArrayOf(typeSelected.automationAttr, typeSelected.automationType)
+                        } else {
+                            automationValue = intArrayOf(typeSelected.automationAttr)
                         }
                         deviceList = SmartSdk.deviceHandler().all.filter { device ->
-                            device.containtFeature(ioTCommand.cmdAttribute)
+                            device.containtFeature(typeSelected.automationAttr)
                         }
                         deviceSpinnerAdapter = DeviceSpinnerAdapter(requireContext(), deviceList)
                         spinnerDevice.adapter = deviceSpinnerAdapter
@@ -417,8 +368,8 @@ class AddSmartAdvanceFragment : BaseFragment<FragmentAddSmartAdvanceBinding>() {
                         ioTSmartTrigger?.smartId = p0?.uuid
                         ioTSmartTrigger?.devId = (spinnerDevice.selectedItem as IoTDevice).uuid
                         ioTSmartTrigger?.type = IoTTriggerType.OWNER
-                        ioTSmartTrigger?.value = cmdValue
-                        ioTSmartTrigger?.condition = IoTCondition.ANY
+                        ioTSmartTrigger?.value = automationValue
+                        ioTSmartTrigger?.condition = getConditionByType()
                         ioTSmartTrigger?.timeCfg = intArrayOf(
                             IoTTriggerTimeCfg.MIN_TIME,
                             (spinnerTime.selectedItem as Int)
@@ -488,5 +439,67 @@ class AddSmartAdvanceFragment : BaseFragment<FragmentAddSmartAdvanceBinding>() {
                 }
             )
         }
+    }
+
+    fun getConditionByType(): Int {
+        if (condition == -1) {
+            // actions list size =1
+            val state = (binding.spinnerCommand.selectedItem as AutomationType)
+            if (state == AutomationType.ON_OFF ||
+                state == AutomationType.OPEN_CLOSE ||
+                state == AutomationType.ALL_PRESS_BUTTON ||
+                state == AutomationType.MOUNT_UNMOUNT ||
+                state == AutomationType.LOCK_UNLOCK ||
+                state == AutomationType.PRESENCE_UNPRESENCE||
+                state == AutomationType.BOTH_MOTION
+            ) {
+                condition = IoTCondition.ANY
+                return condition
+            }
+            if (
+                state == AutomationType.SINGLE_PRESS_BUTTON ||
+                state == AutomationType.LONG_PRESS_BUTTON ||
+                state == AutomationType.DOUBLE_PRESS_BUTTON
+            ) {
+                condition = IoTCondition.EQUAL
+                return condition
+            }
+
+
+            when ((binding.spinnerDevice.selectedItem as IoTDevice).devType) {
+                IoTDeviceType.DOOR_SENSOR,
+                IoTDeviceType.PLUG,
+                IoTDeviceType.AC,
+                IoTDeviceType.MOTION_SENSOR,
+                IoTDeviceType.DOORLOCK,
+                IoTDeviceType.SMOKE_SENSOR,
+                IoTDeviceType.SWITCH -> {
+                    condition = IoTCondition.EQUAL
+                    return condition
+                }
+
+                IoTDeviceType.MOTION_LUX_SENSOR -> {
+                    if (state == AutomationType.MOTION_DETECTED || state == AutomationType.MOTION_UNDETECTED) {
+                        condition = IoTCondition.EQUAL
+                        return condition
+                    }
+                    // lux
+                }
+
+                IoTDeviceType.PRESENSCE_SENSOR -> {
+                    if (state == AutomationType.PRESENCE_DETECTED || state == AutomationType.PRESENCE_UNDETECTED) {
+                        condition = IoTCondition.EQUAL
+                        return condition
+                    }
+                }
+                IoTDeviceType.GATE -> {
+                    if (state == AutomationType.OPEN || state == AutomationType.CLOSE) {
+                        condition = IoTCondition.EQUAL
+                        return condition
+                    }
+                }
+            }
+        }
+        return condition
     }
 }

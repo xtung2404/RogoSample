@@ -32,6 +32,7 @@ class AddSmartSelfReverseFragment : BaseFragment<FragmentAddSmartSelfReverseBind
     override val layoutId: Int
         get() = R.layout.fragment_add_smart_self_reverse
 
+    private var condition = -1
     private val elmList = arrayListOf<ELement>()
     private var ioTReverseOnOff: IoTReverseOnOff?= null
     private val hourFirstAdapter by lazy {
@@ -164,7 +165,7 @@ class AddSmartSelfReverseFragment : BaseFragment<FragmentAddSmartSelfReverseBind
                             * */
                             ioTReverseOnOff?.smartId = p0?.uuid
                             ioTReverseOnOff?.devId = (spinnerDevice.selectedItem as IoTDevice).uuid
-                            ioTReverseOnOff?.condition = IoTCondition.ANY
+                            ioTReverseOnOff?.condition = getConditionByType()
                             if((spinnerState.selectedItem as AutomationType).automationType != null) {
                                 ioTReverseOnOff?.value = intArrayOf((spinnerState.selectedItem as AutomationType).automationAttr,
                                     (spinnerState.selectedItem as AutomationType).automationType!!)
@@ -205,5 +206,66 @@ class AddSmartSelfReverseFragment : BaseFragment<FragmentAddSmartSelfReverseBind
                 )
             }
         }
+    }
+    fun getConditionByType(): Int {
+        if (condition == -1) {
+            // actions list size =1
+            val state = (binding.spinnerState.selectedItem as AutomationType)
+            if (state == AutomationType.ON_OFF ||
+                state == AutomationType.OPEN_CLOSE ||
+                state == AutomationType.ALL_PRESS_BUTTON ||
+                state == AutomationType.MOUNT_UNMOUNT ||
+                state == AutomationType.LOCK_UNLOCK ||
+                state == AutomationType.PRESENCE_UNPRESENCE||
+                state == AutomationType.BOTH_MOTION
+            ) {
+                condition = IoTCondition.ANY
+                return condition
+            }
+            if (
+                state == AutomationType.SINGLE_PRESS_BUTTON ||
+                state == AutomationType.LONG_PRESS_BUTTON ||
+                state == AutomationType.DOUBLE_PRESS_BUTTON
+            ) {
+                condition = IoTCondition.EQUAL
+                return condition
+            }
+
+
+            when ((binding.spinnerDevice.selectedItem as IoTDevice).devType) {
+                IoTDeviceType.DOOR_SENSOR,
+                IoTDeviceType.PLUG,
+                IoTDeviceType.AC,
+                IoTDeviceType.MOTION_SENSOR,
+                IoTDeviceType.DOORLOCK,
+                IoTDeviceType.SMOKE_SENSOR,
+                IoTDeviceType.SWITCH -> {
+                    condition = IoTCondition.EQUAL
+                    return condition
+                }
+
+                IoTDeviceType.MOTION_LUX_SENSOR -> {
+                    if (state == AutomationType.MOTION_DETECTED || state == AutomationType.MOTION_UNDETECTED) {
+                        condition = IoTCondition.EQUAL
+                        return condition
+                    }
+                    // lux
+                }
+
+                IoTDeviceType.PRESENSCE_SENSOR -> {
+                    if (state == AutomationType.PRESENCE_DETECTED || state == AutomationType.PRESENCE_UNDETECTED) {
+                        condition = IoTCondition.EQUAL
+                        return condition
+                    }
+                }
+                IoTDeviceType.GATE -> {
+                    if (state == AutomationType.OPEN || state == AutomationType.CLOSE) {
+                        condition = IoTCondition.EQUAL
+                        return condition
+                    }
+                }
+            }
+        }
+        return condition
     }
 }

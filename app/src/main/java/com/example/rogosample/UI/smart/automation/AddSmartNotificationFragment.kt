@@ -162,29 +162,62 @@ class AddSmartNotificationFragment : BaseFragment<FragmentAddSmartNotificationBi
     }
 
     fun getConditionByType(): Int {
-        when ((binding.spinnerState.selectedItem as AutomationType)) {
-            AutomationType.ON_OFF, AutomationType.OPEN_CLOSE,
-            AutomationType.ALL_PRESS_BUTTON, AutomationType.LOCK_UNLOCK,
-            AutomationType.MOUNT_UNMOUNT, AutomationType.PRESENCE_UNPRESENCE -> return IoTCondition.ANY
-
-            AutomationType.SINGLE_PRESS_BUTTON, AutomationType.DOUBLE_PRESS_BUTTON, AutomationType.LONG_PRESS_BUTTON -> return IoTCondition.EQUAL
-            else -> {
-                return IoTCondition.ANY
+        if (condition == -1) {
+            // actions list size =1
+            val state = (binding.spinnerState.selectedItem as AutomationType)
+            if (state == AutomationType.ON_OFF ||
+                state == AutomationType.OPEN_CLOSE ||
+                state == AutomationType.ALL_PRESS_BUTTON ||
+                state == AutomationType.MOUNT_UNMOUNT ||
+                state == AutomationType.LOCK_UNLOCK ||
+                state == AutomationType.PRESENCE_UNPRESENCE||
+                state == AutomationType.BOTH_MOTION
+            ) {
+                condition = IoTCondition.ANY
+                return condition
             }
-        }
+            if (
+                state == AutomationType.SINGLE_PRESS_BUTTON ||
+                state == AutomationType.LONG_PRESS_BUTTON ||
+                state == AutomationType.DOUBLE_PRESS_BUTTON
+            ) {
+                condition = IoTCondition.EQUAL
+                return condition
+            }
 
-        when ((binding.spinnerDevice.selectedItem as IoTDevice).devType) {
-            IoTDeviceType.DOOR_SENSOR,
-            IoTDeviceType.PLUG,
-            IoTDeviceType.AC,
-            IoTDeviceType.MOTION_SENSOR,
-            IoTDeviceType.DOORLOCK,
-            IoTDeviceType.SWITCH -> return IoTCondition.EQUAL
 
-            IoTDeviceType.MOTION_LUX_SENSOR -> return IoTCondition.EQUAL
-            IoTDeviceType.PRESENSCE_SENSOR -> return IoTCondition.EQUAL
-            else -> {
+            when ((binding.spinnerDevice.selectedItem as IoTDevice).devType) {
+                IoTDeviceType.DOOR_SENSOR,
+                IoTDeviceType.PLUG,
+                IoTDeviceType.AC,
+                IoTDeviceType.MOTION_SENSOR,
+                IoTDeviceType.DOORLOCK,
+                IoTDeviceType.SMOKE_SENSOR,
+                IoTDeviceType.SWITCH -> {
+                    condition = IoTCondition.EQUAL
+                    return condition
+                }
 
+                IoTDeviceType.MOTION_LUX_SENSOR -> {
+                    if (state == AutomationType.MOTION_DETECTED || state == AutomationType.MOTION_UNDETECTED) {
+                        condition = IoTCondition.EQUAL
+                        return condition
+                    }
+                    // lux
+                }
+
+                IoTDeviceType.PRESENSCE_SENSOR -> {
+                    if (state == AutomationType.PRESENCE_DETECTED || state == AutomationType.PRESENCE_UNDETECTED) {
+                        condition = IoTCondition.EQUAL
+                        return condition
+                    }
+                }
+                IoTDeviceType.GATE -> {
+                    if (state == AutomationType.OPEN || state == AutomationType.CLOSE) {
+                        condition = IoTCondition.EQUAL
+                        return condition
+                    }
+                }
             }
         }
         return condition
