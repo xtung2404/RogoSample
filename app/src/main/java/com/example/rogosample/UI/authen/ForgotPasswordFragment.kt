@@ -6,10 +6,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.rogosample.R
 import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentForgotPasswordBinding
-import rogo.iot.module.rogocore.basesdk.auth.callback.AuthRequestCallback
+import rogo.iot.module.rogocloudapi.auth.callback.AuthRequestCallback
 import rogo.iot.module.rogocore.sdk.SmartSdk
-import rogo.iot.module.rogocore.sdk.entity.auth.ForgotPwdDefaultEmailMethod
-import rogo.iot.module.rogocore.sdk.entity.auth.VerifyDefaultForgotPasswordMethod
 
 class ForgotPasswordFragment : BaseFragment<FragmentForgotPasswordBinding>() {
     override val layoutId: Int
@@ -37,7 +35,7 @@ class ForgotPasswordFragment : BaseFragment<FragmentForgotPasswordBinding>() {
                 if(email.isNullOrEmpty()) {
                     showNoti(R.string.enter_your_email)
                 } else {
-                    SmartSdk.forgot(ForgotPwdDefaultEmailMethod(email), object : AuthRequestCallback {
+                    SmartSdk.forgot(email, object : AuthRequestCallback {
                         override fun onSuccess() {
                             lnVerification.visibility = View.VISIBLE
                         }
@@ -67,7 +65,7 @@ class ForgotPasswordFragment : BaseFragment<FragmentForgotPasswordBinding>() {
                     showNoti(R.string.enter_new_password)
                 } else {
                     dialogLoading.show()
-                    SmartSdk.verifyEmail(VerifyDefaultForgotPasswordMethod(code, password), object : AuthRequestCallback {
+                    SmartSdk.updatePasswordOrVerifyAccount(code, password, object : AuthRequestCallback {
                         override fun onSuccess() {
                             dialogLoading.dismiss()
                             showNoti(R.string.update_success)

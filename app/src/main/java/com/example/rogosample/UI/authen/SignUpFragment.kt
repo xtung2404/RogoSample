@@ -6,10 +6,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.rogosample.R
 import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentSignUpBinding
-import rogo.iot.module.rogocore.basesdk.auth.callback.AuthRequestCallback
+import rogo.iot.module.rogocloudapi.auth.callback.AuthRequestCallback
 import rogo.iot.module.rogocore.sdk.SmartSdk
-import rogo.iot.module.rogocore.sdk.entity.auth.SignUpDefaultEmailPhoneMethod
-import rogo.iot.module.rogocore.sdk.entity.auth.VerifyDefaultEmailPhoneMethod
 
 class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
     override val layoutId: Int
@@ -38,7 +36,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
                 val password = edtPassword.text.toString()
                 val phoneNumber = edtPhonenumber.text.toString()
                 if(phoneNumber.isNullOrEmpty()) {
-                    SmartSdk.signUp(SignUpDefaultEmailPhoneMethod(username, email, password), object : AuthRequestCallback{
+                    SmartSdk.signUp(username, email, null, password, object : AuthRequestCallback {
                         override fun onSuccess() {
                             dialogLoading.dismiss()
                             lnVerification.visibility = View.VISIBLE
@@ -53,7 +51,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
                         }
                     })
                 } else {
-                    SmartSdk.signUp(SignUpDefaultEmailPhoneMethod(username, email, phoneNumber, password), object : AuthRequestCallback{
+                    SmartSdk.signUp(username, email, phoneNumber, password, object : AuthRequestCallback{
                         override fun onSuccess() {
                             dialogLoading.dismiss()
                             lnVerification.visibility = View.VISIBLE
@@ -77,7 +75,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>() {
             btnVerify.setOnClickListener {
                 dialogLoading.show()
                 val code = edtCode.text.toString()
-                SmartSdk.verifySignUp(VerifyDefaultEmailPhoneMethod(code), object : AuthRequestCallback {
+                SmartSdk.updatePasswordOrVerifyAccount(code, null, object : AuthRequestCallback {
                     override fun onSuccess() {
                         dialogLoading.dismiss()
                         showNoti(resources.getString(R.string.sign_up_success))

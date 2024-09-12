@@ -11,7 +11,7 @@ import com.example.rogosample.adapter.GroupSpinnerAdapter
 import com.example.rogosample.adapter.GroupTypeAdapter
 import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentEditGroupBinding
-import rogo.iot.module.rogocore.basesdk.callback.RequestCallback
+import rogo.iot.module.platform.callback.RequestCallback
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.define.IoTGroupType
 import rogo.iot.module.rogocore.sdk.entity.IoTGroup

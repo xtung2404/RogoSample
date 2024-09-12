@@ -17,7 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import rogo.iot.module.rogocore.basesdk.ILogR
+import rogo.iot.module.platform.ILogR
 import rogo.iot.module.rogocore.basesdk.define.IoTDeviceType
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.callback.DiscoveryIoTBleCallback
@@ -34,7 +34,7 @@ class ConfigMeshFragment : BaseFragment<FragmentConfigMeshBinding>() {
         get() = R.layout.fragment_config_mesh
     private val deviceList = arrayListOf<IoTDevice>()
     private val deviceMap = hashMapOf<String, IoTBleScanned>()
-    private var ioTBleScanned: IoTBleScanned?= null
+    private var ioTBleScanned: IoTBleScanned? = null
 
     private val deviceSpinnerAdapter by lazy {
         DeviceSpinnerAdapter(requireContext(), deviceList)
@@ -42,6 +42,7 @@ class ConfigMeshFragment : BaseFragment<FragmentConfigMeshBinding>() {
     private val groupSpinnerAdapter by lazy {
         GroupSpinnerAdapter(requireContext(), SmartSdk.groupHandler().all.toMutableList())
     }
+
     override fun initVariable() {
         super.initVariable()
         deviceList.clear()
@@ -60,7 +61,7 @@ class ConfigMeshFragment : BaseFragment<FragmentConfigMeshBinding>() {
         /*
         * Check available hub
         * */
-        SmartSdk.configMeshHandler().checkMeshGatewayAvailable(object: GetDeviceAvailableCallback {
+        SmartSdk.configMeshHandler().checkMeshGatewayAvailable(object : GetDeviceAvailableCallback {
             override fun onDeviceAvailable(devId: String?) {
                 deviceList.add(SmartSdk.deviceHandler().get(devId))
                 deviceSpinnerAdapter.notifyDataSetChanged()
@@ -77,6 +78,7 @@ class ConfigMeshFragment : BaseFragment<FragmentConfigMeshBinding>() {
             }
         }
     }
+
     private fun startScan() {
         deviceMap.clear()
         /*
@@ -85,10 +87,10 @@ class ConfigMeshFragment : BaseFragment<FragmentConfigMeshBinding>() {
         SmartSdk.configMeshHandler().discoveryMeshDevice(object : DiscoveryIoTBleCallback {
             override fun onMeshDeviceFound(ioTBleScanned: IoTBleScanned?) {
                 ioTBleScanned?.let {
-                    if(it.ioTProductModel != null && it.rssi > -70) {
-                        deviceMap[it.uuidMesh] = it
+                    if (it.ioTProductModel != null && it.rssi > -70) {
+                        deviceMap[it.mac] = it
                     }
-                    ILogR.D("deviceAvailable", it.uuidMesh)
+                    ILogR.D("deviceAvailable", it.ioTProductId)
                 }
                 dialogLoading.dismiss()
             }
@@ -109,7 +111,7 @@ class ConfigMeshFragment : BaseFragment<FragmentConfigMeshBinding>() {
         })
         CoroutineScope(Dispatchers.Main).launch {
             delay(3000)
-            if(deviceMap.isNotEmpty()) {
+            if (deviceMap.isNotEmpty()) {
                 pickBestDevice()
                 dialogLoading.dismiss()
             }
@@ -117,17 +119,18 @@ class ConfigMeshFragment : BaseFragment<FragmentConfigMeshBinding>() {
         CoroutineScope(Dispatchers.Main).launch {
             delay(30000)
             stopDiscovery()
-            if(deviceMap.isNotEmpty()) {
+            if (deviceMap.isNotEmpty()) {
                 pickBestDevice()
                 dialogLoading.dismiss()
             } else {
                 dialogLoading.dismiss()
-                if(ioTBleScanned == null) {
+                if (ioTBleScanned == null) {
                     showNoti(R.string.no_available_device)
                 }
             }
         }
     }
+
     /*
     * Stop scan devices
     * */
@@ -141,16 +144,16 @@ class ConfigMeshFragment : BaseFragment<FragmentConfigMeshBinding>() {
     private fun pickBestDevice() {
         var bestDevice = ""
         var bestRssi = -9999
-        for(entry in deviceMap.entries) {
-            if(entry.value.rssi > bestRssi) {
+        for (entry in deviceMap.entries) {
+            if (entry.value.rssi > bestRssi) {
                 bestDevice = entry.key
                 bestRssi = entry.value.rssi
-                if(bestRssi > -45) {
+                if (bestRssi > -45) {
                     break
                 }
             }
         }
-        if(deviceMap.isNotEmpty()) {
+        if (deviceMap.isNotEmpty()) {
             startConfig(deviceMap[bestDevice]!!)
             deviceMap.remove(bestDevice)
         }
@@ -164,16 +167,16 @@ class ConfigMeshFragment : BaseFragment<FragmentConfigMeshBinding>() {
         binding.edtDeviceName.setText(ioTBleScanned.ioTProductModel.name)
         SmartSdk.configMeshHandler().preSetupDevice(
             (binding.spinnerHub.selectedItem as IoTDevice).uuid,
-            ioTBleScanned.uuidMesh, object: SetupDeviceCallback {
-                override fun onProgress(id: String?, progress: Int, msg: String?) {
-                    if (progress == 20) {
+            ioTBleScanned.mac, object : SetupDeviceCallback {
+                override fun onProgress(p0: String, p1: Int, p2: String?) {
+                    if (p1 == 20) {
                         binding.lnDevice.visibility = View.VISIBLE
                     }
-                    binding.txtProgress.text = progress.toString()
+                    binding.txtProgress.text = p1.toString()
                 }
 
-                override fun onSuccess(ioTDevice: IoTDevice?) {
-                    showNoti(getString(R.string.connect_to, ioTDevice!!.label))
+                override fun onSuccess() {
+//                    showNoti(getString(R.string.connect_to, ioTDevice!!.label))
                 }
 
                 override fun onSetupFailure(errorCode: Int, msg: String) {
@@ -191,7 +194,7 @@ class ConfigMeshFragment : BaseFragment<FragmentConfigMeshBinding>() {
     private fun setUpDevice(ioTBleScanned: IoTBleScanned) {
         SmartSdk.configMeshHandler().startSetupDevice(
             SetupDeviceInfo(
-                ioTBleScanned.uuidMesh,
+                ioTBleScanned.mac,
                 binding.edtDeviceName.text.toString(),
                 (binding.spinnerGroup.selectedItem as IoTGroup).uuid,
                 ioTBleScanned.ioTProductModel.modelId,

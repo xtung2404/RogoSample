@@ -17,7 +17,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import rogo.iot.module.rogocore.basesdk.ILogR
 import rogo.iot.module.rogocore.basesdk.define.IoTWifiConnectionState
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.callback.DiscoveryIoTWileCallback
@@ -35,7 +34,7 @@ class ConfigIRFragment : BaseFragment<FragmentConfigIRBinding>() {
     private val deviceMap = hashMapOf<String, IoTWileScanned>()
     private val wifiMap = hashMapOf<String, Int>()
     private val wifiList = arrayListOf<String>()
-    private var ioTWileScanned: IoTWileScanned?= null
+    private var ioTWileScanned: IoTWileScanned? = null
     private val wifiSpinnerAdapter by lazy {
         WifiSpinnerAdapter(requireContext(), wifiList)
     }
@@ -74,11 +73,11 @@ class ConfigIRFragment : BaseFragment<FragmentConfigIRBinding>() {
             * set up Internet for IR
             * */
             btnSetWifi.setOnClickListener {
-                SmartSdk.configWileHandler().setWifiPwd(
-                    (spinnerWifi.selectedItem as String),
-                    edtPassword.text.toString(),
-                    true
-                )
+//                SmartSdk.configWileHandler().setWifiPwd(
+//                    (spinnerWifi.selectedItem as String),
+//                    edtPassword.text.toString(),
+//                    true
+//                )
             }
         }
     }
@@ -90,18 +89,16 @@ class ConfigIRFragment : BaseFragment<FragmentConfigIRBinding>() {
         /*
         * Scan for available Wile devices
         * */
-        SmartSdk.configWileHandler().discoveryWileDevice(object : DiscoveryIoTWileCallback {
-            override fun onWileDeviceFound(ioTWileScanned: IoTWileScanned?) {
-                ioTWileScanned?.let {
-                    if(it.ioTProductModel != null && it.rssi > - 90) {
-                        deviceMap[it.uuidMesh] = it
-                    }
+        SmartSdk.configWileHandler().discoveryWileDevice { ioTWileScanned ->
+            ioTWileScanned?.let {
+                if (it.ioTProductModel != null && it.rssi > -90) {
+                    deviceMap[it.mac] = it
                 }
             }
-        })
+        }
         CoroutineScope(Dispatchers.Main).launch {
             delay(15000)
-            if(deviceMap.isNotEmpty()) {
+            if (deviceMap.isNotEmpty()) {
                 pickBestDevice()
                 stopDiscovery()
                 dialogLoading.dismiss()
@@ -111,6 +108,7 @@ class ConfigIRFragment : BaseFragment<FragmentConfigIRBinding>() {
             }
         }
     }
+
     /*
     * Stop scan
     * */
@@ -125,16 +123,16 @@ class ConfigIRFragment : BaseFragment<FragmentConfigIRBinding>() {
         stopDiscovery()
         var bestDevice = ""
         var bestRssi = -9999
-        for(entry in deviceMap.entries) {
-            if(entry.value.rssi > bestRssi) {
+        for (entry in deviceMap.entries) {
+            if (entry.value.rssi > bestRssi) {
                 bestDevice = entry.key
                 bestRssi = entry.value.rssi
-                if(bestRssi > -45) {
+                if (bestRssi > -45) {
                     break
                 }
             }
         }
-        if(deviceMap.isNotEmpty()) {
+        if (deviceMap.isNotEmpty()) {
             startConfig(deviceMap[bestDevice]!!)
             deviceMap.remove(bestDevice)
         }
@@ -159,7 +157,7 @@ class ConfigIRFragment : BaseFragment<FragmentConfigIRBinding>() {
         wifiList.clear()
         ioTWileScanned?.let {
             val setupDeviceInfo = SetupDeviceInfo(
-                it.device.address,
+                it.mac,
                 binding.edtDeviceName.text.toString(),
                 (binding.spinnerGroup.selectedItem as IoTGroup).uuid,
                 it.ioTProductModel.modelId
@@ -167,29 +165,79 @@ class ConfigIRFragment : BaseFragment<FragmentConfigIRBinding>() {
             /*
             * Get the wifi list
             * */
-            SmartSdk.configWileHandler().startSetupWileDevice(setupDeviceInfo,
+            SmartSdk.configWileHandler().startSetupWileDevice(
+                setupDeviceInfo,
                 object : SetupDeviceWileCallback {
-                    override fun onProgress(id: String?, progress: Int, msg: String?) {
+                    //                    override fun onProgress(id: String?, progress: Int, msg: String?) {
+//                        CoroutineScope(Dispatchers.Main).launch {
+//                            binding.txtProgress.text = progress.toString()
+//                        }
+//                    }
+//
+//                    override fun onSuccess(ioTDevice: IoTDevice?) {
+//                        CoroutineScope(Dispatchers.Main).launch {
+//                            showNoti(getString(R.string.connect_to, ioTDevice?.label))
+//                        }
+//                    }
+//
+//                    override fun onSetupFailure(errorCode: Int, msg: String) {
+//                        CoroutineScope(Dispatchers.Main).launch {
+//                            showNoti(msg)
+//                        }
+//                    }
+//
+//                    override fun onWifiScanned(ssid: String, auth: Int, rssi: Int) {
+//                        CoroutineScope(Dispatchers.Main).launch {
+//                            wifiList.add(ssid)
+//                            wifiSpinnerAdapter.notifyDataSetChanged()
+//                        }
+//                    }
+//
+//                    override fun onWifiStopScanned() {
+//                        CoroutineScope(Dispatchers.Main).launch {
+//                            binding.lnWifi.visibility = View.VISIBLE
+//                            wifiSpinnerAdapter.notifyDataSetChanged()
+//                        }
+//                    }
+//
+//                    override fun onWifiSetted() {
+//                        CoroutineScope(Dispatchers.Main).launch {
+//                            showNoti("wifi setted")
+//                        }
+//                    }
+//
+//                    override fun onWifiSsidInfo(status: Int, ssid: String?) {
+//                        if(
+//                            status == IoTWifiConnectionState.SOMETHING_WENT_WRONG ||
+//                            status == IoTWifiConnectionState.PASSWORD_WRONG ||
+//                            status == IoTWifiConnectionState.SSID_NOTFOUND
+//                            ) {
+//                                CoroutineScope(Dispatchers.Main).launch {
+//                                    showNoti(R.string.wifi_problem)
+//                                }
+//                        }
+//                    }
+//
+//                })
+                    override fun onProgress(p0: String, p1: Int, p2: String?) {
                         CoroutineScope(Dispatchers.Main).launch {
-                            binding.txtProgress.text = progress.toString()
+                            binding.txtProgress.text = p1.toString()
                         }
                     }
 
-                    override fun onSuccess(ioTDevice: IoTDevice?) {
+                    override fun onSuccess() {
+
+                    }
+
+                    override fun onSetupFailure(p0: Int, p1: String) {
                         CoroutineScope(Dispatchers.Main).launch {
-                            showNoti(getString(R.string.connect_to, ioTDevice?.label))
+                            showNoti(p1)
                         }
                     }
 
-                    override fun onSetupFailure(errorCode: Int, msg: String) {
+                    override fun onWifiScanned(p0: String, p1: Int, p2: Int) {
                         CoroutineScope(Dispatchers.Main).launch {
-                            showNoti(msg)
-                        }
-                    }
-
-                    override fun onWifiScanned(ssid: String, auth: Int, rssi: Int) {
-                        CoroutineScope(Dispatchers.Main).launch {
-                            wifiList.add(ssid)
+                            wifiList.add(p0)
                             wifiSpinnerAdapter.notifyDataSetChanged()
                         }
                     }
@@ -207,18 +255,17 @@ class ConfigIRFragment : BaseFragment<FragmentConfigIRBinding>() {
                         }
                     }
 
-                    override fun onWifiSsidInfo(status: Int, ssid: String?) {
-                        if(
-                            status == IoTWifiConnectionState.SOMETHING_WENT_WRONG ||
-                            status == IoTWifiConnectionState.PASSWORD_WRONG ||
-                            status == IoTWifiConnectionState.SSID_NOTFOUND
-                            ) {
-                                CoroutineScope(Dispatchers.Main).launch {
-                                    showNoti(R.string.wifi_problem)
-                                }
+                    override fun onWifiSsidInfo(p0: Int, p1: String?) {
+                        if (
+                            p0 == IoTWifiConnectionState.SOMETHING_WENT_WRONG ||
+                            p0 == IoTWifiConnectionState.PASSWORD_WRONG ||
+                            p0 == IoTWifiConnectionState.SSID_NOTFOUND
+                        ) {
+                            CoroutineScope(Dispatchers.Main).launch {
+                                showNoti(R.string.wifi_problem)
+                            }
                         }
                     }
-
                 })
         }
     }

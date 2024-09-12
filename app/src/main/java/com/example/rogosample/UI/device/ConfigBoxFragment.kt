@@ -14,7 +14,6 @@ import com.example.rogosample.databinding.FragmentConfigBoxBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import rogo.iot.module.rogocore.basesdk.ILogR
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.callback.RequestAddGatewayCallback
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice

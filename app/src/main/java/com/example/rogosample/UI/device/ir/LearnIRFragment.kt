@@ -26,20 +26,17 @@ import com.example.rogosample.adapter.ManufacturerSpinnerAdapter
 import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.base.getDeviceName
 import com.example.rogosample.databinding.FragmentLearnIRBinding
-import com.example.rogosample.`object`.getIrCodeFanName
-import com.example.rogosample.`object`.getIrCodeTVName
 import com.example.rogosample.`object`.DeviceLearnIr
 import com.example.rogosample.`object`.IrCode
 import com.google.gson.Gson
-import rogo.iot.module.rogocore.basesdk.ILogR
-import rogo.iot.module.rogocore.basesdk.callback.RequestCallback
-import rogo.iot.module.rogocore.basesdk.callback.SuccessStatus
-import rogo.iot.module.rogocore.basesdk.define.IoTIrCodeFan
-import rogo.iot.module.rogocore.basesdk.define.IoTIrCodeTV
+import no.nordicsemi.android.ble.callback.SuccessCallback
+import rogo.iot.module.platform.ILogR
+//import rogo.iot.module.rogocore.basesdk.define.IoTIrCodeFan
+//import rogo.iot.module.rogocore.basesdk.define.IoTIrCodeTV
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.callback.CheckIrHubInfoCallback
 import rogo.iot.module.rogocore.sdk.callback.LearnIrCallback
-import rogo.iot.module.rogocore.sdk.callback.SuccessCallback
+//import rogo.iot.module.rogocore.sdk.callback.SuccessCallback
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
 import rogo.iot.module.rogocore.sdk.entity.IoTGroup
 import rogo.iot.module.rogocore.sdk.entity.IoTIrProtocolInfo
@@ -124,81 +121,81 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
             /*
             * Select available buttons like the remote
             * */
-            spinnerType.onItemSelectedListener = object : OnItemSelectedListener {
-                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                    p0?.let {
-                        when (it.getItemAtPosition(p2)) {
-                            DeviceLearnIr.FAN -> {
-                                lnFanTv.visibility = View.VISIBLE
-                                lnAc.visibility = View.GONE
-                                irList.clear()
-                                for (i in listOf<Int>(
-                                    IoTIrCodeFan.POWER,
-                                    IoTIrCodeFan.POWER_ON,
-                                    IoTIrCodeFan.POWER_OFF,
-                                    IoTIrCodeFan.NUM_0,
-                                    IoTIrCodeFan.NUM_1,
-                                    IoTIrCodeFan.NUM_2,
-                                    IoTIrCodeFan.NUM_3,
-                                    IoTIrCodeFan.NUM_4,
-                                    IoTIrCodeFan.NUM_5,
-                                    IoTIrCodeFan.NUM_6,
-                                    IoTIrCodeFan.NUM_7,
-                                    IoTIrCodeFan.NUM_8,
-                                    IoTIrCodeFan.NUM_9,
-                                    IoTIrCodeFan.FAN_SPEED
-                                )) {
-                                    irList.add(IrCode(i, getIrCodeFanName(i)))
-                                }
-                                irCodeAdapter.notifyDataSetChanged()
-                            }
-
-                            DeviceLearnIr.TV -> {
-                                lnFanTv.visibility = View.VISIBLE
-                                lnAc.visibility = View.GONE
-                                irList.clear()
-                                for (i in listOf<Int>(
-                                    IoTIrCodeTV.POWER,
-                                    IoTIrCodeTV.POWER_ON,
-                                    IoTIrCodeTV.POWER_OFF,
-                                    IoTIrCodeTV.NUM_0,
-                                    IoTIrCodeTV.NUM_1,
-                                    IoTIrCodeTV.NUM_2,
-                                    IoTIrCodeTV.NUM_3,
-                                    IoTIrCodeTV.NUM_4,
-                                    IoTIrCodeTV.NUM_5,
-                                    IoTIrCodeTV.NUM_6,
-                                    IoTIrCodeTV.NUM_7,
-                                    IoTIrCodeTV.NUM_8,
-                                    IoTIrCodeTV.NUM_9,
-                                    IoTIrCodeTV.UP,
-                                    IoTIrCodeTV.DOWN,
-                                    IoTIrCodeTV.LEFT,
-                                    IoTIrCodeTV.RIGHT,
-                                    IoTIrCodeTV.BACK,
-                                    IoTIrCodeTV.HOME,
-                                    IoTIrCodeTV.CHANNEL_UP,
-                                    IoTIrCodeTV.CHANNEL_DOWN,
-                                    IoTIrCodeTV.CHANNEL_LIST,
-                                    IoTIrCodeTV.VOL_UP,
-                                    IoTIrCodeTV.VOL_DOWN,
-                                    IoTIrCodeTV.MENU,
-                                    IoTIrCodeTV.MUTE
-                                )) {
-                                    irList.add(IrCode(i, getIrCodeTVName(i)))
-                                }
-                                irCodeAdapter.notifyDataSetChanged()
-                            }
-                        }
-                    }
-                }
-
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-                    lnFanTv.visibility = View.GONE
-                    lnAc.visibility = View.GONE
-                }
-
-            }
+//            spinnerType.onItemSelectedListener = object : OnItemSelectedListener {
+//                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+//                    p0?.let {
+//                        when (it.getItemAtPosition(p2)) {
+//                            DeviceLearnIr.FAN -> {
+//                                lnFanTv.visibility = View.VISIBLE
+//                                lnAc.visibility = View.GONE
+//                                irList.clear()
+//                                for (i in listOf<Int>(
+////                                    IoTIrCodeFan.POWER,
+////                                    IoTIrCodeFan.POWER_ON,
+////                                    IoTIrCodeFan.POWER_OFF,
+////                                    IoTIrCodeFan.NUM_0,
+////                                    IoTIrCodeFan.NUM_1,
+////                                    IoTIrCodeFan.NUM_2,
+////                                    IoTIrCodeFan.NUM_3,
+////                                    IoTIrCodeFan.NUM_4,
+////                                    IoTIrCodeFan.NUM_5,
+////                                    IoTIrCodeFan.NUM_6,
+////                                    IoTIrCodeFan.NUM_7,
+////                                    IoTIrCodeFan.NUM_8,
+////                                    IoTIrCodeFan.NUM_9,
+////                                    IoTIrCodeFan.FAN_SPEED
+//                                )) {
+//                                    irList.add(IrCode(i, getIrCodeFanName(i)))
+//                                }
+//                                irCodeAdapter.notifyDataSetChanged()
+//                            }
+//
+//                            DeviceLearnIr.TV -> {
+//                                lnFanTv.visibility = View.VISIBLE
+//                                lnAc.visibility = View.GONE
+//                                irList.clear()
+//                                for (i in listOf<Int>(
+////                                    IoTIrCodeTV.POWER,
+////                                    IoTIrCodeTV.POWER_ON,
+////                                    IoTIrCodeTV.POWER_OFF,
+////                                    IoTIrCodeTV.NUM_0,
+////                                    IoTIrCodeTV.NUM_1,
+////                                    IoTIrCodeTV.NUM_2,
+////                                    IoTIrCodeTV.NUM_3,
+////                                    IoTIrCodeTV.NUM_4,
+////                                    IoTIrCodeTV.NUM_5,
+////                                    IoTIrCodeTV.NUM_6,
+////                                    IoTIrCodeTV.NUM_7,
+////                                    IoTIrCodeTV.NUM_8,
+////                                    IoTIrCodeTV.NUM_9,
+////                                    IoTIrCodeTV.UP,
+////                                    IoTIrCodeTV.DOWN,
+////                                    IoTIrCodeTV.LEFT,
+////                                    IoTIrCodeTV.RIGHT,
+////                                    IoTIrCodeTV.BACK,
+////                                    IoTIrCodeTV.HOME,
+////                                    IoTIrCodeTV.CHANNEL_UP,
+////                                    IoTIrCodeTV.CHANNEL_DOWN,
+////                                    IoTIrCodeTV.CHANNEL_LIST,
+////                                    IoTIrCodeTV.VOL_UP,
+////                                    IoTIrCodeTV.VOL_DOWN,
+////                                    IoTIrCodeTV.MENU,
+////                                    IoTIrCodeTV.MUTE
+//                                )) {
+//                                    irList.add(IrCode(i, getIrCodeTVName(i)))
+//                                }
+//                                irCodeAdapter.notifyDataSetChanged()
+//                            }
+//                        }
+//                    }
+//                }
+//
+//                override fun onNothingSelected(p0: AdapterView<*>?) {
+//                    lnFanTv.visibility = View.GONE
+//                    lnAc.visibility = View.GONE
+//                }
+//
+//            }
             spinnerHub.onItemSelectedListener = object : OnItemSelectedListener {
                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                     binding.lnDeviceType.visibility = View.VISIBLE
@@ -238,13 +235,13 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
         btnRetry.visibility = View.GONE
         if (!irCodeLearned.contains(irCodeToLearn[currentPos])) {
             if (binding.spinnerType.selectedItem as DeviceLearnIr == DeviceLearnIr.FAN) {
-                txtLearnIr.text = "Hướng điều khiển vào thiết bị hồng ngoại và nhấn nút ${
-                    getString(getIrCodeFanName(irCodeToLearn[currentPos]))
-                }"
+//                txtLearnIr.text = "Hướng điều khiển vào thiết bị hồng ngoại và nhấn nút ${
+//                    getString(getIrCodeFanName(irCodeToLearn[currentPos]))
+//                }"
             } else {
-                txtLearnIr.text = "Hướng điều khiển vào thiết bị hồng ngoại và nhấn nút ${
-                    getString(getIrCodeTVName(irCodeToLearn[currentPos]))
-                }"
+//                txtLearnIr.text = "Hướng điều khiển vào thiết bị hồng ngoại và nhấn nút ${
+//                    getString(getIrCodeTVName(irCodeToLearn[currentPos]))
+//                }"
             }
             SmartSdk.learnIrDeviceHandler().learnIr(
                 (binding.spinnerHub.selectedItem as IoTDevice).uuid,
@@ -260,16 +257,16 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
         }
 
         override fun onIrRawLearned(requestId: Int, irProtocol: IoTIrProtocolInfo?) {
-            ILogR.D("LearnIrFragment", Gson().toJson(irProtocol), irProtocol?.rawData)
+//            ILogR.D("LearnIrFragment", Gson().toJson(irProtocol), irProtocol?.rawData)
             protocolInfo = irProtocol
             if (irCodeToLearn.size > irCodeLearned.size) {
                 btnContinue.visibility = View.VISIBLE
                 if (binding.spinnerType.selectedItem as DeviceLearnIr == DeviceLearnIr.FAN) {
-                    txtLearnIr.text =
-                        "Học thành công ${getString(getIrCodeFanName(irCodeToLearn[currentPos]))}"
+//                    txtLearnIr.text =
+//                        "Học thành công ${getString(getIrCodeFanName(irCodeToLearn[currentPos]))}"
                 } else {
-                    txtLearnIr.text =
-                        "Học thành công ${getString(getIrCodeTVName(irCodeToLearn[currentPos]))}"
+//                    txtLearnIr.text =
+//                        "Học thành công ${getString(getIrCodeTVName(irCodeToLearn[currentPos]))}"
                 }
                 irCodeLearned.add(irCodeToLearn[currentPos])
             } else {
@@ -346,26 +343,26 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
         btnContinueSetUp.setOnClickListener {
             setUpRemoteDialog.dismiss()
             dialogLoading.show()
-            SmartSdk.learnIrDeviceHandler().addIrRemoteLearned(
-                (binding.spinnerHub.selectedItem as IoTDevice).uuid,
-                edtDeviceName.text.toString(),
-                (manufacturerSpinner.selectedItem as Map.Entry<String, Int>).value,
-                (binding.spinnerType.selectedItem as DeviceLearnIr).type,
-                (groupSpinner.selectedItem as IoTGroup).uuid,
-                object : SuccessCallback<IoTDevice> {
-                    override fun onFailure(errorCode: Int, message: String?) {
-                        dialogLoading.dismiss()
-                        message?.let {
-                            showNoti(it)
-                        }
-                    }
-
-                    override fun onSuccess(item: IoTDevice?) {
-                        dialogLoading.dismiss()
-                        showNoti(R.string.add_ir_remote_success)
-                    }
-                }
-            )
+//            SmartSdk.learnIrDeviceHandler().addIrRemoteLearned(
+//                (binding.spinnerHub.selectedItem as IoTDevice).uuid,
+//                edtDeviceName.text.toString(),
+//                (manufacturerSpinner.selectedItem as Map.Entry<String, Int>).value,
+//                (binding.spinnerType.selectedItem as DeviceLearnIr).type,
+//                (groupSpinner.selectedItem as IoTGroup).uuid,
+//                object : SuccessCallback<IoTDevice> {
+//                    override fun onFailure(errorCode: Int, message: String?) {
+//                        dialogLoading.dismiss()
+//                        message?.let {
+//                            showNoti(it)
+//                        }
+//                    }
+//
+//                    override fun onSuccess(item: IoTDevice?) {
+//                        dialogLoading.dismiss()
+//                        showNoti(R.string.add_ir_remote_success)
+//                    }
+//                }
+//            )
         }
         setUpRemoteDialog.setCanceledOnTouchOutside(true)
         val window = setUpRemoteDialog.window ?: return

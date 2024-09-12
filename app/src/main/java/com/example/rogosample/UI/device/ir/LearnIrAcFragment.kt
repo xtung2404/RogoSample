@@ -27,12 +27,11 @@ import com.example.rogosample.base.getDeviceName
 import com.example.rogosample.databinding.FragmentLearnIrAcBinding
 import com.example.rogosample.`object`.AcControlItem
 import com.example.rogosample.`object`.DeviceLearnIr
-import rogo.iot.module.rogocore.basesdk.callback.RequestCallback
-import rogo.iot.module.rogocore.basesdk.callback.SuccessStatus
+import rogo.iot.module.platform.callback.RequestCallback
+import rogo.iot.module.platform.callback.SuccessStatus
 import rogo.iot.module.rogocore.basesdk.define.IoTDeviceType
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.callback.CheckIrHubInfoCallback
-import rogo.iot.module.rogocore.sdk.callback.SuccessCallback
 import rogo.iot.module.rogocore.sdk.define.ir.IoTIrPrtc
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
 import rogo.iot.module.rogocore.sdk.entity.IoTGroup
@@ -485,39 +484,39 @@ class LearnIrAcFragment : BaseFragment<FragmentLearnIrAcBinding>() {
 
     private fun testCmdProtocol() {
         binding.apply {
-            SmartSdk.learnIrDeviceHandler().testAcIrPrtc(
-                (spinnerHub.selectedItem as IoTDevice).uuid,
-                (spinnerProtocol.selectedItem as Int),
-                isOn,
-                acMode,
-                currentTemp,
-                fanSpeed
-            )
+//            SmartSdk.learnIrDeviceHandler().testAcIrPrtc(
+//                (spinnerHub.selectedItem as IoTDevice).uuid,
+//                (spinnerProtocol.selectedItem as Int),
+//                isOn,
+//                acMode,
+//                currentTemp,
+//                fanSpeed
+//            )
         }
     }
 
     private fun addRemoteRaw(deviceName: String, groupUuid: String) {
-        SmartSdk.learnIrDeviceHandler().addIrRemote(
-            (binding.spinnerHub.selectedItem as IoTDevice).uuid,
-            ioTIrRemote,
-            deviceName,
-            groupUuid,
-            object : SuccessCallback<IoTDevice> {
-                override fun onFailure(errorCode: Int, message: String?) {
-                    dialogLoading.dismiss()
-                    message?.let {
-                        showNoti(it)
-                    }
-                }
-
-                override fun onSuccess(item: IoTDevice?) {
-                    dialogLoading.dismiss()
-                    SmartSdk.learnIrDeviceHandler().stopLearnIr()
-                    showNoti(R.string.add_success)
-                }
-
-            }
-        )
+//        SmartSdk.learnIrDeviceHandler().addIrRemote(
+//            (binding.spinnerHub.selectedItem as IoTDevice).uuid,
+//            ioTIrRemote,
+//            deviceName,
+//            groupUuid,
+//            object : SuccessCallback<IoTDevice> {
+//                override fun onFailure(errorCode: Int, message: String?) {
+//                    dialogLoading.dismiss()
+//                    message?.let {
+//                        showNoti(it)
+//                    }
+//                }
+//
+//                override fun onSuccess(item: IoTDevice?) {
+//                    dialogLoading.dismiss()
+//                    SmartSdk.learnIrDeviceHandler().stopLearnIr()
+//                    showNoti(R.string.add_success)
+//                }
+//
+//            }
+//        )
     }
 
     private fun addRemoteProtocol(deviceName: String, groupUuid: String) {
@@ -538,27 +537,27 @@ class LearnIrAcFragment : BaseFragment<FragmentLearnIrAcBinding>() {
                 ioTIrRemote?.modes?.plus(item.itemId)
             }
         }
-        SmartSdk.learnIrDeviceHandler().addAcIrRemote(
-            (binding.spinnerHub.selectedItem as IoTDevice).uuid,
-            deviceName,
-            groupUuid,
-            protocolInfo,
-            ioTIrRemote!!,
-            object: SuccessCallback<IoTDevice> {
-                override fun onFailure(errorCode: Int, message: String?) {
-                    dialogLoading.dismiss()
-                    message?.let {
-                        showNoti(it)
-                    }
-                }
-
-                override fun onSuccess(item: IoTDevice?) {
-                    dialogLoading.dismiss()
-                    SmartSdk.learnIrDeviceHandler().stopLearnIr()
-                    showNoti(R.string.add_success)
-                }
-
-            }
-        )
+//        SmartSdk.learnIrDeviceHandler().addAcIrRemote(
+//            (binding.spinnerHub.selectedItem as IoTDevice).uuid,
+//            deviceName,
+//            groupUuid,
+//            protocolInfo,
+//            ioTIrRemote!!,
+//            object: SuccessCallback<IoTDevice> {
+//                override fun onFailure(errorCode: Int, message: String?) {
+//                    dialogLoading.dismiss()
+//                    message?.let {
+//                        showNoti(it)
+//                    }
+//                }
+//
+//                override fun onSuccess(item: IoTDevice?) {
+//                    dialogLoading.dismiss()
+//                    SmartSdk.learnIrDeviceHandler().stopLearnIr()
+//                    showNoti(R.string.add_success)
+//                }
+//
+//            }
+//        )
     }
 }

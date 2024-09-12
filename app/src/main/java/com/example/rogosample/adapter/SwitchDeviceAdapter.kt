@@ -11,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import rogo.iot.module.rogocore.basesdk.ILogR
+import rogo.iot.module.platform.ILogR
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.callback.SmartSdkDeviceStateCallback
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
@@ -37,39 +37,39 @@ class SwitchDeviceAdapter: ListAdapter<IoTDevice, SwitchDeviceAdapter.SwitchDevi
                 val map = hashMapOf<Int, Boolean>()
                 txtDeviceName.text = ioTDevice.label
                 rvSwitchButton.adapter = switchElementAdapter
-                val smartSdkStateObjectCallback = object : SmartSdkDeviceStateCallback() {
-                    override fun onDeviceStateUpdated(devId: String?) {
-
-                    }
-
-                    override fun onEventAttrStateChange(
-                        devId: String?,
-                        element: Int,
-                        values: IntArray?
-                    ) {
-                        if(devId?.contentEquals(ioTDevice.uuid) == true) {
-                            when(values?.toList()?.get(1)) {
-                                0 -> {
-                                    map[element] = false
-                                }
-                                1 -> {
-                                    map[element] = true
-                                }
-                            }
-                            switchElementAdapter.notifyDataSetChanged()
-                            ILogR.D("SwitchDeviceAdapter", devId!!, element, values?.toList())
-                        }
-                    }
-
-                    override fun onDeviceLogSensorUpdated(
-                        devId: String?,
-                        element: Int,
-                        attrType: Int
-                    ) {
-
-                    }
-                }
-                SmartSdk.registerDeviceStateCallback(smartSdkStateObjectCallback)
+//                val smartSdkStateObjectCallback = object : SmartSdkDeviceStateCallback() {
+//                    override fun onDeviceStateUpdated(devId: String?) {
+//
+//                    }
+//
+//                    override fun onEventAttrStateChange(
+//                        devId: String?,
+//                        element: Int,
+//                        values: IntArray?
+//                    ) {
+//                        if(devId?.contentEquals(ioTDevice.uuid) == true) {
+//                            when(values?.toList()?.get(1)) {
+//                                0 -> {
+//                                    map[element] = false
+//                                }
+//                                1 -> {
+//                                    map[element] = true
+//                                }
+//                            }
+//                            switchElementAdapter.notifyDataSetChanged()
+//                            ILogR.D("SwitchDeviceAdapter", devId!!, element, values?.toList())
+//                        }
+//                    }
+//
+//                    override fun onDeviceLogSensorUpdated(
+//                        devId: String?,
+//                        element: Int,
+//                        attrType: Int
+//                    ) {
+//
+//                    }
+//                }
+//                SmartSdk.registerDeviceStateCallback(smartSdkStateObjectCallback)
                 SmartSdk.stateHandler().pingDeviceState(ioTDevice.uuid)
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(500)

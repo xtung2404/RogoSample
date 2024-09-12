@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rogosample.`object`.Date
 import com.example.rogosample.R
 import com.example.rogosample.databinding.LayoutItemDateBinding
-import rogo.iot.module.rogocore.basesdk.ILogR
+import rogo.iot.module.platform.ILogR
 
 class DateAdapter(
     private val isChecked: (Pair<Int, Boolean>) -> Unit

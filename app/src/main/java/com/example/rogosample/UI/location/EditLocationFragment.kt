@@ -15,7 +15,8 @@ import com.example.rogosample.adapter.LocationTypeAdapter
 import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.base.LocationType
 import com.example.rogosample.databinding.FragmentEditLocationBinding
-import rogo.iot.module.rogocore.basesdk.callback.RequestCallback
+import rogo.iot.module.platform.callback.RequestCallback
+//import rogo.iot.module.rogocore.basesdk.callback.RequestCallback
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.define.IoTLocationType
 import rogo.iot.module.rogocore.sdk.entity.IoTLocation

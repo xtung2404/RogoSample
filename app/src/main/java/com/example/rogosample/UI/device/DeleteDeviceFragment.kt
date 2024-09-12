@@ -10,7 +10,7 @@ import com.example.rogosample.R
 import com.example.rogosample.adapter.DeviceSpinnerAdapter
 import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentDeleteDeviceBinding
-import rogo.iot.module.rogocore.basesdk.callback.RequestCallback
+import rogo.iot.module.platform.callback.RequestCallback
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
 

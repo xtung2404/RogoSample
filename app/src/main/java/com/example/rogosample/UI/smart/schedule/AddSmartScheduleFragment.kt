@@ -14,8 +14,8 @@ import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentAddSmartScheduleBinding
 import com.example.rogosample.`object`.Command
 import com.example.rogosample.`object`.Date
-import rogo.iot.module.rogocore.basesdk.ILogR
-import rogo.iot.module.rogocore.basesdk.callback.RequestCallback
+import rogo.iot.module.platform.ILogR
+import rogo.iot.module.platform.callback.RequestCallback
 import rogo.iot.module.rogocore.basesdk.define.IoTCondition
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice

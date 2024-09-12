@@ -14,10 +14,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.rogosample.R
 import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentSignInBinding
-import rogo.iot.module.rogocore.basesdk.ILogR
-import rogo.iot.module.rogocore.basesdk.auth.callback.AuthRequestCallback
+import rogo.iot.module.rogocloudapi.auth.callback.AuthRequestCallback
 import rogo.iot.module.rogocore.sdk.SmartSdk
-import rogo.iot.module.rogocore.sdk.entity.auth.SignInDefaultEmailPhoneMethod
 
 class SignInFragment : BaseFragment<FragmentSignInBinding>() {
     override val layoutId: Int
@@ -50,21 +48,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
                 val password = edtPassword.text.toString()
                 val username = edtUsername.text.toString()
                 if(username.isEmpty()) {
-                    SmartSdk.signIn(SignInDefaultEmailPhoneMethod(email, password), object : AuthRequestCallback{
-                        override fun onSuccess() {
-                            dialogLoading.dismiss()
-                            lnOptions.visibility = View.VISIBLE
-                        }
-
-                        override fun onFailure(p0: Int, p1: String?) {
-                            dialogLoading.dismiss()
-                            p1?.let {
-                                showNoti(it)
-                            }
-                        }
-                    })
-                } else {
-                    SmartSdk.signIn(SignInDefaultEmailPhoneMethod(username, email, password), object : AuthRequestCallback{
+                    SmartSdk.signIn(null, email, null, password, object : AuthRequestCallback {
                         override fun onSuccess() {
                             dialogLoading.dismiss()
                             lnOptions.visibility = View.VISIBLE

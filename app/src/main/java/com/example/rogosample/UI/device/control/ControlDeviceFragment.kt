@@ -15,7 +15,9 @@ import com.example.rogosample.databinding.FragmentControlDeviceBinding
 import rogo.iot.module.rogocore.basesdk.define.IoTAttribute
 import rogo.iot.module.rogocore.basesdk.define.IoTCmdConst
 import rogo.iot.module.rogocore.sdk.SmartSdk
+import rogo.iot.module.rogocore.sdk.callback.AckStatusCallback
 import rogo.iot.module.rogocore.sdk.callback.SuccessStatusCallback
+import rogo.iot.module.rogocore.sdk.define.IoTAckStatus
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
 
 class ControlDeviceFragment : BaseFragment<FragmentControlDeviceBinding>() {
@@ -86,17 +88,20 @@ class ControlDeviceFragment : BaseFragment<FragmentControlDeviceBinding>() {
                     SmartSdk.controlHandler().controlDevicePower(
                         ioTDevice?.uuid, intArrayOf(
                             (spinnerElement.selectedItem as Map.Entry<Int, String>).key
-                        ), p1, object : SuccessStatusCallback {
-                            override fun onFailure(errorCode: Int, message: String?) {
-                                message?.let {
-                                    showNoti(it)
-                                }
+                        ), p1, object : AckStatusCallback(3000) {
+//                            override fun onFailure(errorCode: Int, message: String?) {
+//                                message?.let {
+//                                    showNoti(it)
+//                                }
+//                            }
+//
+//                            override fun onSuccess() {
+//
+//                            }
+
+                            override fun onStatus(p0: Int, p1: IoTAckStatus?, p2: Int) {
+
                             }
-
-                            override fun onSuccess() {
-
-                            }
-
                         }
                     )
                 }
@@ -138,15 +143,19 @@ class ControlDeviceFragment : BaseFragment<FragmentControlDeviceBinding>() {
                 SmartSdk.controlHandler().controlLock(
                     ioTDevice?.uuid,
                     IoTCmdConst.DOOR_LOCKED,
-                    object : SuccessStatusCallback {
-                        override fun onFailure(errorCode: Int, message: String?) {
-                            message?.let {
-                                showNoti(it)
-                            }
-                        }
+                    object : AckStatusCallback(3000) {
+//                        override fun onFailure(errorCode: Int, message: String?) {
+//                            message?.let {
+//                                showNoti(it)
+//                            }
+//                        }
+//
+//                        override fun onSuccess() {
+//
+//                        }
 
-                        override fun onSuccess() {
-
+                        override fun onStatus(p0: Int, p1: IoTAckStatus?, p2: Int) {
+                            TODO("Not yet implemented")
                         }
                     })
             }
@@ -155,15 +164,19 @@ class ControlDeviceFragment : BaseFragment<FragmentControlDeviceBinding>() {
                 SmartSdk.controlHandler().controlLock(
                     ioTDevice?.uuid,
                     IoTCmdConst.DOOR_UNLOCKED,
-                    object : SuccessStatusCallback {
-                        override fun onFailure(errorCode: Int, message: String?) {
-                            message?.let {
-                                showNoti(it)
-                            }
-                        }
+                    object : AckStatusCallback(3000) {
+//                        override fun onFailure(errorCode: Int, message: String?) {
+//                            message?.let {
+//                                showNoti(it)
+//                            }
+//                        }
+//
+//                        override fun onSuccess() {
+//
+//                        }
 
-                        override fun onSuccess() {
-
+                        override fun onStatus(p0: Int, p1: IoTAckStatus?, p2: Int) {
+                            TODO("Not yet implemented")
                         }
                     })
             }

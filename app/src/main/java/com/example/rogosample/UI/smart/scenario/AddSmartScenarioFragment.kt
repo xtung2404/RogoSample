@@ -12,8 +12,7 @@ import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentAddSmartScenarioBinding
 import com.example.rogosample.`object`.Command
 import okhttp3.internal.notify
-import rogo.iot.module.rogocore.basesdk.ILogR
-import rogo.iot.module.rogocore.basesdk.callback.RequestCallback
+import rogo.iot.module.platform.callback.RequestCallback
 import rogo.iot.module.rogocore.basesdk.define.IoTAttribute
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice

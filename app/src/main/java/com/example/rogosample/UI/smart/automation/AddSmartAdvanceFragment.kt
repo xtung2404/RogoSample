@@ -20,8 +20,7 @@ import com.example.rogosample.databinding.FragmentAddSmartAdvanceBinding
 import com.example.rogosample.`object`.AutomationType
 import com.example.rogosample.`object`.Command
 import com.example.rogosample.`object`.ELement
-import rogo.iot.module.rogocore.basesdk.ILogR
-import rogo.iot.module.rogocore.basesdk.callback.RequestCallback
+import rogo.iot.module.platform.callback.RequestCallback
 import rogo.iot.module.rogocore.basesdk.define.IoTAutomationType
 import rogo.iot.module.rogocore.basesdk.define.IoTCmdConst
 import rogo.iot.module.rogocore.basesdk.define.IoTCondition

@@ -21,7 +21,6 @@ import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentFunctionBinding
 import com.example.rogosample.`object`.Function
 import rogo.iot.module.rogocore.sdk.SmartSdk
-import rogo.iot.module.rogocore.sdk.entity.auth.VerifyDefaultForgotPasswordMethod
 
 
 class FunctionFragment : BaseFragment<FragmentFunctionBinding>() {

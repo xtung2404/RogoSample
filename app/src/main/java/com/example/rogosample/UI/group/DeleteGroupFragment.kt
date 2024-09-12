@@ -11,7 +11,7 @@ import com.example.rogosample.adapter.GroupSpinnerAdapter
 import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentDeleteGroupBinding
 import com.example.rogosample.databinding.FragmentDeleteLocationBinding
-import rogo.iot.module.rogocore.basesdk.callback.RequestCallback
+import rogo.iot.module.platform.callback.RequestCallback
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.entity.IoTGroup
 

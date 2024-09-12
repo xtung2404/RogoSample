@@ -13,7 +13,7 @@ import com.example.rogosample.adapter.DeviceAdapter
 import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentDeviceBinding
 import org.bouncycastle.jcajce.provider.asymmetric.util.BaseKeyFactorySpi
-import rogo.iot.module.rogocore.basesdk.ILogR
+import rogo.iot.module.platform.ILogR
 import rogo.iot.module.rogocore.sdk.SmartSdk
 
 class DeviceFragment : BaseFragment<FragmentDeviceBinding>() {

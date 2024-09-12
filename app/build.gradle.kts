@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id ("kotlin-kapt")
-    id ("com.google.gms.google-services")
+//    id ("com.google.gms.google-services")
 }
 
 android {
@@ -10,7 +10,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "rogo.iot.app.playrogo"
+        applicationId = "rogo.iot.app.thingedges"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -28,6 +28,13 @@ android {
             )
         }
     }
+    packagingOptions {
+        resources {
+            excludes += "/META-INF/pluginIcon.svg"
+            excludes += "META-INF/plugin.xml"
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -118,12 +125,33 @@ dependencies {
 
 //    implementation(files("libs/rogocore-release.aar", "libs/rogobase.jar", "libs/mesh-release.aar"))
 
-    implementation(group= "",name = "rogocore-release", ext = "aar")
-    implementation(group = "", name = "rogobase", ext = "jar")
-    implementation(group = "", name = "mesh-release", ext = "aar")
-    implementation(group = "", name = "rogocomponent", ext = "jar")
+//    implementation(group= "",name = "rogocore-release", ext = "aar")
+//    implementation(group = "", name = "rogobase", ext = "jar")
+//    implementation(group = "", name = "mesh-release", ext = "aar")
+//    implementation(group = "", name = "rogocomponent", ext = "jar")
 
 //    implementation(files("libs/rogocore-release"))
+    implementation(group = "", name = "rogobase", ext = "jar")
+    implementation(group = "", name = "rogocomponent", ext = "jar")
+    implementation(group = "", name = "rogocore", ext = "jar")
+    implementation(group = "", name = "rogocloudapi", ext = "jar")
+    implementation(group = "", name = "rogoplatform", ext = "jar")
+    implementation(group = "", name = "rogoplatformandroid-release", ext = "aar")
+    implementation(group = "", name = "rogoutils", ext = "jar")
+
+//    implementation(group = "", name = "thinguikit", ext = "jar")
+//    implementation(group = "", name = "thingedgesuikit", ext = "jar")
+//    implementation(group = "", name = "thingedgestheme", ext = "jar")
+
+//    implementation project(path: ':rogobase')
+//    implementation project(path: ':rogocomponent')
+//    implementation project(path: ':rogocore')
+//    implementation project(path: ':rogocloudapi')
+//    implementation project(path: ':rogoplatform')
+//    implementation project(path: ':rogoplatformandroid')
+//    implementation project(path: ':thinguikit')
+//    implementation project(path: ':thingedgesuikit')
+//    implementation project(path: ':thingedgestheme')
 
 
     implementation ("org.bouncycastle:bcpkix-jdk15on:1.56")

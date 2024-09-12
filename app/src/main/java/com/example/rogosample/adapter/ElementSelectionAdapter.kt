@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rogosample.databinding.LayoutItemCheckboxBinding
-import no.nordicsemi.android.mesh.sensorutils.Bool
 
 class ElementSelectionAdapter(
     private val isChecked: (Pair<Int, Boolean>) -> Unit
