@@ -39,9 +39,17 @@ class RApplication: Application() {
 //        )
         SmartSdk().initV2(
             this,
-            "c43766743d294724a4a672c48ef7b3e5",
-            "20dad14f1153b64f8f2405027b009b60bd21f97907d8",
-            RogoNotificationImpl(), false, true
+            if (SmartSdk.isForceProduction)
+                "e4b75a6b23fc4f30bd5fab35436c6a90"
+            else
+                "f78f5dd2fc594475a27bef7c2caf9ab4",
+            if (SmartSdk.isForceProduction)
+                "964e2c974f001a0468bf2734ce88e96652afff328886"
+            else
+                "41d96be770b2902f801b1689c5edae29c16a068e8f87",
+            RogoNotificationImpl(),
+            false,
+            true
         )
         ILogR.setEnablePrint(true)
 //        initEnviroment()

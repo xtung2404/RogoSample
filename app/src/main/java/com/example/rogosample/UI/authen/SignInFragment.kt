@@ -30,8 +30,8 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
                 findNavController().popBackStack()
             }
             toolbar.txtTitle.text = resources.getString(R.string.sign_in)
-            edtUsername.setText("nx1415")
-            edtEmail.setText("nhacxuan1415@gmail.com")
+            edtUsername.setText("")
+            edtEmail.setText("tungrogo24@gmail.com")
             edtPassword.setText("123456")
         }
     }
