@@ -30,6 +30,8 @@ import com.example.rogosample.`object`.getIrCodeFanName
 import com.example.rogosample.`object`.getIrCodeTVName
 import com.example.rogosample.`object`.DeviceLearnIr
 import com.example.rogosample.`object`.IrCode
+import com.google.gson.Gson
+import rogo.iot.module.rogocore.basesdk.ILogR
 import rogo.iot.module.rogocore.basesdk.callback.RequestCallback
 import rogo.iot.module.rogocore.basesdk.callback.SuccessStatus
 import rogo.iot.module.rogocore.basesdk.define.IoTIrCodeFan
@@ -92,6 +94,7 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
         binding.apply {
             toolbar.btnBack.setOnClickListener {
                 findNavController().popBackStack()
+                SmartSdk.learnIrDeviceHandler().stopLearnIr()
             }
             toolbar.txtTitle.text = resources.getString(R.string.add_ir_remote)
             spinnerType.adapter = learnIrDeviceAdapter
@@ -220,6 +223,7 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
                 currentPos = 0
                 startLearning()
             }
+
         }
     }
 
@@ -256,6 +260,7 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
         }
 
         override fun onIrRawLearned(requestId: Int, irProtocol: IoTIrProtocolInfo?) {
+            ILogR.D("LearnIrFragment", Gson().toJson(irProtocol), irProtocol?.rawData)
             protocolInfo = irProtocol
             if (irCodeToLearn.size > irCodeLearned.size) {
                 btnContinue.visibility = View.VISIBLE
