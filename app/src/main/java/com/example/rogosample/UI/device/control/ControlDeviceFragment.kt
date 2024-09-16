@@ -18,6 +18,7 @@ import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.callback.AckStatusCallback
 import rogo.iot.module.rogocore.sdk.callback.SuccessStatusCallback
 import rogo.iot.module.rogocore.sdk.define.IoTAckStatus
+import rogo.iot.module.rogocore.sdk.descibe.IoTDescAttribute
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
 
 class ControlDeviceFragment : BaseFragment<FragmentControlDeviceBinding>() {
@@ -39,7 +40,7 @@ class ControlDeviceFragment : BaseFragment<FragmentControlDeviceBinding>() {
                 findNavController().popBackStack()
             }
             toolbar.txtTitle.text = resources.getString(R.string.control_device)
-            ioTDevice?.let {
+            ioTDevice?.let { it ->
                 txtDeviceName.text = it.label
                 elementMap.clear()
                 it.elementInfos.forEach { entry ->

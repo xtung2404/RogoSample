@@ -138,6 +138,8 @@ dependencies {
     implementation(group = "", name = "rogoplatform", ext = "jar")
     implementation(group = "", name = "rogoplatformandroid-release", ext = "aar")
     implementation(group = "", name = "rogoutils", ext = "jar")
+    implementation(group = "", name = "rogosigmesh", ext = "jar")
+
 
 //    implementation(group = "", name = "thinguikit", ext = "jar")
 //    implementation(group = "", name = "thingedgesuikit", ext = "jar")
@@ -184,4 +186,15 @@ dependencies {
 
     implementation("androidx.navigation:navigation-fragment-ktx:2.6.0")
     implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
+
+//    implementation("org.eclipse.paho:org.eclipse.paho.mqttv5.client:$paho_client")
+    constraints {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {
+            because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
+        }
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0") {
+            because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
+        }
+    }
+
 }

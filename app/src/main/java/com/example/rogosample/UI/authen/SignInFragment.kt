@@ -14,8 +14,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.rogosample.R
 import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentSignInBinding
+import rogo.iot.module.cloudapi.auth.callback.AuthRequestCallback
 import rogo.iot.module.platform.ILogR
-import rogo.iot.module.rogocloudapi.auth.callback.AuthRequestCallback
 import rogo.iot.module.rogocore.sdk.SmartSdk
 
 class SignInFragment : BaseFragment<FragmentSignInBinding>() {

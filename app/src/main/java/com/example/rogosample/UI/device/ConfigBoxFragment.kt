@@ -39,7 +39,7 @@ class ConfigBoxFragment : BaseFragment<FragmentConfigBoxBinding>() {
                 /*
                 * Get a 6 digit code to let user pass on FPT Box
                 * */
-                SmartSdk.configGatewayHandler().addGatewayDevice(object : RequestAddGatewayCallback {
+                SmartSdk.configGatewayDeviceHandler().addGatewayDevice(object : RequestAddGatewayCallback {
                     override fun onVerifyCodeGenerated(code: String?) {
                         btnAddDevice.visibility = View.GONE
                         lnOtp.visibility = View.VISIBLE

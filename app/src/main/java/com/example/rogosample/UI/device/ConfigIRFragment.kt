@@ -73,11 +73,11 @@ class ConfigIRFragment : BaseFragment<FragmentConfigIRBinding>() {
             * set up Internet for IR
             * */
             btnSetWifi.setOnClickListener {
-//                SmartSdk.configWileHandler().setWifiPwd(
-//                    (spinnerWifi.selectedItem as String),
-//                    edtPassword.text.toString(),
-//                    true
-//                )
+                SmartSdk.configWileDeviceHandler().setWifiPwd(
+                    (spinnerWifi.selectedItem as String),
+                    edtPassword.text.toString(),
+                    true
+                )
             }
         }
     }
@@ -89,7 +89,7 @@ class ConfigIRFragment : BaseFragment<FragmentConfigIRBinding>() {
         /*
         * Scan for available Wile devices
         * */
-        SmartSdk.configWileHandler().discoveryWileDevice { ioTWileScanned ->
+        SmartSdk.configWileDeviceHandler().discoveryWileDevice { ioTWileScanned ->
             ioTWileScanned?.let {
                 if (it.ioTProductModel != null && it.rssi > -90) {
                     deviceMap[it.mac] = it
@@ -113,7 +113,7 @@ class ConfigIRFragment : BaseFragment<FragmentConfigIRBinding>() {
     * Stop scan
     * */
     private fun stopDiscovery() {
-        SmartSdk.configWileHandler().stopDiscovery()
+        SmartSdk.configWileDeviceHandler().stopDiscovery()
     }
 
     /*
@@ -165,30 +165,79 @@ class ConfigIRFragment : BaseFragment<FragmentConfigIRBinding>() {
             /*
             * Get the wifi list
             * */
-            SmartSdk.configWileHandler().startSetupWileDevice(
-                setupDeviceInfo,
-                object : SetupDeviceWileCallback {
-                    //                    override fun onProgress(id: String?, progress: Int, msg: String?) {
+//            SmartSdk.configWileDeviceHandler()(
+//                setupDeviceInfo,
+//                object : SetupDeviceWileCallback {
+//                    //                    override fun onProgress(id: String?, progress: Int, msg: String?) {
+////                        CoroutineScope(Dispatchers.Main).launch {
+////                            binding.txtProgress.text = progress.toString()
+////                        }
+////                    }
+////
+////                    override fun onSuccess(ioTDevice: IoTDevice?) {
+////                        CoroutineScope(Dispatchers.Main).launch {
+////                            showNoti(getString(R.string.connect_to, ioTDevice?.label))
+////                        }
+////                    }
+////
+////                    override fun onSetupFailure(errorCode: Int, msg: String) {
+////                        CoroutineScope(Dispatchers.Main).launch {
+////                            showNoti(msg)
+////                        }
+////                    }
+////
+////                    override fun onWifiScanned(ssid: String, auth: Int, rssi: Int) {
+////                        CoroutineScope(Dispatchers.Main).launch {
+////                            wifiList.add(ssid)
+////                            wifiSpinnerAdapter.notifyDataSetChanged()
+////                        }
+////                    }
+////
+////                    override fun onWifiStopScanned() {
+////                        CoroutineScope(Dispatchers.Main).launch {
+////                            binding.lnWifi.visibility = View.VISIBLE
+////                            wifiSpinnerAdapter.notifyDataSetChanged()
+////                        }
+////                    }
+////
+////                    override fun onWifiSetted() {
+////                        CoroutineScope(Dispatchers.Main).launch {
+////                            showNoti("wifi setted")
+////                        }
+////                    }
+////
+////                    override fun onWifiSsidInfo(status: Int, ssid: String?) {
+////                        if(
+////                            status == IoTWifiConnectionState.SOMETHING_WENT_WRONG ||
+////                            status == IoTWifiConnectionState.PASSWORD_WRONG ||
+////                            status == IoTWifiConnectionState.SSID_NOTFOUND
+////                            ) {
+////                                CoroutineScope(Dispatchers.Main).launch {
+////                                    showNoti(R.string.wifi_problem)
+////                                }
+////                        }
+////                    }
+////
+////                })
+//                    override fun onProgress(p0: String, p1: Int, p2: String?) {
 //                        CoroutineScope(Dispatchers.Main).launch {
-//                            binding.txtProgress.text = progress.toString()
+//                            binding.txtProgress.text = p1.toString()
 //                        }
 //                    }
 //
-//                    override fun onSuccess(ioTDevice: IoTDevice?) {
+//                    override fun onSuccess() {
+//
+//                    }
+//
+//                    override fun onSetupFailure(p0: Int, p1: String) {
 //                        CoroutineScope(Dispatchers.Main).launch {
-//                            showNoti(getString(R.string.connect_to, ioTDevice?.label))
+//                            showNoti(p1)
 //                        }
 //                    }
 //
-//                    override fun onSetupFailure(errorCode: Int, msg: String) {
+//                    override fun onWifiScanned(p0: String, p1: Int, p2: Int) {
 //                        CoroutineScope(Dispatchers.Main).launch {
-//                            showNoti(msg)
-//                        }
-//                    }
-//
-//                    override fun onWifiScanned(ssid: String, auth: Int, rssi: Int) {
-//                        CoroutineScope(Dispatchers.Main).launch {
-//                            wifiList.add(ssid)
+//                            wifiList.add(p0)
 //                            wifiSpinnerAdapter.notifyDataSetChanged()
 //                        }
 //                    }
@@ -206,67 +255,18 @@ class ConfigIRFragment : BaseFragment<FragmentConfigIRBinding>() {
 //                        }
 //                    }
 //
-//                    override fun onWifiSsidInfo(status: Int, ssid: String?) {
-//                        if(
-//                            status == IoTWifiConnectionState.SOMETHING_WENT_WRONG ||
-//                            status == IoTWifiConnectionState.PASSWORD_WRONG ||
-//                            status == IoTWifiConnectionState.SSID_NOTFOUND
-//                            ) {
-//                                CoroutineScope(Dispatchers.Main).launch {
-//                                    showNoti(R.string.wifi_problem)
-//                                }
+//                    override fun onWifiSsidInfo(p0: Int, p1: String?) {
+//                        if (
+//                            p0 == IoTWifiConnectionState.SOMETHING_WENT_WRONG ||
+//                            p0 == IoTWifiConnectionState.PASSWORD_WRONG ||
+//                            p0 == IoTWifiConnectionState.SSID_NOTFOUND
+//                        ) {
+//                            CoroutineScope(Dispatchers.Main).launch {
+//                                showNoti(R.string.wifi_problem)
+//                            }
 //                        }
 //                    }
-//
 //                })
-                    override fun onProgress(p0: String, p1: Int, p2: String?) {
-                        CoroutineScope(Dispatchers.Main).launch {
-                            binding.txtProgress.text = p1.toString()
-                        }
-                    }
-
-                    override fun onSuccess() {
-
-                    }
-
-                    override fun onSetupFailure(p0: Int, p1: String) {
-                        CoroutineScope(Dispatchers.Main).launch {
-                            showNoti(p1)
-                        }
-                    }
-
-                    override fun onWifiScanned(p0: String, p1: Int, p2: Int) {
-                        CoroutineScope(Dispatchers.Main).launch {
-                            wifiList.add(p0)
-                            wifiSpinnerAdapter.notifyDataSetChanged()
-                        }
-                    }
-
-                    override fun onWifiStopScanned() {
-                        CoroutineScope(Dispatchers.Main).launch {
-                            binding.lnWifi.visibility = View.VISIBLE
-                            wifiSpinnerAdapter.notifyDataSetChanged()
-                        }
-                    }
-
-                    override fun onWifiSetted() {
-                        CoroutineScope(Dispatchers.Main).launch {
-                            showNoti("wifi setted")
-                        }
-                    }
-
-                    override fun onWifiSsidInfo(p0: Int, p1: String?) {
-                        if (
-                            p0 == IoTWifiConnectionState.SOMETHING_WENT_WRONG ||
-                            p0 == IoTWifiConnectionState.PASSWORD_WRONG ||
-                            p0 == IoTWifiConnectionState.SSID_NOTFOUND
-                        ) {
-                            CoroutineScope(Dispatchers.Main).launch {
-                                showNoti(R.string.wifi_problem)
-                            }
-                        }
-                    }
-                })
         }
     }
 }
