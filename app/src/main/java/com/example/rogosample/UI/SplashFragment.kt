@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
 import com.example.rogosample.R
 import com.example.rogosample.base.BaseFragment
@@ -21,9 +22,12 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
         SmartSdk.connectService(object : SmartSdkConnectCallback {
             override fun onConnected(isAuthenticated: Boolean) {
                 if(isAuthenticated) {
-                    findNavController().navigate(R.id.locationFunctionFragment)
+                    if (SmartSdk.isAlreadyInit()) {
+                        findNavController().navigate(R.id.generalFunction)
+                    }else
+                    findNavController().navigate(R.id.locationFragment)
                 } else {
-                    findNavController().navigate(R.id.functionFragment)
+                    findNavController().navigate(R.id.signInFragment)
                 }
             }
 
