@@ -30,7 +30,7 @@ class AddDeviceFragment : BaseFragment<FragmentAddDeviceBinding>() {
                 Function.ADDZIGBEE -> {
                     findNavController().navigate(R.id.configZigbeeFragment)
                 }
-                Function.ADDIR -> {
+                Function.ADDWILEDEVICE -> {
                     findNavController().navigate(R.id.configIRFragment)
                 }
                 Function.ADDIRREMOTE -> {

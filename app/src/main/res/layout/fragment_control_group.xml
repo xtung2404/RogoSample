@@ -15,48 +15,6 @@
         android:paddingTop="5dp">
         <include layout="@layout/toolbar"
             android:id="@+id/toolbar"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/device_name"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/txt_device_name"
-            android:textSize="14sp"
-            android:layout_marginTop="8dp"
-            android:paddingVertical="16dp"
-            android:paddingStart="8dp"
-            android:textColor="@color/white"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/white"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/ln_element"
-            android:orientation="vertical"
-            android:visibility="gone">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/select_element"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:layout_marginTop="8dp"/>
-            <Spinner
-                android:id="@+id/spinner_element"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:paddingVertical="10dp" />
-        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

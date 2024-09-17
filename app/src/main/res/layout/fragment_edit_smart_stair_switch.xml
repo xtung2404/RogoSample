@@ -21,30 +21,29 @@
             android:layout_height="wrap_content"
             android:text="@string/choose_smart"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="16dp"/>
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/spinner_smart"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="8dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/update_smart_name"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="8dp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edt_smart_name"
             android:textColor="@color/white"
-            android:background="@drawable/bg_input_black_10dp"
             android:paddingVertical="10dp"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             android:layout_marginTop="8dp"/>
         <TextView
@@ -52,22 +51,22 @@
             android:layout_height="wrap_content"
             android:text="@string/select_switch_first"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="8dp"/>
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/spinner_switch_first"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="8dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select_element"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="8dp"/>
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -75,26 +74,27 @@
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2"
             tools:listitem="@layout/layout_item_checkbox"
+            android:layout_marginTop="8dp"
             tools:itemCount="4"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select_switch_first"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             android:layout_marginTop="8dp"/>
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/spinner_switch_second"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="8dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select_element"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             android:layout_marginTop="8dp"/>
         <androidx.recyclerview.widget.RecyclerView
@@ -104,16 +104,17 @@
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2"
             tools:listitem="@layout/layout_item_checkbox"
-            tools:itemCount="4"/>
+            tools:itemCount="4"
+            android:layout_marginTop="8dp"/>
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btn_edit_smart"
-            android:text="@string/add_smart"
-            android:textSize="16sp"
-            android:textColor="@color/black"
+            android:text="@string/edit_smart"
+            android:textSize="14sp"
+            android:textColor="@color/white"
             android:background="@drawable/btn_yellow_20dp"
-            android:textAllCaps="false"
-            android:layout_marginTop="10dp"/>
+            android:textAllCaps="true"
+            android:layout_marginTop="8dp"/>
     </LinearLayout>
 </layout>

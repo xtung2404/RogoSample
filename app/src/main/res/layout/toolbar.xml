@@ -11,21 +11,21 @@
         android:orientation="horizontal"
         android:gravity="center_vertical">
         <androidx.appcompat.widget.AppCompatImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:id="@+id/btn_back"
             android:padding="8dp"
             android:src="@drawable/ic_back"
-            android:background="@drawable/btn_yellow_circle"
+            android:background="@drawable/btn_black_circle"
             android:tint="@color/yellow"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/txt_title"
             android:text="@string/rogocore_sdk_sample"
-            android:textSize="20sp"
-            android:textColor="@color/yellow"
-            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:textAllCaps="true"
             android:textStyle="bold"
             android:layout_marginStart="5dp"/>
     </LinearLayout>

@@ -28,30 +28,29 @@
                     android:layout_height="wrap_content"
                     android:text="@string/choose_smart"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="16dp"/>
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/spinner_smart"
-                    android:layout_marginTop="5dp"/>
+                    android:layout_marginTop="8dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/update_smart_name"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="8dp"/>
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/edt_smart_name"
                     android:hint=""
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textColor="@color/white"
-                    android:background="@drawable/bg_input_black_10dp"
                     android:paddingVertical="15dp"
                     android:paddingStart="5dp"
                     android:layout_marginTop="10dp"/>
@@ -60,14 +59,14 @@
                     android:layout_height="wrap_content"
                     android:text="@string/update_command"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"
                     android:layout_marginTop="20dp"/>
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/spinner_command"
-                    android:layout_marginTop="5dp"/>
+                    android:layout_marginTop="8dp"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -79,15 +78,15 @@
                         android:layout_height="wrap_content"
                         android:text="@string/brightness"
                         android:textColor="@color/white"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
-                        android:layout_marginTop="20dp"/>
+                        android:layout_marginTop="8dp"/>
                     <SeekBar
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:id="@+id/sb_brightness"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="8dp"
                         android:max="1000"
                         android:min="0"/>
                     <TextView
@@ -95,15 +94,15 @@
                         android:layout_height="wrap_content"
                         android:text="@string/kelvin"
                         android:textColor="@color/white"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
-                        android:layout_marginTop="20dp"/>
+                        android:layout_marginTop="8dp"/>
                     <SeekBar
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:id="@+id/sb_kelvin"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="8dp"
                         android:max="2000"
                         android:min="0"/>
                 </LinearLayout>
@@ -118,7 +117,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/saturation"
                         android:textColor="@color/white"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
                         android:layout_marginTop="20dp"/>
                     <SeekBar
@@ -126,7 +125,7 @@
                         android:layout_height="30dp"
                         android:id="@+id/sb_saturation"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="8dp"
                         android:min="0"
                         android:max="360"/>
                     <TextView
@@ -134,15 +133,15 @@
                         android:layout_height="wrap_content"
                         android:text="@string/hue"
                         android:textColor="@color/white"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
-                        android:layout_marginTop="20dp"/>
+                        android:layout_marginTop="8dp"/>
                     <SeekBar
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:id="@+id/sb_hue"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="8dp"
                         android:min="1"
                         android:max="5"/>
                 </LinearLayout>
@@ -157,29 +156,27 @@
                         android:layout_height="wrap_content"
                         android:text="@string/update_device"
                         android:textColor="@color/white"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
-                        android:layout_marginTop="20dp"/>
+                        android:layout_marginTop="8dp"/>
                     <Spinner
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/spinner_device"
-                        android:background="@drawable/bg_input_black_10dp"
-                        android:layout_marginTop="5dp"/>
+                        android:layout_marginTop="8dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/update_element"
                         android:textColor="@color/white"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
-                        android:layout_marginTop="20dp"/>
+                        android:layout_marginTop="8dp"/>
                     <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/rv_element"
-                        android:background="@drawable/bg_input_black_10dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="8dp"
                         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                         app:spanCount="2"/>
                     <androidx.appcompat.widget.AppCompatButton
@@ -187,11 +184,11 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/btn_edit_smart"
                         android:text="@string/edit_smart"
-                        android:textSize="16sp"
-                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textColor="@color/white"
                         android:background="@drawable/btn_yellow_20dp"
-                        android:textAllCaps="false"
-                        android:layout_marginTop="10dp"/>
+                        android:textAllCaps="true"
+                        android:layout_marginTop="8dp"/>
                 </LinearLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

@@ -207,7 +207,7 @@ class ConfigMeshFragment : BaseFragment<FragmentConfigMeshBinding>() {
                 }
 
                 override fun onLoadMeshNwkFailure(p0: Int, p1: String?) {
-
+                    ILogR.D("ConfigMeshFragment", "onLoadMeshNwkFailure", p0, p1)
                 }
 
             }
@@ -244,9 +244,8 @@ class ConfigMeshFragment : BaseFragment<FragmentConfigMeshBinding>() {
             }
 
             override fun onSetupFailure(p0: Int, p1: String?) {
-
+                ILogR.D("ConfigMeshFragment", "OnSetUpFailure", p0, p1)
             }
-
         })
     }
 

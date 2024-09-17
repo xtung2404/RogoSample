@@ -21,71 +21,71 @@
             android:layout_height="wrap_content"
             android:text="@string/select_smart"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="16dp"/>
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/spinner_smart"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="8dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/smart_name"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="8dp"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edt_smart_name"
             android:hint=""
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textColor="@color/white"
-            android:background="@drawable/bg_input_black_10dp"
             android:paddingVertical="15dp"
             android:paddingStart="5dp"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="8dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select_device"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="8dp"/>
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/spinner_device"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="8dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select_state"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="8dp"/>
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/spinner_state"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="8dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/start_time"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="12sp"
                 android:textStyle="bold"/>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -114,14 +114,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/end_time"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="12sp"
                 android:textStyle="bold"/>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -150,14 +151,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/time"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="12sp"
                 android:textStyle="bold"/>
             <Spinner
                 android:layout_width="100dp"
@@ -170,10 +172,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/btn_edit_smart"
             android:text="@string/edit_smart"
-            android:textSize="16sp"
-            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textColor="@color/white"
             android:background="@drawable/btn_yellow_20dp"
-            android:textAllCaps="false"
-            android:layout_marginTop="10dp"/>
+            android:textAllCaps="true"
+            android:layout_marginTop="8dp"/>
     </LinearLayout>
 </layout>

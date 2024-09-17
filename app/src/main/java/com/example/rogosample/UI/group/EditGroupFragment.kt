@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import androidx.navigation.fragment.findNavController
 import com.example.rogosample.R
 import com.example.rogosample.adapter.GroupSpinnerAdapter
@@ -43,6 +45,24 @@ class EditGroupFragment : BaseFragment<FragmentEditGroupBinding>() {
     override fun initAction() {
         super.initAction()
         binding.apply {
+
+            spinnerGroup.onItemSelectedListener = object : OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    parent?.let {
+                        edtGroupName.setText((it.selectedItem as IoTGroup).label)
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+            }
+
             btnEditLocation.setOnClickListener {
                 /*
                 * To edit a group

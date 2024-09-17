@@ -34,6 +34,7 @@
     <string name="edit_location">Edit Location</string>
     <string name="delete_location">Delete Location</string>
     <string name="get_list">Get List</string>
+    <string name="to_authentication">To authentication</string>
     <string name="get_location_success">Get list success - Select a location - Next page</string>
     <string name="home">Nhà riêng</string>
     <string name="apartment">Chung cư</string>
@@ -52,12 +53,20 @@
     <string name="update_success">Update success</string>
     <string name="add_success">Add success</string>
     <string name="group">Group</string>
+    <string name="group_functions">Group functions</string>
+    <string name="virtual_group_functions">Virtual group functions</string>
     <string name="get_list_group">Get list group</string>
     <string name="add_group">Add group</string>
     <string name="edit_group">Edit group</string>
     <string name="delete_group">Delete group</string>
+    <string name="bind_member">Bind member</string>
+    <string name="unbind_member">Unbind member</string>
     <string name="virtual_group">Virtual group</string>
+    <string name="create_virtual_group">Create virtual group</string>
+    <string name="bind_member_to_virtual_group">Bind member to virtual group</string>
+    <string name="unbind_member_to_virtual_group">Unbind member to virtual group</string>
     <string name="device">Device</string>
+    <string name="device_function">Device functions</string>
     <string name="get_list_device">Get list device</string>
     <string name="add_device">Add device</string>
     <string name="set_up">Set up</string>
@@ -76,9 +85,11 @@
     <string name="add_ble">Add Device BLE</string>
     <string name="add_zigbee_device">Add Device Zigbee</string>
     <string name="add_device_ir">Add Device IR</string>
+    <string name="add_wile_device">Add Wile Device</string>
     <string name="add_ir_remote">Add IR Remote</string>
     <string name="add_ir_ac_remote">Add IR AC Remote</string>
     <string name="start_add_device_box">Start Add Device Box</string>
+    <string name="generate_code">Generate code</string>
     <string name="connect_to_device_box">Connect to device box</string>
     <string name="enter_the_code_on_the_box_device">Enter the code on the box device</string>
     <string name="select_hub_device">Select hub_device</string>
@@ -112,7 +123,7 @@
     <string name="wifi_password">Wifi password</string>
     <string name="onoff">On/Off</string>
     <string name="openclose">Open/Close</string>
-    <string name="lock_unlock">Lock/ Unlock</string>
+    <string name="lock_unlock">Lock/Unlock</string>
     <string name="brightness">Brightness</string>
     <string name="kelvin">Kelvin</string>
     <string name="saturation">Saturation</string>
@@ -169,6 +180,7 @@
     <string name="add_scenario">Add scenario</string>
     <string name="add_schedule">Add schedule</string>
     <string name="smart">Smart</string>
+    <string name="smart_functions">Smart functions</string>
     <string name="get_list_smart_scenario">Get List Smart Scenario</string>
     <string name="get_list_smart_schedule">Get List Smart Schedule</string>
     <string name="get_list_smart_automation">Get List Smart Automation</string>

@@ -21,17 +21,16 @@
             android:layout_height="wrap_content"
             android:text="@string/smart_name"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="16dp"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edt_smart_name"
             android:hint=""
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textColor="@color/white"
-            android:background="@drawable/bg_input_black_10dp"
             android:paddingVertical="15dp"
             android:paddingStart="5dp"
             android:layout_marginTop="10dp"/>
@@ -40,21 +39,20 @@
             android:layout_height="wrap_content"
             android:text="@string/select_switch_first"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             android:layout_marginTop="8dp"/>
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/spinner_switch_first"
-            android:background="@drawable/bg_input_black_10dp"
             android:layout_marginTop="8dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select_element"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             android:layout_marginTop="8dp"/>
         <androidx.recyclerview.widget.RecyclerView
@@ -62,6 +60,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/rv_elm_first"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            android:layout_marginTop="8dp"
             app:spanCount="2"
             tools:listitem="@layout/layout_item_checkbox"
             tools:itemCount="4"/>
@@ -70,21 +69,20 @@
             android:layout_height="wrap_content"
             android:text="@string/select_switch_first"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             android:layout_marginTop="8dp"/>
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/spinner_switch_second"
-            android:background="@drawable/bg_input_black_10dp"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="8dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select_element"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             android:layout_marginTop="8dp"/>
         <androidx.recyclerview.widget.RecyclerView
@@ -92,6 +90,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/rv_elm_second"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            android:layout_marginTop="8dp"
             app:spanCount="2"
             tools:listitem="@layout/layout_item_checkbox"
             tools:itemCount="4"/>
@@ -100,10 +99,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/btn_add_smart"
             android:text="@string/add_smart"
-            android:textSize="16sp"
-            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textColor="@color/white"
             android:background="@drawable/btn_yellow_20dp"
-            android:textAllCaps="false"
-            android:layout_marginTop="10dp"/>
+            android:textAllCaps="true"
+            android:layout_marginTop="8dp"/>
     </LinearLayout>
 </layout>

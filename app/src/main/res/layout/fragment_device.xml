@@ -21,10 +21,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/btn_get_list"
             android:text="@string/get_list"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:layout_marginTop="15dp"
-            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="16dp"
+            android:textAllCaps="true"
             android:background="@drawable/btn_yellow_20dp"/>
         <LinearLayout
             android:layout_width="match_parent"

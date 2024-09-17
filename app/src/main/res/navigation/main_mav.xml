@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_functionFragment_to_signOutFragment"
             app:destination="@id/signOutFragment" />
+        <action
+            android:id="@+id/action_functionFragment_to_locationFunctionFragment"
+            app:destination="@id/locationFunctionFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -94,6 +97,12 @@
         <action
             android:id="@+id/action_locationFunctionFragment_to_generalFunction"
             app:destination="@id/generalFunction" />
+        <action
+            android:id="@+id/action_locationFunctionFragment_to_functionFragment"
+            app:destination="@id/functionFragment" />
+        <action
+            android:id="@+id/action_locationFunctionFragment_to_splashFragment"
+            app:destination="@id/splashFragment" />
     </fragment>
     <fragment
         android:id="@+id/addLocationFragment"
@@ -116,6 +125,9 @@
         <action
             android:id="@+id/action_locationFragment_self"
             app:destination="@id/locationFragment" />
+        <action
+            android:id="@+id/action_locationFragment_to_splashFragment"
+            app:destination="@id/splashFragment" />
     </fragment>
     <fragment
         android:id="@+id/deleteLocationFragment"
@@ -142,6 +154,12 @@
         <action
             android:id="@+id/action_splashFragment_to_generalFunction"
             app:destination="@id/generalFunction" />
+        <action
+            android:id="@+id/action_splashFragment_to_locationFunctionFragment2"
+            app:destination="@id/locationFunctionFragment" />
+        <action
+            android:id="@+id/action_splashFragment_to_locationFunctionFragment3"
+            app:destination="@id/locationFunctionFragment" />
     </fragment>
     <fragment
         android:id="@+id/editLocationFragment"
@@ -191,6 +209,12 @@
         <action
             android:id="@+id/action_generalFunction_to_controlSwitchGroupFragment"
             app:destination="@id/controlSwitchGroupFragment" />
+        <action
+            android:id="@+id/action_generalFunction_to_createVirtualGroupFragment"
+            app:destination="@id/createVirtualGroupFragment" />
+        <action
+            android:id="@+id/action_generalFunction_to_bindOrUnbindGroupMemberFragment"
+            app:destination="@id/bindOrUnbindGroupMemberFragment" />
     </fragment>
     <fragment
         android:id="@+id/groupFragment"
@@ -199,6 +223,9 @@
         <action
             android:id="@+id/action_groupFragment_to_generalFunction"
             app:destination="@id/generalFunction" />
+        <action
+            android:id="@+id/action_groupFragment_to_controlGroupFragment"
+            app:destination="@id/controlGroupFragment" />
     </fragment>
     <fragment
         android:id="@+id/addGroupFragment"
@@ -505,5 +532,29 @@
         <action
             android:id="@+id/action_controlSwitchGroupFragment_to_generalFunction"
             app:destination="@id/generalFunction" />
+    </fragment>
+    <fragment
+        android:id="@+id/createVirtualGroupFragment"
+        android:name="com.example.rogosample.UI.virtualgroup.CreateVirtualGroupFragment"
+        android:label="CreateVirtualGroupFragment" >
+        <action
+            android:id="@+id/action_createVirtualGroupFragment_to_generalFunction"
+            app:destination="@id/generalFunction" />
+    </fragment>
+    <fragment
+        android:id="@+id/bindOrUnbindGroupMemberFragment"
+        android:name="com.example.rogosample.UI.virtualgroup.BindOrUnbindGroupMemberFragment"
+        android:label="BindOrUnbindGroupMemberFragment" >
+        <action
+            android:id="@+id/action_bindOrUnbindGroupMemberFragment_to_generalFunction"
+            app:destination="@id/generalFunction" />
+    </fragment>
+    <fragment
+        android:id="@+id/controlGroupFragment"
+        android:name="com.example.rogosample.UI.virtualgroup.ControlGroupFragment"
+        android:label="ControlGroupFragment" >
+        <action
+            android:id="@+id/action_controlGroupFragment_to_groupFragment"
+            app:destination="@id/groupFragment" />
     </fragment>
 </navigation>

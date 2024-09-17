@@ -31,7 +31,7 @@ class AddSmartNotificationFragment : BaseFragment<FragmentAddSmartNotificationBi
     private lateinit var ioTSmartNotification: IoTSmartNotification
 
     private val hourFirstAdapter by lazy {
-        TimeSpinnerAdapter(requireContext(), (0 until  232).toList())
+        TimeSpinnerAdapter(requireContext(), (0 until  23).toList())
     }
     private val minuteFirstAdapter by lazy {
         TimeSpinnerAdapter(requireContext(), (0..59).toList())

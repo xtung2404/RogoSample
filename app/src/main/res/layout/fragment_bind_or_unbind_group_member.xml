@@ -18,25 +18,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/group_name"
+            android:text="@string/choose_group"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
-        <EditText
+            android:layout_marginTop="16dp"/>
+
+        <Spinner
+            android:id="@+id/spinner_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edt_group_name"
-            android:hint=""
-            android:textSize="14sp"
-            android:textColor="@color/white"
-            android:paddingVertical="15dp"
-            android:paddingStart="5dp"
             android:layout_marginTop="8dp"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/group_type"
+            android:text="@string/device"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="bold"
@@ -44,13 +41,13 @@
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/spinner_group_type"
+            android:id="@+id/spinner_device"
             android:layout_marginTop="8dp"/>
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/btn_add_group"
-            android:text="@string/add_group"
+            android:id="@+id/btn_bind_unbind"
+            android:text="@string/edit_group"
             android:textSize="14sp"
             android:textColor="@color/white"
             android:background="@drawable/btn_yellow_20dp"

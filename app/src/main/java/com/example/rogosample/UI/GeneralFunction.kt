@@ -40,8 +40,36 @@ class GeneralFunction : BaseFragment<FragmentGeneralFunctionBinding>() {
                 }
 
                 else -> {
+
+                }
+            }
+        })
+    }
+
+    private val virtualGroupFunctionAdapter by lazy {
+        FunctionAdapter(onItemClick = {
+            when (it) {
+                Function.VIRTUALGROUP -> {
                     val bundle = bundleOf("isVirtualGroup" to true)
                     findNavController().navigate(R.id.groupFragment, bundle)
+                }
+
+                Function.CREATEVIRTUALGROUP -> {
+                    findNavController().navigate(R.id.createVirtualGroupFragment)
+                }
+
+                Function.BINDMEMBERGROUP -> {
+                    val bundle = bundleOf("toBindMember" to true)
+                    findNavController().navigate(R.id.bindOrUnbindGroupMemberFragment, bundle)
+                }
+
+                Function.UNBINDMEMBERGROUP -> {
+                    val bundle = bundleOf("toBindMember" to false)
+                    findNavController().navigate(R.id.bindOrUnbindGroupMemberFragment, bundle)
+                }
+
+                else -> {
+
                 }
             }
         })
@@ -105,6 +133,9 @@ class GeneralFunction : BaseFragment<FragmentGeneralFunctionBinding>() {
         binding.apply {
             rvGroupFunction.adapter = groupFunctionAdapter
             groupFunctionAdapter.submitList(Function.getGroupFuncs())
+
+            rvVirutalGroupFunction.adapter = virtualGroupFunctionAdapter
+            virtualGroupFunctionAdapter.submitList(Function.getVirtualGroupFuncs())
 
             rvDeviceFunction.adapter = deviceFunctionAdapter
             deviceFunctionAdapter.submitList(Function.getDeviceFuncs())

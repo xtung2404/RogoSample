@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.example.rogosample.R
 import com.example.rogosample.adapter.GroupAdapter
@@ -17,10 +18,8 @@ class GroupFragment : BaseFragment<FragmentGroupBinding>() {
     override val layoutId: Int
         get() = R.layout.fragment_group
 
-    private val groupAdapter by lazy {
-        GroupAdapter()
-    }
-    private var isVirtualGroup: Boolean = false
+    private lateinit var groupAdapter: GroupAdapter
+    private var isVirtualGroup: Boolean = true
 
     override fun initVariable() {
         super.initVariable()
@@ -28,6 +27,12 @@ class GroupFragment : BaseFragment<FragmentGroupBinding>() {
             isVirtualGroup = it.getBoolean("isVirtualGroup")
         }
         binding.apply {
+            groupAdapter = GroupAdapter(!isVirtualGroup, onItemClick = {
+                if (isVirtualGroup) {
+                    val bundle = bundleOf("ioTGroup" to it.uuid)
+                    findNavController().navigate(R.id.controlGroupFragment, bundle)
+                }
+            })
             toolbar.btnBack.setOnClickListener {
                 findNavController().popBackStack()
             }

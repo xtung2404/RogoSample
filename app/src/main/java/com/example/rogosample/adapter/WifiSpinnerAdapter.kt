@@ -9,7 +9,7 @@ import android.widget.TextView
 import com.example.rogosample.R
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
 
-class WifiSpinnerAdapter(context: Context, wifiList: List<String>)
+class WifiSpinnerAdapter(context: Context, wifiList: List<String?>)
     : ArrayAdapter<String>(context, 0, wifiList){
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         return getCustomView(position, convertView, parent)

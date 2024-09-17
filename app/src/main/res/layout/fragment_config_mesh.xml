@@ -23,22 +23,22 @@
             android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="bold"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="16dp"/>
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/spinner_hub"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="8dp"/>
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btn_start_scan"
             android:text="@string/start_scan"
-            android:textSize="16sp"
-            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textColor="@color/white"
             android:background="@drawable/btn_yellow_20dp"
-            android:textAllCaps="false"
-            android:layout_marginTop="10dp"/>
+            android:textAllCaps="true"
+            android:layout_marginTop="8dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,16 +52,15 @@
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="8dp"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/edt_device_name"
                 android:textColor="@color/white"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/bg_input_black_10dp"
+                android:layout_marginTop="8dp"
                 android:paddingVertical="10dp"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -70,23 +69,22 @@
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="8dp"/>
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/spinner_group"
-                android:background="@drawable/bg_input_black_10dp"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="8dp"/>
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_add_device"
                 android:text="@string/add_device"
-                android:textSize="16sp"
-                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textColor="@color/white"
                 android:background="@drawable/btn_yellow_20dp"
-                android:textAllCaps="false"
-                android:layout_marginTop="10dp"/>
+                android:textAllCaps="true"
+                android:layout_marginTop="8dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -94,12 +92,12 @@
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="8dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_progress"
-                android:text="@string/select_group_to_add_device"
+                android:text="0"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/white"
                 android:textSize="16sp"

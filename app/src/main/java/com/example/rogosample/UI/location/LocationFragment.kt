@@ -35,6 +35,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
             toolbar.btnBack.setOnClickListener {
                 findNavController().popBackStack()
             }
+
             toolbar.txtTitle.text = resources.getString(R.string.get_list_location)
         }
     }

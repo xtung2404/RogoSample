@@ -28,9 +28,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/set_time"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="16dp"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -40,13 +40,13 @@
                     tools:listitem="@layout/layout_item_date"
                     tools:itemCount="7"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="8dp"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="8dp">
                     <Spinner
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
@@ -72,33 +72,32 @@
                     android:layout_height="wrap_content"
                     android:text="@string/smart_name"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="8dp"/>
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/edt_smart_name"
                     android:hint=""
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textColor="@color/white"
-                    android:background="@drawable/bg_input_black_10dp"
                     android:paddingVertical="15dp"
                     android:paddingStart="5dp"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="8dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/add_command"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="8dp"/>
                 <Spinner
                     android:id="@+id/spinner_command"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="8dp"
                     android:paddingVertical="10dp" />
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -189,9 +188,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/select_device"
                         android:textColor="@color/white"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
-                        android:layout_marginTop="20dp"/>
+                        android:layout_marginTop="8dp"/>
 
                     <Spinner
                         android:id="@+id/spinner_device"
@@ -204,27 +203,27 @@
                         android:layout_height="wrap_content"
                         android:text="@string/select_element"
                         android:textColor="@color/white"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
-                        android:layout_marginTop="20dp"/>
+                        android:layout_marginTop="8dp"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_element"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="8dp"
                         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                         app:spanCount="2"/>
                     <androidx.appcompat.widget.AppCompatButton
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/btn_add_schedule"
-                        android:textAllCaps="false"
+                        android:textAllCaps="true"
                         android:text="@string/add_schedule"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:textColor="@color/white"
                         android:background="@drawable/btn_yellow_20dp"
-                        android:layout_marginTop="10dp"/>
+                        android:layout_marginTop="8dp"/>
                 </LinearLayout>
 
             </LinearLayout>

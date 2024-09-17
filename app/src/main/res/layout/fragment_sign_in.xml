@@ -21,16 +21,15 @@
             android:text="@string/username"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:textSize="16sp"
-            android:layout_marginTop="8dp"/>
+            android:textSize="12sp"
+            android:layout_marginTop="16dp"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edt_username"
             android:hint=""
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textColor="@color/white"
-            android:background="@drawable/bg_input_black_10dp"
             android:paddingVertical="15dp"
             android:paddingStart="5dp"
             android:layout_marginTop="8dp"/>
@@ -40,16 +39,15 @@
             android:text="@string/email"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:layout_marginTop="8dp"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edt_email"
             android:hint=""
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textColor="@color/white"
-            android:background="@drawable/bg_input_black_10dp"
             android:paddingVertical="15dp"
             android:paddingStart="5dp"
             android:layout_marginTop="8dp"/>
@@ -59,34 +57,36 @@
             android:text="@string/password"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:layout_marginTop="8dp"/>
+
         <EditText
+            android:id="@+id/edt_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edt_password"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:background="@drawable/bg_input_black_10dp"
+            android:layout_marginTop="8dp"
             android:paddingVertical="15dp"
             android:paddingStart="5dp"
-            android:layout_marginTop="8dp"/>
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btn_sign_in"
             android:text="@string/sign_in"
-            android:textSize="16sp"
-            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textColor="@color/white"
             android:background="@drawable/btn_yellow_20dp"
-            android:textAllCaps="false"
+            android:textAllCaps="true"
+            android:textStyle="normal"
             android:layout_marginTop="10dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/ln_options"
             android:orientation="vertical"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:visibility="gone">
             <TextView
                 android:layout_width="wrap_content"
@@ -101,10 +101,10 @@
                 android:id="@+id/btn_to_location"
                 android:text="@string/options_location"
                 android:textSize="16sp"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:background="@drawable/btn_yellow_20dp"
                 android:textAllCaps="false"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="8dp"/>
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -115,7 +115,7 @@
                 android:background="@drawable/btn_yellow_20dp"
                 android:backgroundTint="@color/red"
                 android:textAllCaps="false"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="8dp"/>
         </LinearLayout>
     </LinearLayout>
 </layout>

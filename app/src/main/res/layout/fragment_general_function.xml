@@ -28,45 +28,61 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/group"
-                    android:textColor="@color/white"
+                    android:text="@string/group_functions"
+                    android:textColor="@color/yellow"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="8dp"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/rv_group_function"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:layout_marginTop="5dp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/device"
-                    android:textColor="@color/white"
+                    android:text="@string/virtual_group_functions"
+                    android:textColor="@color/yellow"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="8dp"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rv_virutal_group_function"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:layout_marginTop="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/device_function"
+                    android:textColor="@color/yellow"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/rv_device_function"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:layout_marginTop="5dp"/>
+                    android:layout_marginTop="8dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/smart"
-                    android:textColor="@color/white"
+                    android:text="@string/smart_functions"
+                    android:textColor="@color/yellow"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="8dp"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/rv_smart_function"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:layout_marginTop="5dp"/>
+                    android:layout_marginTop="8dp"/>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>

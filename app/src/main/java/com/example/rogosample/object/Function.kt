@@ -19,6 +19,9 @@ enum class Function(
     EDITGROUP(R.string.edit_group),
     DELETEGROUP(R.string.delete_group),
     VIRTUALGROUP(R.string.virtual_group),
+    CREATEVIRTUALGROUP(R.string.create_virtual_group),
+    BINDMEMBERGROUP(R.string.bind_member_to_virtual_group),
+    UNBINDMEMBERGROUP(R.string.unbind_member_to_virtual_group),
     GETLISTDEVICE(R.string.get_list_device),
     ADDDEVICE(R.string.add_device),
     EDITDEVICE(R.string.edit_device),
@@ -26,7 +29,7 @@ enum class Function(
     ADDBOX(R.string.add_box),
     ADDBLE(R.string.add_ble),
     ADDZIGBEE(R.string.add_zigbee_device),
-    ADDIR(R.string.add_device_ir),
+    ADDWILEDEVICE(R.string.add_wile_device),
     ADDIRREMOTE(R.string.add_ir_remote),
     ADDIRREMOTEAC(R.string.add_ir_ac_remote),
     SMARTSCENARIO(R.string.smart_scenario),
@@ -60,12 +63,18 @@ enum class Function(
             DELETELOCATION
         )
 
+        fun getVirtualGroupFuncs() = arrayListOf<Function>(
+            VIRTUALGROUP,
+            CREATEVIRTUALGROUP,
+            BINDMEMBERGROUP,
+            UNBINDMEMBERGROUP
+        )
+
         fun getGroupFuncs() = arrayListOf<Function>(
             GETLISTGROUP,
             ADDGROUP,
             EDITGROUP,
-            DELETEGROUP,
-            VIRTUALGROUP
+            DELETEGROUP
         )
         fun getDeviceFuncs() = arrayListOf<Function>(
             GETLISTDEVICE,
@@ -78,7 +87,7 @@ enum class Function(
             ADDBOX,
             ADDBLE,
             ADDZIGBEE,
-            ADDIR,
+            ADDWILEDEVICE,
             ADDIRREMOTE,
             ADDIRREMOTEAC
         )

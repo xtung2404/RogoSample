@@ -11,6 +11,9 @@ import com.example.rogosample.adapter.ElementSelectionAdapter
 import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentAddSmartScenarioBinding
 import com.example.rogosample.`object`.Command
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import okhttp3.internal.notify
 import rogo.iot.module.platform.callback.RequestCallback
 import rogo.iot.module.rogocore.basesdk.define.IoTAttribute
@@ -211,12 +214,16 @@ class AddSmartScenarioFragment : BaseFragment<FragmentAddSmartScenarioBinding>()
                                     cmdsMap,
                                     object : RequestCallback<IoTSmartCmd> {
                                         override fun onSuccess(p0: IoTSmartCmd?) {
-                                            showNoti(R.string.add_success)
+                                            CoroutineScope(Dispatchers.Main).launch {
+                                                showNoti(R.string.add_success)
+                                            }
                                         }
 
                                         override fun onFailure(p0: Int, p1: String?) {
-                                            p1?.let { msg ->
-                                                showNoti(msg)
+                                            CoroutineScope(Dispatchers.Main).launch {
+                                                p1?.let { msg ->
+                                                    showNoti(msg)
+                                                }
                                             }
                                         }
 
