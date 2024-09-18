@@ -20,7 +20,11 @@ import com.example.rogosample.databinding.FragmentAddSmartAdvanceBinding
 import com.example.rogosample.`object`.AutomationType
 import com.example.rogosample.`object`.Command
 import com.example.rogosample.`object`.ELement
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import rogo.iot.module.platform.callback.RequestCallback
+import rogo.iot.module.rogocore.basesdk.define.IoTAttribute
 import rogo.iot.module.rogocore.basesdk.define.IoTAutomationType
 import rogo.iot.module.rogocore.basesdk.define.IoTCmdConst
 import rogo.iot.module.rogocore.basesdk.define.IoTCondition
@@ -123,6 +127,20 @@ class AddSmartAdvanceFragment : BaseFragment<FragmentAddSmartAdvanceBinding>() {
                 ioTTargetCmd = IoTTargetCmd(
                     0,
                     intArrayOf(Command.OFF.cmdAttribute, Command.OFF.cmdType)
+                )
+            }
+
+            Command.SYNCON -> {
+                ioTTargetCmd = IoTTargetCmd(
+                    0,
+                    intArrayOf(Command.SYNCON.cmdAttribute, 0)
+                )
+            }
+
+            Command.SYNCOFF -> {
+                ioTTargetCmd = IoTTargetCmd(
+                    0,
+                    intArrayOf(Command.SYNCOFF.cmdAttribute, 0)
                 )
             }
 
@@ -285,7 +303,11 @@ class AddSmartAdvanceFragment : BaseFragment<FragmentAddSmartAdvanceBinding>() {
                             }
                         }
                         deviceExtList = SmartSdk.deviceHandler().all.filter { device ->
-                            device.containtFeature(ioTCommand.cmdAttribute)
+                            if (ioTCommand == Command.SYNCON || ioTCommand == Command.SYNCOFF) {
+                                device.containtFeature(IoTAttribute.ONOFF)
+                            } else {
+                                device.containtFeature(ioTCommand.cmdAttribute)
+                            }
                         }
                         deviceExtSpinnerAdapter =
                             DeviceSpinnerAdapter(requireContext(), deviceExtList)
@@ -387,15 +409,19 @@ class AddSmartAdvanceFragment : BaseFragment<FragmentAddSmartAdvanceBinding>() {
                             ioTSmartTrigger,
                             object : RequestCallback<IoTSmartTrigger> {
                                 override fun onSuccess(p0: IoTSmartTrigger?) {
-                                    dialogLoading.dismiss()
-                                    lnDevOwn.visibility = View.GONE
-                                    lnDevExt.visibility = View.VISIBLE
+                                    CoroutineScope(Dispatchers.Main).launch {
+                                        dialogLoading.dismiss()
+                                        lnDevOwn.visibility = View.GONE
+                                        lnDevExt.visibility = View.VISIBLE
+                                    }
                                 }
 
                                 override fun onFailure(p0: Int, p1: String?) {
-                                    dialogLoading.dismiss()
-                                    p1?.let {
-                                        showNoti(it)
+                                    CoroutineScope(Dispatchers.Main).launch {
+                                        dialogLoading.dismiss()
+                                        p1?.let {
+                                            showNoti(it)
+                                        }
                                     }
                                 }
 
@@ -404,9 +430,11 @@ class AddSmartAdvanceFragment : BaseFragment<FragmentAddSmartAdvanceBinding>() {
                     }
 
                     override fun onFailure(p0: Int, p1: String?) {
-                        dialogLoading.dismiss()
-                        p1?.let {
-                            showNoti(it)
+                        CoroutineScope(Dispatchers.Main).launch {
+                            dialogLoading.dismiss()
+                            p1?.let {
+                                showNoti(it)
+                            }
                         }
                     }
 
@@ -423,15 +451,19 @@ class AddSmartAdvanceFragment : BaseFragment<FragmentAddSmartAdvanceBinding>() {
                 cmdsMap,
                 object : RequestCallback<IoTSmartCmd> {
                     override fun onSuccess(p0: IoTSmartCmd?) {
-                        dialogLoading.dismiss()
-                        SmartSdk.smartFeatureHandler().activeSmart(it)
-                        showNoti(R.string.add_success)
+                        CoroutineScope(Dispatchers.Main).launch {
+                            dialogLoading.dismiss()
+                            SmartSdk.smartFeatureHandler().activeSmart(it)
+                            showNoti(R.string.add_success)
+                        }
                     }
 
                     override fun onFailure(p0: Int, p1: String?) {
-                        dialogLoading.dismiss()
-                        p1?.let {
-                            showNoti(it)
+                        CoroutineScope(Dispatchers.Main).launch {
+                            dialogLoading.dismiss()
+                            p1?.let {
+                                showNoti(it)
+                            }
                         }
                     }
 

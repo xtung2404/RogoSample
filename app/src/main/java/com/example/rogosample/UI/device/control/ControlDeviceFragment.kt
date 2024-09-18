@@ -90,16 +90,6 @@ class ControlDeviceFragment : BaseFragment<FragmentControlDeviceBinding>() {
                         ioTDevice?.uuid, intArrayOf(
                             (spinnerElement.selectedItem as Map.Entry<Int, String>).key
                         ), p1, object : AckStatusCallback(3000) {
-//                            override fun onFailure(errorCode: Int, message: String?) {
-//                                message?.let {
-//                                    showNoti(it)
-//                                }
-//                            }
-//
-//                            override fun onSuccess() {
-//
-//                            }
-
                             override fun onStatus(p0: Int, p1: IoTAckStatus?, p2: Int) {
 
                             }
@@ -145,16 +135,6 @@ class ControlDeviceFragment : BaseFragment<FragmentControlDeviceBinding>() {
                     ioTDevice?.uuid,
                     IoTCmdConst.DOOR_LOCKED,
                     object : AckStatusCallback(3000) {
-//                        override fun onFailure(errorCode: Int, message: String?) {
-//                            message?.let {
-//                                showNoti(it)
-//                            }
-//                        }
-//
-//                        override fun onSuccess() {
-//
-//                        }
-
                         override fun onStatus(p0: Int, p1: IoTAckStatus?, p2: Int) {
                             TODO("Not yet implemented")
                         }
@@ -166,18 +146,8 @@ class ControlDeviceFragment : BaseFragment<FragmentControlDeviceBinding>() {
                     ioTDevice?.uuid,
                     IoTCmdConst.DOOR_UNLOCKED,
                     object : AckStatusCallback(3000) {
-//                        override fun onFailure(errorCode: Int, message: String?) {
-//                            message?.let {
-//                                showNoti(it)
-//                            }
-//                        }
-//
-//                        override fun onSuccess() {
-//
-//                        }
-
                         override fun onStatus(p0: Int, p1: IoTAckStatus?, p2: Int) {
-                            TODO("Not yet implemented")
+
                         }
                     })
             }

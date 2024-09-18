@@ -55,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:paddingVertical="10dp" />
+                android:paddingVertical="8dp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -95,7 +95,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -144,11 +145,12 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="8dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -186,13 +188,13 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="8dp"/>
             <SeekBar
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:id="@+id/sb_brightness"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="8dp"
                 android:max="100"
                 android:min="0"/>
         </LinearLayout>
@@ -209,13 +211,13 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="8dp"/>
             <SeekBar
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:id="@+id/sb_saturation"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="8dp"
                 android:min="0"
                 android:max="360"/>
             <TextView
@@ -225,13 +227,13 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="8dp"/>
             <SeekBar
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:id="@+id/sb_color"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="8dp"
                 android:min="1"
                 android:max="5"/>
         </LinearLayout>

@@ -152,6 +152,8 @@
     <string name="power">Power</string>
     <string name="power_on">On</string>
     <string name="power_off">Off</string>
+    <string name="sync_on">Sync on</string>
+    <string name="sync_off">Sync off</string>
     <string name="fan_speed">Fan speed</string>
     <string name="up">Up</string>
     <string name="down">Down</string>

@@ -15,9 +15,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.navigation.fragment.findNavController
-import com.example.rogosample.`object`.AcControlItem
 import com.example.rogosample.R
-import com.example.rogosample.adapter.AcControlAdapter
 import com.example.rogosample.adapter.DeviceSpinnerAdapter
 import com.example.rogosample.adapter.GroupSpinnerAdapter
 import com.example.rogosample.adapter.IrCodeAdapter
@@ -28,19 +26,20 @@ import com.example.rogosample.base.getDeviceName
 import com.example.rogosample.databinding.FragmentLearnIRBinding
 import com.example.rogosample.`object`.DeviceLearnIr
 import com.example.rogosample.`object`.IrCode
-import com.google.gson.Gson
-import no.nordicsemi.android.ble.callback.SuccessCallback
+import com.example.rogosample.`object`.getIrCodeName
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import rogo.iot.module.platform.ILogR
-import rogo.iot.module.rogocore.basesdk.define.IoTCmdConst
+import rogo.iot.module.platform.callback.RequestCallback
 import rogo.iot.module.rogocore.basesdk.define.IoTIrCode
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.callback.CheckIrHubAvailableCallback
 import rogo.iot.module.rogocore.sdk.callback.LearnIrCallback
-//import rogo.iot.module.rogocore.sdk.callback.SuccessCallback
+import rogo.iot.module.rogocore.sdk.define.ir.IoTIrPrtc
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
 import rogo.iot.module.rogocore.sdk.entity.IoTGroup
 import rogo.iot.module.rogocore.sdk.entity.IoTIrProtocolInfo
-import rogo.iot.module.rogocore.sdk.entity.IoTIrRemote
 
 class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
     override val layoutId: Int
@@ -111,12 +110,19 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
             /*
             * Check available Hub devices such as : FPT Box, IR Device...
             * */
-            SmartSdk.configIrRemoteDeviceHandler().checkIrHubAvailable(object : CheckIrHubAvailableCallback {
-                override fun onIrDeviceInfo(devId: String?, irSupport: Int, protcolSupport: Int) {
-                    irDeviceList.add(SmartSdk.deviceHandler().get(devId))
-                    iRDeviceAdapter.notifyDataSetChanged()
-                }
-            })
+            SmartSdk.configIrRemoteDeviceHandler()
+                .checkIrHubAvailable(object : CheckIrHubAvailableCallback {
+                    override fun onIrDeviceInfo(
+                        devId: String?,
+                        irSupport: Int,
+                        protcolSupport: Int
+                    ) {
+                        CoroutineScope(Dispatchers.Main).launch {
+                            irDeviceList.add(SmartSdk.deviceHandler().get(devId))
+                            iRDeviceAdapter.notifyDataSetChanged()
+                        }
+                    }
+                })
 
             /*
             * Select available buttons like the remote
@@ -145,7 +151,7 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
                                     IoTIrCode.NUM_9,
                                     IoTIrCode.FAN_SPEED
                                 )) {
-//                                    irList.add(IrCode(i, getIrCodeFanName(i)))
+                                    irList.add(IrCode(i, getIrCodeName(i)))
                                 }
                                 irCodeAdapter.notifyDataSetChanged()
                             }
@@ -182,7 +188,7 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
                                     IoTIrCode.MENU,
                                     IoTIrCode.MUTE
                                 )) {
-//                                    irList.add(IrCode(i, getIrCodeTVName(i)))
+                                    irList.add(IrCode(i, getIrCodeName(i)))
                                 }
                                 irCodeAdapter.notifyDataSetChanged()
                             }
@@ -235,13 +241,13 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
         btnRetry.visibility = View.GONE
         if (!irCodeLearned.contains(irCodeToLearn[currentPos])) {
             if (binding.spinnerType.selectedItem as DeviceLearnIr == DeviceLearnIr.FAN) {
-//                txtLearnIr.text = "Hướng điều khiển vào thiết bị hồng ngoại và nhấn nút ${
-//                    getString(getIrCodeFanName(irCodeToLearn[currentPos]))
-//                }"
+                txtLearnIr.text = "Hướng điều khiển vào thiết bị hồng ngoại và nhấn nút ${
+                    getString(getIrCodeName(irCodeToLearn[currentPos]))
+                }"
             } else {
-//                txtLearnIr.text = "Hướng điều khiển vào thiết bị hồng ngoại và nhấn nút ${
-//                    getString(getIrCodeTVName(irCodeToLearn[currentPos]))
-//                }"
+                txtLearnIr.text = "Hướng điều khiển vào thiết bị hồng ngoại và nhấn nút ${
+                    getString(getIrCodeName(irCodeToLearn[currentPos]))
+                }"
             }
             SmartSdk.configIrRemoteDeviceHandler().learnIr(
                 (binding.spinnerHub.selectedItem as IoTDevice).uuid,
@@ -259,19 +265,25 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
         override fun onIrRawLearned(requestId: Int, irProtocol: IoTIrProtocolInfo?) {
 //            ILogR.D("LearnIrFragment", Gson().toJson(irProtocol), irProtocol?.rawData)
             protocolInfo = irProtocol
-            if (irCodeToLearn.size > irCodeLearned.size) {
-                btnContinue.visibility = View.VISIBLE
-                if (binding.spinnerType.selectedItem as DeviceLearnIr == DeviceLearnIr.FAN) {
-//                    txtLearnIr.text =
-//                        "Học thành công ${getString(getIrCodeFanName(irCodeToLearn[currentPos]))}"
+            if (protocolInfo?.irp == 65535 || protocolInfo?.irp == IoTIrPrtc.UNKNOWN) {
+                 ILogR.D("LearnIrFragment", "Điều khiển này có thể không được hỗ trợ!")
+                return
+            }
+            CoroutineScope(Dispatchers.Main).launch {
+                if (irCodeToLearn.size > irCodeLearned.size) {
+                    btnContinue.visibility = View.VISIBLE
+                    if (binding.spinnerType.selectedItem as DeviceLearnIr == DeviceLearnIr.FAN) {
+                        txtLearnIr.text =
+                            "Học thành công ${getString(getIrCodeName(irCodeToLearn[currentPos]))}"
+                    } else {
+                        txtLearnIr.text =
+                            "Học thành công ${getString(getIrCodeName(irCodeToLearn[currentPos]))}"
+                    }
+                    irCodeLearned.add(irCodeToLearn[currentPos])
                 } else {
-//                    txtLearnIr.text =
-//                        "Học thành công ${getString(getIrCodeTVName(irCodeToLearn[currentPos]))}"
+                    learnIrDialog.dismiss()
+                    setUpRemoteDialog.show()
                 }
-                irCodeLearned.add(irCodeToLearn[currentPos])
-            } else {
-                learnIrDialog.dismiss()
-                setUpRemoteDialog.show()
             }
         }
 
@@ -280,7 +292,9 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
         }
 
         override fun onFailure(requestId: Int, errorCode: Int, msg: String?) {
-            btnRetry.visibility = View.VISIBLE
+            CoroutineScope(Dispatchers.Main).launch {
+                btnRetry.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -326,7 +340,8 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
         /*
         * Get available manufacturers of the device
         * */
-        manufacturerSpinnerAdapter = ManufacturerSpinnerAdapter(requireContext(),
+        manufacturerSpinnerAdapter = ManufacturerSpinnerAdapter(
+            requireContext(),
             getDeviceName.getClassInfo().entries.filter {
                 SmartSdk.configIrRemoteDeviceHandler()
                     .getSupportManufacturers((binding.spinnerType.selectedItem as DeviceLearnIr).type)
@@ -343,26 +358,31 @@ class LearnIRFragment : BaseFragment<FragmentLearnIRBinding>() {
         btnContinueSetUp.setOnClickListener {
             setUpRemoteDialog.dismiss()
             dialogLoading.show()
-//            SmartSdk.learnIrDeviceHandler().addIrRemoteLearned(
-//                (binding.spinnerHub.selectedItem as IoTDevice).uuid,
-//                edtDeviceName.text.toString(),
-//                (manufacturerSpinner.selectedItem as Map.Entry<String, Int>).value,
-//                (binding.spinnerType.selectedItem as DeviceLearnIr).type,
-//                (groupSpinner.selectedItem as IoTGroup).uuid,
-//                object : SuccessCallback<IoTDevice> {
-//                    override fun onFailure(errorCode: Int, message: String?) {
-//                        dialogLoading.dismiss()
-//                        message?.let {
-//                            showNoti(it)
-//                        }
-//                    }
-//
-//                    override fun onSuccess(item: IoTDevice?) {
-//                        dialogLoading.dismiss()
-//                        showNoti(R.string.add_ir_remote_success)
-//                    }
-//                }
-//            )
+            SmartSdk.configIrRemoteDeviceHandler().addIrRemoteLearned(
+                (binding.spinnerHub.selectedItem as IoTDevice).uuid,
+                edtDeviceName.text.toString(),
+                (manufacturerSpinner.selectedItem as Map.Entry<String, Int>).value,
+                (binding.spinnerType.selectedItem as DeviceLearnIr).type,
+                (groupSpinner.selectedItem as IoTGroup).uuid,
+                protocolInfo,
+                object : RequestCallback<IoTDevice> {
+                    override fun onFailure(errorCode: Int, message: String?) {
+                        CoroutineScope(Dispatchers.Main).launch {
+                            dialogLoading.dismiss()
+                            message?.let {
+                                showNoti(it)
+                            }
+                        }
+                    }
+
+                    override fun onSuccess(item: IoTDevice?) {
+                        CoroutineScope(Dispatchers.Main).launch {
+                            dialogLoading.dismiss()
+                            showNoti(R.string.add_ir_remote_success)
+                        }
+                    }
+                }
+            )
         }
         setUpRemoteDialog.setCanceledOnTouchOutside(true)
         val window = setUpRemoteDialog.window ?: return

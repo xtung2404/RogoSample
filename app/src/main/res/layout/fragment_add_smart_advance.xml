@@ -175,7 +175,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:layout_marginTop="8dp">
+                            android:layout_marginTop="8dp"
+                            android:gravity="center_vertical">
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -187,12 +188,12 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
                                 <Spinner
-                                    android:layout_width="50dp"
+                                    android:layout_width="100dp"
                                     android:layout_height="wrap_content"
-                                    android:id="@+id/spinner_first_hour"
-                                    android:background="@drawable/bg_input_black_10dp"/>
+                                    android:id="@+id/spinner_first_hour" />
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -201,17 +202,17 @@
                                     android:textSize="16sp"
                                     android:textStyle="bold"/>
                                 <Spinner
-                                    android:layout_width="50dp"
+                                    android:layout_width="100dp"
                                     android:layout_height="wrap_content"
-                                    android:id="@+id/spinner_first_minute"
-                                    android:background="@drawable/bg_input_black_10dp"/>
+                                    android:id="@+id/spinner_first_minute"/>
                             </LinearLayout>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:layout_marginTop="8dp">
+                            android:layout_marginTop="8dp"
+                            android:gravity="center_vertical">
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -223,12 +224,12 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
                                 <Spinner
-                                    android:layout_width="50dp"
+                                    android:layout_width="100dp"
                                     android:layout_height="wrap_content"
-                                    android:id="@+id/spinner_second_hour"
-                                    android:background="@drawable/bg_input_black_10dp"/>
+                                    android:id="@+id/spinner_second_hour" />
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -237,17 +238,17 @@
                                     android:textSize="16sp"
                                     android:textStyle="bold"/>
                                 <Spinner
-                                    android:layout_width="50dp"
+                                    android:layout_width="100dp"
                                     android:layout_height="wrap_content"
-                                    android:id="@+id/spinner_second_minute"
-                                    android:background="@drawable/bg_input_black_10dp"/>
+                                    android:id="@+id/spinner_second_minute"/>
                             </LinearLayout>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:layout_marginTop="8dp">
+                            android:layout_marginTop="8dp"
+                            android:gravity="center_vertical">
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -259,9 +260,7 @@
                             <Spinner
                                 android:layout_width="100dp"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/spinner_time"
-                                android:layout_marginTop="5dp"
-                                android:background="@drawable/bg_input_black_10dp"/>
+                                android:id="@+id/spinner_time"/>
                         </LinearLayout>
                         <androidx.appcompat.widget.AppCompatButton
                             android:layout_width="match_parent"

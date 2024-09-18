@@ -12,6 +12,8 @@ enum class Command(
 ) {
     ON(IoTAttribute.ONOFF, IoTCmdConst.POWER_ON, R.string.power_on),
     OFF(IoTAttribute.ONOFF, IoTCmdConst.POWER_OFF, R.string.power_off),
+    SYNCON(IoTAttribute.SYNC_ONOFF_NORMAL, 0, R.string.sync_on),
+    SYNCOFF(IoTAttribute.SYNC_ONOFF_REVERSING, 0, R.string.sync_off),
     OPEN(IoTAttribute.OPEN_CLOSE_CTL, IoTCmdConst.OPENCLOSE_MODE_OPEN, R.string.open),
     CLOSE(IoTAttribute.OPEN_CLOSE_CTL, IoTCmdConst.OPENCLOSE_MODE_CLOSE, R.string.close),
     BRIGHTNESS(IoTAttribute.BRIGHTNESS_KELVIN, -1, R.string.brightness),
@@ -22,6 +24,8 @@ enum class Command(
         fun getCmdList() = arrayListOf<Command>(
             ON,
             OFF,
+            SYNCON,
+            SYNCOFF,
             OPEN,
             CLOSE,
             BRIGHTNESS,
