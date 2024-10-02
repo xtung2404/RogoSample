@@ -46,6 +46,7 @@ class ConfigMeshFragment : BaseFragment<FragmentConfigMeshBinding>() {
     private val deviceMap = hashMapOf<String, IoTBleScanned>()
     private var ioTBleScanned: IoTBleScanned? = null
     private val TAG = "ConfigMeshFragment"
+
     private lateinit var deviceSpinnerAdapter: DeviceSpinnerAdapter
     private val groupSpinnerAdapter by lazy {
         GroupSpinnerAdapter(requireContext(), SmartSdk.groupHandler().all.toMutableList())
@@ -70,10 +71,12 @@ class ConfigMeshFragment : BaseFragment<FragmentConfigMeshBinding>() {
         * Check available hub
         * */
         CoroutineScope(Dispatchers.Main).launch {
-            SmartSdk.configMeshDeviceHandler().checkMeshGatewayAvailable { devId ->
-                ILogR.D(TAG, "HUB_DEVICE", devId)
-                deviceList.add(SmartSdk.deviceHandler().get(devId))
-            }
+            SmartSdk.configMeshDeviceHandler().checkMeshGatewayAvailable(object : CheckDeviceAvailableCallback {
+                override fun onDeviceAvailable(devId: String?) {
+                    ILogR.D(TAG, "HUB_DEVICE", devId)
+                    deviceList.add(SmartSdk.deviceHandler().get(devId))
+                }
+            })
             delay(5000)
             deviceSpinnerAdapter = DeviceSpinnerAdapter(requireContext(), deviceList)
             binding.spinnerHub.adapter = deviceSpinnerAdapter

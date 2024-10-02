@@ -83,7 +83,8 @@
     <string name="empty">Empty!</string>
     <string name="add_box">Add Box</string>
     <string name="add_ble">Add Device BLE</string>
-    <string name="add_zigbee_device">Add Device Zigbee</string>
+    <string name="add_zigbee_device">Add Zigbee Device</string>
+    <string name="add_rf_device">Add Rf Device</string>
     <string name="add_device_ir">Add Device IR</string>
     <string name="add_wile_device">Add Wile Device</string>
     <string name="add_ir_remote">Add IR Remote</string>

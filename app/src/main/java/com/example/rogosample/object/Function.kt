@@ -30,6 +30,7 @@ enum class Function(
     ADDBLE(R.string.add_ble),
     ADDZIGBEE(R.string.add_zigbee_device),
     ADDWILEDEVICE(R.string.add_wile_device),
+    ADDRFDEVICE(R.string.add_rf_device),
     ADDIRREMOTE(R.string.add_ir_remote),
     ADDIRREMOTEAC(R.string.add_ir_ac_remote),
     SMARTSCENARIO(R.string.smart_scenario),
@@ -88,6 +89,7 @@ enum class Function(
             ADDBLE,
             ADDZIGBEE,
             ADDWILEDEVICE,
+            ADDRFDEVICE,
             ADDIRREMOTE,
             ADDIRREMOTEAC
         )

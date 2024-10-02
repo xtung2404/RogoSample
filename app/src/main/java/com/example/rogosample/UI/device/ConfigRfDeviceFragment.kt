@@ -6,43 +6,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
 import androidx.navigation.fragment.findNavController
 import com.example.rogosample.R
 import com.example.rogosample.adapter.DeviceSpinnerAdapter
 import com.example.rogosample.adapter.GroupSpinnerAdapter
 import com.example.rogosample.base.BaseFragment
-import com.example.rogosample.databinding.FragmentConfigZigbeeBinding
+import com.example.rogosample.databinding.FragmentConfigRfDeviceBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import no.nordicsemi.android.ble.callback.SuccessCallback
 import rogo.iot.module.platform.callback.RequestCallback
 import rogo.iot.module.rogocore.basesdk.define.IoTDeviceSubType
 import rogo.iot.module.rogocore.basesdk.define.IoTDeviceType
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.callback.CheckDeviceAvailableCallback
-import rogo.iot.module.rogocore.sdk.callback.DiscoveryIoTBleCallback
+import rogo.iot.module.rogocore.sdk.callback.PairRfDeviceCallback
 import rogo.iot.module.rogocore.sdk.callback.PairZigbeeDeviceCallback
-//import rogo.iot.module.rogocore.sdk.callback.DiscoveryIoTZigbeeCallback
-//import rogo.iot.module.rogocore.sdk.callback.GetZigbeeAvailableCallback
-//import rogo.iot.module.rogocore.sdk.callback.SuccessCallback
-import rogo.iot.module.rogocore.sdk.entity.IoTBleScanned
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
 import rogo.iot.module.rogocore.sdk.entity.IoTGroup
+import rogo.iot.module.rogocore.sdk.entity.IoTPairedRfDevice
 import rogo.iot.module.rogocore.sdk.entity.IoTPairedZigbeeDevice
-//import rogo.iot.module.rogocore.sdk.entity.IoTZigbeePaired
-import rogo.iot.module.rogocore.sdk.entity.SetupDeviceInfo
 
-class ConfigZigbeeFragment : BaseFragment<FragmentConfigZigbeeBinding>() {
+class ConfigRfDeviceFragment : BaseFragment<FragmentConfigRfDeviceBinding>() {
     override val layoutId: Int
-        get() = R.layout.fragment_config_zigbee
+        get() = R.layout.fragment_config_rf_device
     private val deviceList = arrayListOf<IoTDevice>()
     private var scanningTime = 60
     private val deviceMap = hashMapOf<String, IoTPairedZigbeeDevice>()
-    private var device: IoTPairedZigbeeDevice?= null
+    private var device: IoTPairedRfDevice?= null
     private var gatewayId = ""
     private var deviceSubType = -1
     private val devType = IoTDeviceType.USB_DONGLE
@@ -53,12 +45,14 @@ class ConfigZigbeeFragment : BaseFragment<FragmentConfigZigbeeBinding>() {
     override fun initVariable() {
         super.initVariable()
         binding.apply {
-            deviceList.clear()
-            toolbar.btnBack.setOnClickListener {
-                findNavController().popBackStack()
+            binding.apply {
+                toolbar.btnBack.setOnClickListener {
+                    findNavController().popBackStack()
+                }
+                toolbar.txtTitle.text = resources.getString(R.string.add_rf_device)
+                spinnerGroup.adapter = groupSpinnerAdapter
+                binding.btnStartScan.visibility = View.GONE
             }
-            toolbar.txtTitle.text = resources.getString(R.string.add_zigbee_device)
-            spinnerGroup.adapter = groupSpinnerAdapter
         }
     }
 
@@ -67,7 +61,7 @@ class ConfigZigbeeFragment : BaseFragment<FragmentConfigZigbeeBinding>() {
         binding.btnStartScan.setOnClickListener {
             startScan()
         }
-        binding.spinnerHub.onItemSelectedListener = object : OnItemSelectedListener {
+        binding.spinnerHub.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 binding.btnStartScan.visibility = View.VISIBLE
             }
@@ -75,18 +69,22 @@ class ConfigZigbeeFragment : BaseFragment<FragmentConfigZigbeeBinding>() {
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 binding.btnStartScan.visibility = View.GONE
             }
-
         }
         CoroutineScope(Dispatchers.Main).launch {
-            SmartSdk.configZigbeeDeviceHandler().checkNetworkAvailable(object: CheckDeviceAvailableCallback  {
+            dialogLoading.show()
+            SmartSdk.configRfDeviceHandler().checkNetworkAvailable(object : CheckDeviceAvailableCallback {
                 override fun onDeviceAvailable(p0: String?) {
-                    deviceList.add(SmartSdk.deviceHandler().get(p0))
+                    val device = SmartSdk.deviceHandler().get(p0)
+                    deviceList.add(device)
                 }
             })
             delay(5000)
-            SmartSdk.configZigbeeDeviceHandler().cancelCheckNetworkAvailable()
+            dialogLoading.dismiss()
+            SmartSdk.configRfDeviceHandler().cancelCheckNetworkAvailable()
             deviceSpinnerAdapter = DeviceSpinnerAdapter(requireContext(), deviceList)
             binding.spinnerHub.adapter = deviceSpinnerAdapter
+            binding.btnStartScan.visibility = if (deviceList.isNotEmpty()) View.VISIBLE else View.GONE
+
         }
         binding.btnAddDevice.setOnClickListener {
             setUp()
@@ -102,20 +100,22 @@ class ConfigZigbeeFragment : BaseFragment<FragmentConfigZigbeeBinding>() {
         stopDiscovery()
         gatewayId = (binding.spinnerHub.selectedItem as IoTDevice).uuid
         deviceMap.clear()
-        SmartSdk.configZigbeeDeviceHandler().startPairingZigbee(gatewayId, scanningTime, devType, object : PairZigbeeDeviceCallback {
-            override fun onPairedDevice(p0: IoTPairedZigbeeDevice?) {
-                device = p0
-                binding.edtDeviceName.setText(p0!!.ioTProductModel.name)
-                binding.lnDevice.visibility = View.VISIBLE
-                stopDiscovery()
-            }
+        SmartSdk.configRfDeviceHandler().startPairingRf(
+            gatewayId,
+            scanningTime,
+            devType,
+            object : PairRfDeviceCallback {
+                override fun onPairedDevice(p0: IoTPairedRfDevice?) {
+                    device = p0
+                    binding.edtDeviceName.setText(p0!!.name)
+                    binding.lnDevice.visibility = View.VISIBLE
+                    stopDiscovery()
+                }
 
-            override fun onPairedUnknownDevice(p0: String?, p1: String?, p2: String?) {
-
             }
-        })
+        )
         CoroutineScope(Dispatchers.Default).launch {
-            delay(5000)
+            delay(10000)
             stopDiscovery()
             if(device == null) {
                 showNoti(R.string.no_available_device)
@@ -123,14 +123,15 @@ class ConfigZigbeeFragment : BaseFragment<FragmentConfigZigbeeBinding>() {
         }
     }
     private fun stopDiscovery() {
-        SmartSdk.configZigbeeDeviceHandler().stopPairingZigbee(gatewayId)
+        SmartSdk.configRfDeviceHandler().stopPairingRf(gatewayId)
     }
     private fun setUp() {
         device?.let {
-            SmartSdk.configZigbeeDeviceHandler().addZigbeeDevice(
-                gatewayId, it,binding.edtDeviceName.text.toString(),
+            SmartSdk.configRfDeviceHandler().addRfDevice(
+                gatewayId,
+                binding.edtDeviceName.text.toString(),
                 (binding.spinnerGroup.selectedItem as IoTGroup).uuid,
-                deviceSubType,
+                it,
                 object: RequestCallback<IoTDevice> {
                     override fun onFailure(errorCode: Int, message: String?) {
                         message?.let {
@@ -145,4 +146,5 @@ class ConfigZigbeeFragment : BaseFragment<FragmentConfigZigbeeBinding>() {
             )
         }
     }
+
 }

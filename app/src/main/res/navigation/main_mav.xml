@@ -279,6 +279,9 @@
         <action
             android:id="@+id/action_addDeviceFragment_to_learnIrAcFragment"
             app:destination="@id/learnIrAcFragment" />
+        <action
+            android:id="@+id/action_addDeviceFragment_to_configRfDeviceFragment"
+            app:destination="@id/configRfDeviceFragment" />
     </fragment>
     <fragment
         android:id="@+id/deviceFragment"
@@ -556,5 +559,13 @@
         <action
             android:id="@+id/action_controlGroupFragment_to_groupFragment"
             app:destination="@id/groupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/configRfDeviceFragment"
+        android:name="com.example.rogosample.UI.device.ConfigRfDeviceFragment"
+        android:label="ConfigRfDeviceFragment" >
+        <action
+            android:id="@+id/action_configRfDeviceFragment_to_addDeviceFragment"
+            app:destination="@id/addDeviceFragment" />
     </fragment>
 </navigation>

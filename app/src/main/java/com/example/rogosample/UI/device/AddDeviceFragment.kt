@@ -36,6 +36,9 @@ class AddDeviceFragment : BaseFragment<FragmentAddDeviceBinding>() {
                 Function.ADDIRREMOTE -> {
                     findNavController().navigate(R.id.learnIRFragment)
                 }
+                Function.ADDRFDEVICE -> {
+                    findNavController().navigate(R.id.configRfDeviceFragment)
+                }
                 else -> {
                     findNavController().navigate(R.id.learnIrAcFragment)
                 }
