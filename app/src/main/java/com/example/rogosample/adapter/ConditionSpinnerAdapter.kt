@@ -6,13 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.example.rogosample.R
-import com.example.rogosample.databinding.LayoutItemFunctionBinding
-import com.example.rogosample.`object`.Command
-import rogo.iot.module.rogocore.basesdk.define.IoTCondition
+import rogo.iot.module.platform.define.IoTCondition
+
 
 class ConditionSpinnerAdapter(context: Context, conditionList: List<Int>): ArrayAdapter<Int>(context, 0, conditionList) {
 

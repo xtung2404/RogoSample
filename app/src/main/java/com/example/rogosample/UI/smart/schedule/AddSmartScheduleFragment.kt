@@ -16,7 +16,6 @@ import com.example.rogosample.`object`.Command
 import com.example.rogosample.`object`.Date
 import rogo.iot.module.platform.ILogR
 import rogo.iot.module.platform.callback.RequestCallback
-import rogo.iot.module.rogocore.basesdk.define.IoTCondition
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
 import rogo.iot.module.rogocore.sdk.entity.smart.IoTSmart

@@ -28,6 +28,39 @@
             android:layout_height="wrap_content"
             android:id="@+id/spinner_device"
             android:layout_marginTop="8dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ln_element"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/select_element"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"/>
+            <Spinner
+                android:id="@+id/spinner_element"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingVertical="8dp"/>
+        </LinearLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_delete_elm_device"
+            android:text="@string/delete_element_device"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_yellow_20dp"
+            android:backgroundTint="@color/red"
+            android:textAllCaps="true"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"/>
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

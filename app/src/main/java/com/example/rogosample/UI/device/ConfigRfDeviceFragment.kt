@@ -16,11 +16,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import rogo.iot.module.platform.ILogR
 import rogo.iot.module.platform.callback.RequestCallback
-import rogo.iot.module.rogocore.basesdk.define.IoTDeviceSubType
-import rogo.iot.module.rogocore.basesdk.define.IoTDeviceType
+import rogo.iot.module.platform.define.IoTDeviceSubType
+import rogo.iot.module.platform.define.IoTDeviceType
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.callback.CheckDeviceAvailableCallback
+import rogo.iot.module.rogocore.sdk.callback.CheckListDeviceAvailableCallback
 import rogo.iot.module.rogocore.sdk.callback.PairRfDeviceCallback
 import rogo.iot.module.rogocore.sdk.callback.PairZigbeeDeviceCallback
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
@@ -37,7 +39,7 @@ class ConfigRfDeviceFragment : BaseFragment<FragmentConfigRfDeviceBinding>() {
     private var device: IoTPairedRfDevice?= null
     private var gatewayId = ""
     private var deviceSubType = -1
-    private val devType = IoTDeviceType.USB_DONGLE
+//    private val devType = IoTDeviceType.
     private lateinit var deviceSpinnerAdapter: DeviceSpinnerAdapter
     private val groupSpinnerAdapter by lazy {
         GroupSpinnerAdapter(requireContext(), SmartSdk.groupHandler().all.toMutableList())
@@ -72,51 +74,61 @@ class ConfigRfDeviceFragment : BaseFragment<FragmentConfigRfDeviceBinding>() {
         }
         CoroutineScope(Dispatchers.Main).launch {
             dialogLoading.show()
-            SmartSdk.configRfDeviceHandler().checkNetworkAvailable(object : CheckDeviceAvailableCallback {
-                override fun onDeviceAvailable(p0: String?) {
-                    val device = SmartSdk.deviceHandler().get(p0)
-                    deviceList.add(device)
+            SmartSdk.configRfDeviceHandler().checkGatewayAvailable (5, object : CheckListDeviceAvailableCallback {
+                override fun onDeviceAvailable(p0: MutableCollection<IoTDevice>?) {
+                    ILogR.D("ConfigRfDeviceFragment", "CENTRAL_LIST", p0?.size)
+                    CoroutineScope(Dispatchers.Main).launch {
+                        p0?.let {
+                            dialogLoading.dismiss()
+                            deviceList.addAll(it)
+                            deviceSpinnerAdapter = DeviceSpinnerAdapter(requireContext(), deviceList)
+                            binding.spinnerHub.adapter = deviceSpinnerAdapter
+                            binding.btnStartScan.visibility = if (deviceList.isNotEmpty()) View.VISIBLE else View.GONE
+                        }
+                    }
                 }
             })
-            delay(5000)
-            dialogLoading.dismiss()
-            SmartSdk.configRfDeviceHandler().cancelCheckNetworkAvailable()
-            deviceSpinnerAdapter = DeviceSpinnerAdapter(requireContext(), deviceList)
-            binding.spinnerHub.adapter = deviceSpinnerAdapter
-            binding.btnStartScan.visibility = if (deviceList.isNotEmpty()) View.VISIBLE else View.GONE
+//            SmartSdk.configRfDeviceHandler().cancelCheckRfGatewayAvailable()
+
 
         }
         binding.btnAddDevice.setOnClickListener {
             setUp()
         }
-        binding.btnCurtain.setOnClickListener {
-            deviceSubType = IoTDeviceSubType.DC_CTL_CURTAIN_TYPE
-        }
-        binding.btnGate.setOnClickListener {
-            deviceSubType = IoTDeviceSubType.DC_CTL_GATE_TYPE
-        }
     }
     private fun startScan() {
+        dialogLoading.show()
         stopDiscovery()
         gatewayId = (binding.spinnerHub.selectedItem as IoTDevice).uuid
         deviceMap.clear()
         SmartSdk.configRfDeviceHandler().startPairingRf(
             gatewayId,
             scanningTime,
-            devType,
+            IoTDeviceType.ALL,
             object : PairRfDeviceCallback {
                 override fun onPairedDevice(p0: IoTPairedRfDevice?) {
-                    device = p0
-                    binding.edtDeviceName.setText(p0!!.name)
-                    binding.lnDevice.visibility = View.VISIBLE
+                    CoroutineScope(Dispatchers.Main).launch {
+                        dialogLoading.dismiss()
+                        p0?.let {
+                            device = it
+                            binding.edtDeviceName.setText(it.name)
+                            binding.lnDevice.visibility = View.VISIBLE
+                            stopDiscovery()
+                        }
+                    }
+                }
+
+                override fun onNoDevicePaired() {
                     stopDiscovery()
+                    dialogLoading.dismiss()
                 }
 
             }
         )
-        CoroutineScope(Dispatchers.Default).launch {
+        CoroutineScope(Dispatchers.Main).launch {
             delay(10000)
             stopDiscovery()
+            dialogLoading.dismiss()
             if(device == null) {
                 showNoti(R.string.no_available_device)
             }
@@ -126,21 +138,27 @@ class ConfigRfDeviceFragment : BaseFragment<FragmentConfigRfDeviceBinding>() {
         SmartSdk.configRfDeviceHandler().stopPairingRf(gatewayId)
     }
     private fun setUp() {
+        dialogLoading.show()
         device?.let {
-            SmartSdk.configRfDeviceHandler().addRfDevice(
+            SmartSdk.configRfDeviceHandler().syncDeviceToCloud(
                 gatewayId,
                 binding.edtDeviceName.text.toString(),
                 (binding.spinnerGroup.selectedItem as IoTGroup).uuid,
                 it,
                 object: RequestCallback<IoTDevice> {
                     override fun onFailure(errorCode: Int, message: String?) {
+                        dialogLoading.dismiss()
+
                         message?.let {
                             showNoti(it)
                         }
                     }
 
                     override fun onSuccess(item: IoTDevice?) {
-                        showNoti(getString(R.string.connect_to, item!!.label))
+                        CoroutineScope(Dispatchers.Main).launch {
+                            dialogLoading.dismiss()
+                            showNoti(getString(R.string.connect_to, item!!.label))
+                        }
                     }
                 }
             )

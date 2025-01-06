@@ -50,7 +50,11 @@
     <string name="location_type">Location type</string>
     <string name="choose_location">Choose location</string>
     <string name="delete_success">Delete success</string>
+    <string name="delete_element_success">Delete element success</string>
+    <string name="delete_element_failure">Delete element failure</string>
     <string name="update_success">Update success</string>
+    <string name="success">Success</string>
+    <string name="failure">Failure</string>
     <string name="add_success">Add success</string>
     <string name="group">Group</string>
     <string name="group_functions">Group functions</string>
@@ -72,6 +76,11 @@
     <string name="set_up">Set up</string>
     <string name="edit_device">Edit device</string>
     <string name="delete_device">Delete device</string>
+    <string name="locate_device_postion">Locate device postion</string>
+    <string name="locate_element_postition">Locate element postion</string>
+    <string name="request_self_test">Request self test</string>
+    <string name="request_self_test_network">Request self test network</string>
+    <string name="delete_element_device">Delete element device</string>
     <string name="group_name">Group name</string>
     <string name="group_type">Group type</string>
     <string name="update_group_name">Update group name</string>
@@ -137,6 +146,7 @@
     <string name="lock">Lock</string>
     <string name="unlock">Unlock</string>
     <string name="control_device">Control device</string>
+    <string name="rf_control">RF control</string>
     <string name="curtain">Curtain</string>
     <string name="gate">Gate</string>
     <string name="wifi_problem">There\'s something wrong with wifi</string>

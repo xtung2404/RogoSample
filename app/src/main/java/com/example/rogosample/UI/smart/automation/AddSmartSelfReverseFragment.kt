@@ -19,10 +19,9 @@ import com.example.rogosample.`object`.AutomationType
 import com.example.rogosample.`object`.ELement
 import rogo.iot.module.platform.ILogR
 import rogo.iot.module.platform.callback.RequestCallback
-import rogo.iot.module.rogocore.basesdk.define.IoTAttribute
-import rogo.iot.module.rogocore.basesdk.define.IoTAutomationType
-import rogo.iot.module.rogocore.basesdk.define.IoTCondition
-import rogo.iot.module.rogocore.basesdk.define.IoTDeviceType
+import rogo.iot.module.platform.define.IoTAutomationType
+import rogo.iot.module.platform.define.IoTCondition
+import rogo.iot.module.platform.define.IoTDeviceType
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
 import rogo.iot.module.rogocore.sdk.entity.smart.IoTReverseOnOff

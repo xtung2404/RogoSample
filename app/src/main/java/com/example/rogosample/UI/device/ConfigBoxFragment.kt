@@ -26,6 +26,7 @@ class ConfigBoxFragment : BaseFragment<FragmentConfigBoxBinding>() {
         super.initVariable()
         binding.apply {
             toolbar.btnBack.setOnClickListener {
+                SmartSdk.configGatewayDeviceHandler().cancel()
                 findNavController().popBackStack()
             }
             toolbar.txtTitle.text = resources.getString(R.string.add_box)
@@ -39,7 +40,8 @@ class ConfigBoxFragment : BaseFragment<FragmentConfigBoxBinding>() {
                 /*
                 * Get a 6 digit code to let user pass on FPT Box
                 * */
-                SmartSdk.configGatewayDeviceHandler().addGatewayDevice(object : RequestAddGatewayCallback {
+
+                SmartSdk.configGatewayDeviceHandler().setupGatewayDevice("verifyId", object : RequestAddGatewayCallback {
                     override fun onVerifyCodeGenerated(code: String?) {
                         btnAddDevice.visibility = View.GONE
                         lnOtp.visibility = View.VISIBLE
@@ -70,7 +72,7 @@ class ConfigBoxFragment : BaseFragment<FragmentConfigBoxBinding>() {
                     }
 
                     override fun onCancelled() {
-                        
+
                     }
 
                 })

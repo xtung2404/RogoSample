@@ -22,7 +22,11 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
         SmartSdk.connectService(object : SmartSdkConnectCallback {
             override fun onConnected(isAuthenticated: Boolean) {
                 if(isAuthenticated) {
-                    findNavController().navigate(R.id.locationFunctionFragment)
+                    if (SmartSdk.getAppLocation() != null) {
+                        findNavController().navigate(R.id.generalFunction)
+                    } else {
+                        findNavController().navigate(R.id.locationFunctionFragment)
+                    }
                 } else {
                     findNavController().navigate(R.id.functionFragment)
                 }

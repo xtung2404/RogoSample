@@ -11,6 +11,7 @@ import com.example.rogosample.adapter.FunctionAdapter
 import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentAddDeviceBinding
 import com.example.rogosample.`object`.Function
+import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.define.ir.IoTIrPrtc
 
 class AddDeviceFragment : BaseFragment<FragmentAddDeviceBinding>() {
@@ -26,7 +27,6 @@ class AddDeviceFragment : BaseFragment<FragmentAddDeviceBinding>() {
                 Function.ADDBLE -> {
                     findNavController().navigate(R.id.configMeshFragment)
                 }
-
                 Function.ADDZIGBEE -> {
                     findNavController().navigate(R.id.configZigbeeFragment)
                 }

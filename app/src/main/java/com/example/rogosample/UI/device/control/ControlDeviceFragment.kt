@@ -12,14 +12,22 @@ import com.example.rogosample.R
 import com.example.rogosample.adapter.ElementSpinnerAdapter
 import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentControlDeviceBinding
-import rogo.iot.module.rogocore.basesdk.define.IoTAttribute
-import rogo.iot.module.rogocore.basesdk.define.IoTCmdConst
+import com.google.gson.Gson
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import rogo.iot.module.platform.ILogR
+import rogo.iot.module.platform.callback.RequestCallback
+import rogo.iot.module.platform.callback.SuccessStatus
+import rogo.iot.module.platform.define.IoTAttribute
+import rogo.iot.module.platform.define.IoTCmdConst
+import rogo.iot.module.platform.define.IoTDeviceType
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.callback.AckStatusCallback
-import rogo.iot.module.rogocore.sdk.callback.SuccessStatusCallback
 import rogo.iot.module.rogocore.sdk.define.IoTAckStatus
-import rogo.iot.module.rogocore.sdk.descibe.IoTDescAttribute
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
+import rogo.iot.module.rogocore.sdk.entity.IoTSelfTestResult
+import java.util.Arrays
 
 class ControlDeviceFragment : BaseFragment<FragmentControlDeviceBinding>() {
     override val layoutId: Int
@@ -34,6 +42,13 @@ class ControlDeviceFragment : BaseFragment<FragmentControlDeviceBinding>() {
         super.initVariable()
         arguments?.let {
             ioTDevice = SmartSdk.deviceHandler().get(it.getString("uuid"))
+        }
+        ioTDevice?.let {
+            ILogR.D("ControlDeviceFragment", it.productId, it.devType, Arrays.toString(it.features))
+            it.elementInfos.entries.forEach {
+                ILogR.D("ControlDeviceFragment", it.key, it.value.label, it.value.devType, Arrays.toString(it.value.attrs))
+            }
+            ILogR.D("ControlDeviceFragment", "PRODUCT_MODEL", Gson().toJson(SmartSdk.getProductModel(it.productId)))
         }
         binding.apply {
             toolbar.btnBack.setOnClickListener {
@@ -73,6 +88,9 @@ class ControlDeviceFragment : BaseFragment<FragmentControlDeviceBinding>() {
                 }
                 if (it.containtFeature(IoTAttribute.COLOR_HSV)) {
                     lnSaturation.visibility = View.VISIBLE
+                }
+                if (it.devType == IoTDeviceType.GATEWAY) {
+                    lnRfControl.visibility = View.VISIBLE
                 }
             }
         }
@@ -213,6 +231,98 @@ class ControlDeviceFragment : BaseFragment<FragmentControlDeviceBinding>() {
                 }
 
             })
+
+            btnLocateDevicePostion.setOnClickListener {
+                dialogLoading.show()
+                SmartSdk.controlHandler().locatePositionDevice(
+                    (ioTDevice?.uuid),
+                    30,
+                    object : SuccessStatus {
+                        override fun onStatus(p0: Boolean) {
+                            CoroutineScope(Dispatchers.Main).launch {
+                                dialogLoading.dismiss()
+                                showNoti(p0.toString())
+                            }
+                        }
+
+                    }
+                )
+            }
+
+            btnLocateElmPostion.setOnClickListener {
+                dialogLoading.show()
+                SmartSdk.controlHandler().locatePositionDevice(
+                    (ioTDevice?.uuid),
+                    (spinnerElement.selectedItem as Map.Entry<Int, String>).key,
+                    30,
+                    object : SuccessStatus {
+                        override fun onStatus(p0: Boolean) {
+                            CoroutineScope(Dispatchers.Main).launch {
+                                dialogLoading.dismiss()
+                                showNoti(p0.toString())
+                            }
+                        }
+
+                    }
+                )
+            }
+
+            btnRequestSelfTest.setOnClickListener {
+                dialogLoading.show()
+                SmartSdk.controlHandler().requestSelfTestDevice(
+                    ioTDevice?.uuid,
+                    (spinnerElement.selectedItem as Map.Entry<Int, String>).key,
+                    30,
+                    object : RequestCallback<HashMap<String, IoTSelfTestResult>> {
+                        override fun onSuccess(p0: HashMap<String, IoTSelfTestResult>?) {
+                            CoroutineScope(Dispatchers.Main).launch {
+                                dialogLoading.dismiss()
+                                showNoti(R.string.success)
+                                p0?.let {
+                                    it.forEach {
+                                        ILogR.D("ControlRF", it.key, Gson().toJson(it.value))
+                                    }
+                                }
+                            }
+                        }
+
+                        override fun onFailure(p0: Int, p1: String?) {
+                            CoroutineScope(Dispatchers.Main).launch {
+                                dialogLoading.dismiss()
+                                showNoti(R.string.failure)
+                            }
+                        }
+                    }
+                )
+            }
+            btnRequestSelfTestNwk.setOnClickListener {
+                dialogLoading.show()
+                SmartSdk.controlHandler().requestSelfTestDevice(
+                    ioTDevice?.uuid,
+                    (spinnerElement.selectedItem as Map.Entry<Int, String>).key,
+                    30,
+                    object : RequestCallback<HashMap<String, IoTSelfTestResult>> {
+                        override fun onSuccess(p0: HashMap<String, IoTSelfTestResult>?) {
+                            CoroutineScope(Dispatchers.Main).launch {
+                                dialogLoading.dismiss()
+                                showNoti(R.string.success)
+                                p0?.let {
+                                    it.forEach {
+                                        ILogR.D("ControlRF", it.key, Gson().toJson(it.value))
+                                    }
+                                }
+                            }
+                        }
+
+                        override fun onFailure(p0: Int, p1: String?) {
+                            CoroutineScope(Dispatchers.Main).launch {
+                                dialogLoading.dismiss()
+                                showNoti(R.string.failure)
+                            }
+                        }
+                    }
+                )
+            }
         }
     }
 }

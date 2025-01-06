@@ -14,9 +14,9 @@ import com.example.rogosample.adapter.TimeSpinnerAdapter
 import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentAddSmartNotificationBinding
 import rogo.iot.module.platform.callback.RequestCallback
-import rogo.iot.module.rogocore.basesdk.define.IoTAutomationType
-import rogo.iot.module.rogocore.basesdk.define.IoTCondition
-import rogo.iot.module.rogocore.basesdk.define.IoTDeviceType
+import rogo.iot.module.platform.define.IoTAutomationType
+import rogo.iot.module.platform.define.IoTCondition
+import rogo.iot.module.platform.define.IoTDeviceType
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
 import rogo.iot.module.rogocore.sdk.entity.smart.IoTReverseOnOff

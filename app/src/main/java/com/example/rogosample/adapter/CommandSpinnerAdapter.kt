@@ -8,8 +8,6 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.rogosample.`object`.Command
 import com.example.rogosample.R
-import rogo.iot.module.rogocore.basesdk.define.IoTAttribute
-import rogo.iot.module.rogocore.basesdk.define.IoTCmdConst
 
 class CommandSpinnerAdapter(context: Context, cmdList: List<Command>): ArrayAdapter<Command>(context, 0, cmdList) {
 

@@ -14,6 +14,7 @@ import com.example.rogosample.databinding.FragmentGeneralFunctionBinding
 import com.example.rogosample.`object`.Function
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.define.IoTSmartType
+import rogo.iot.module.rogocore.sdk.entity.IoTObjState
 
 class GeneralFunction : BaseFragment<FragmentGeneralFunctionBinding>() {
     override val layoutId: Int

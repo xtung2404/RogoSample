@@ -2,7 +2,7 @@ package com.example.rogosample.`object`
 
 import androidx.annotation.StringRes
 import com.example.rogosample.R
-import rogo.iot.module.rogocore.basesdk.define.IoTCmdConst
+import rogo.iot.module.platform.define.IoTCmdConst
 
 enum class AcControlItem (
     val itemId: Int,

@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import rogo.iot.module.platform.ILogR
 import rogo.iot.module.platform.callback.RequestCallback
 import rogo.iot.module.platform.callback.SuccessStatus
-import rogo.iot.module.rogocore.basesdk.define.IoTWifiConnectionState
+import rogo.iot.module.platform.define.IoTWifiConnectionState
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.callback.SetupDeviceWileCallback
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice

@@ -1,8 +1,6 @@
 package com.example.rogosample.`object`
 
 import com.example.rogosample.R
-import rogo.iot.module.rogocore.basesdk.define.IoTAttribute
-import rogo.iot.module.rogocore.basesdk.define.IoTErrorCode
 import rogo.iot.module.rogocore.basesdk.define.IoTIrCode
 
 fun getIrCodeName(irCode: Int): Int =

@@ -1,43 +1,30 @@
 package com.example.rogosample.UI.device
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.PixelCopy.Request
 import android.view.View
-import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
 import androidx.navigation.fragment.findNavController
 import com.example.rogosample.R
 import com.example.rogosample.adapter.DeviceSpinnerAdapter
 import com.example.rogosample.adapter.GroupSpinnerAdapter
-import com.example.rogosample.adapter.HubDeviceAdapter
 import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentConfigMeshBinding
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import rogo.iot.module.platform.ILogR
 import rogo.iot.module.platform.callback.RequestCallback
-import rogo.iot.module.rogocore.basesdk.define.IoTDeviceSubType
-import rogo.iot.module.rogocore.basesdk.define.IoTDeviceType
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.callback.CheckDeviceAvailableCallback
+import rogo.iot.module.rogocore.sdk.callback.CheckListDeviceAvailableCallback
 import rogo.iot.module.rogocore.sdk.callback.ConnectMeshDeviceCallback
 import rogo.iot.module.rogocore.sdk.callback.DiscoveryIoTBleCallback
 import rogo.iot.module.rogocore.sdk.callback.LoadMeshNwkCallback
-//import rogo.iot.module.rogocore.sdk.callback.GetDeviceAvailableCallback
-import rogo.iot.module.rogocore.sdk.callback.SetupDeviceCallback
 import rogo.iot.module.rogocore.sdk.callback.SetupDeviceMeshCallback
 import rogo.iot.module.rogocore.sdk.entity.IoTBleScanned
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
 import rogo.iot.module.rogocore.sdk.entity.IoTGroup
-import rogo.iot.module.rogocore.sdk.entity.IoTWileScanned
-import rogo.iot.module.rogocore.sdk.entity.SetupDeviceInfo
+import rogo.iot.module.rogocore.sdk.entity.IoTProductModel
 
 class ConfigMeshFragment : BaseFragment<FragmentConfigMeshBinding>() {
     override val layoutId: Int
@@ -71,10 +58,11 @@ class ConfigMeshFragment : BaseFragment<FragmentConfigMeshBinding>() {
         * Check available hub
         * */
         CoroutineScope(Dispatchers.Main).launch {
-            SmartSdk.configMeshDeviceHandler().checkMeshGatewayAvailable(object : CheckDeviceAvailableCallback {
-                override fun onDeviceAvailable(devId: String?) {
-                    ILogR.D(TAG, "HUB_DEVICE", devId)
-                    deviceList.add(SmartSdk.deviceHandler().get(devId))
+            SmartSdk.configMeshDeviceHandler().checkMeshGatewayAvailable(6, object : CheckListDeviceAvailableCallback {
+                override fun onDeviceAvailable(centralList: MutableCollection<IoTDevice>?) {
+                    centralList?.let {
+                        deviceList.addAll(it)
+                    }
                 }
             })
             delay(5000)
@@ -182,77 +170,73 @@ class ConfigMeshFragment : BaseFragment<FragmentConfigMeshBinding>() {
         this.ioTBleScanned = ioTBleScanned
         binding.edtDeviceName.setText(ioTBleScanned.ioTProductModel.name)
         binding.lnDevice.visibility = View.VISIBLE
-        SmartSdk.configMeshDeviceHandler().loadGatewayMeshNwkForSetup(
-            (binding.spinnerHub.selectedItem as IoTDevice).uuid,
-            object : LoadMeshNwkCallback {
-                override fun onLoadMeshNwkSuccess() {
-                    SmartSdk.configMeshDeviceHandler().connectMeshDevice(ioTBleScanned, object : ConnectMeshDeviceCallback {
-                        override fun onConnectionFailure(p0: Int, p1: String?) {
-                            ILogR.D("ConfigMeshFragment", "onLoadMeshNwk", p0, p1)
-                        }
-
-                        override fun onConnecting() {
-                            ILogR.D("ConfigMeshFragment", "onConnecting")
-                        }
-
-                        override fun onConnected() {
-                            ILogR.D("ConfigMeshFragment", "onConnected")
-                        }
-
-                        override fun onDeviceIdentifiedAndReadyForSetup() {
-                            ILogR.D("ConfigMeshFragment", "onIdentified")
-                            CoroutineScope(Dispatchers.Main).launch {
-                                binding.btnAddDevice.visibility = View.VISIBLE
-                            }
-                        }
-
-                    })
-                }
-
-                override fun onLoadMeshNwkFailure(p0: Int, p1: String?) {
-                    ILogR.D("ConfigMeshFragment", "onLoadMeshNwkFailure", p0, p1)
-                }
-
-            }
-        )
+        setUpDevice(ioTBleScanned)
     }
 
     /*
     * Set up the device scanned
     * */
     private fun setUpDevice(ioTBleScanned: IoTBleScanned) {
-        SmartSdk.configMeshDeviceHandler().setupMeshDevice(object : SetupDeviceMeshCallback {
-            override fun onSetupMeshProgressStatus(p0: String?, p1: Int, p2: String?) {
-                CoroutineScope(Dispatchers.Main).launch {
-                    binding.txtProgress.text = p1.toString()
+        dialogLoading.show()
+        SmartSdk.configMeshDeviceHandler().connectAndIdentifyDevice(
+            (binding.spinnerHub.selectedItem as IoTDevice).uuid,
+            ioTBleScanned,
+            object : ConnectMeshDeviceCallback {
+                override fun onConnectionFailure(p0: Int, p1: String?) {
+
                 }
-            }
 
-            override fun onSetupMeshConfigurationCompleted() {
-                SmartSdk.configMeshDeviceHandler().completeAddDevice(
-                    binding.edtDeviceName.text.toString(),
-                    (binding.spinnerGroup.selectedItem as IoTGroup).uuid,
-                    ioTBleScanned.ioTProductModel.devSubType,
-                    object : RequestCallback<IoTDevice> {
-                        override fun onSuccess(p0: IoTDevice?) {
-                            ILogR.D("ConfigMeshFragment", "onSuccess")
-                        }
+                override fun onConnecting() {
 
-                        override fun onFailure(p0: Int, p1: String?) {
-                            ILogR.D("ConfigMeshFragment", "onFailure", p0, p1)
-                        }
+                }
 
+                override fun onConnected() {
+
+                }
+
+                override fun onDeviceIdentifiedAndReadyForSetup() {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        binding.btnAddDevice.visibility = View.VISIBLE
                     }
-                )
+                    SmartSdk.configMeshDeviceHandler().setupDeviceIntoMeshNetwork(object  : SetupDeviceMeshCallback{
+                        override fun onSetupMeshProgressStatus(p0: String?, p1: Int, p2: String?) {
+                            CoroutineScope(Dispatchers.Main).launch {
+                                binding.txtProgress.text = p1.toString()
+                            }
+                        }
+
+                        override fun onSetupMeshConfigurationCompleted() {
+                            SmartSdk.configMeshDeviceHandler().syncDeviceInfoToCloud(
+                                binding.edtDeviceName.text.toString(),
+                                (binding.spinnerGroup.selectedItem as IoTGroup).uuid,
+                                ioTBleScanned.ioTProductModel.devSubType,
+                                object : RequestCallback<IoTDevice> {
+                                    override fun onSuccess(p0: IoTDevice?) {
+                                        dialogLoading.dismiss()
+                                        showNoti(R.string.add_success)
+                                    }
+
+                                    override fun onFailure(p0: Int, p1: String?) {
+                                        dialogLoading.dismiss()
+                                        p1?.let {
+                                            showNoti(it)
+                                        }
+                                    }
+
+                                }
+                            )
+                        }
+
+                        override fun onSetupFailure(p0: Int, p1: String?) {
+                            dialogLoading.dismiss()
+                            p1?.let {
+                                showNoti(it)
+                            }
+                        }
+                })
+
             }
 
-            override fun onSetupFailure(p0: Int, p1: String?) {
-                ILogR.D("ConfigMeshFragment", "OnSetUpFailure", p0, p1)
-            }
         })
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
     }
 }

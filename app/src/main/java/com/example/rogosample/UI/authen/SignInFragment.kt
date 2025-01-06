@@ -30,7 +30,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
             }
             toolbar.txtTitle.text = resources.getString(R.string.sign_in)
             edtUsername.setText("")
-            edtEmail.setText("tungrogo24@gmail.com")
+            edtEmail.setText("phamtung240402@gmail.com")
             edtPassword.setText("123456")
         }
     }
@@ -50,6 +50,21 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
                 val username = edtUsername.text.toString()
                 if(username.isEmpty()) {
                     SmartSdk.signIn(null, email, null, password, object : AuthRequestCallback {
+                        override fun onSuccess() {
+                            dialogLoading.dismiss()
+                            lnOptions.visibility = View.VISIBLE
+                        }
+
+                        override fun onFailure(p0: Int, p1: String?) {
+                            dialogLoading.dismiss()
+                            ILogR.D("SignInFragment", p0, p1)
+                            p1?.let {
+                                showNoti(it)
+                            }
+                        }
+                    })
+                } else {
+                    SmartSdk.signIn(username, null, null, password, object : AuthRequestCallback {
                         override fun onSuccess() {
                             dialogLoading.dismiss()
                             lnOptions.visibility = View.VISIBLE

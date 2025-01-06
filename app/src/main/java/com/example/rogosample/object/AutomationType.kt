@@ -1,7 +1,8 @@
 package com.example.rogosample.`object`
 
-import rogo.iot.module.rogocore.basesdk.define.IoTAttribute
-import rogo.iot.module.rogocore.basesdk.define.IoTCmdConst
+import rogo.iot.module.platform.define.IoTAttribute
+import rogo.iot.module.platform.define.IoTCmdConst
+
 
 enum class AutomationType(
     val automationAttr: Int,

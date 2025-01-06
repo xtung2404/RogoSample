@@ -237,5 +237,61 @@
                 android:min="1"
                 android:max="5"/>
         </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ln_rf_control"
+        android:orientation="vertical"
+        android:visibility="visible">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rf_control"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_locate_device_postion"
+            android:text="@string/locate_device_postion"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_yellow_20dp"
+            android:textAllCaps="true"
+            android:layout_marginTop="8dp"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_locate_elm_postion"
+            android:text="@string/locate_element_postition"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_yellow_20dp"
+            android:textAllCaps="true"
+            android:layout_marginTop="8dp"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_request_self_test"
+            android:text="@string/request_self_test"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_yellow_20dp"
+            android:textAllCaps="true"
+            android:layout_marginTop="8dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_request_self_test_nwk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/btn_yellow_20dp"
+            android:text="@string/request_self_test_network"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </LinearLayout>
     </LinearLayout>
 </layout>

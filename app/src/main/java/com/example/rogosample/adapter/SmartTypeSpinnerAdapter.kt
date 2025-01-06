@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.rogosample.R
-import rogo.iot.module.rogocore.basesdk.define.IoTAutomationType
+import rogo.iot.module.platform.define.IoTAutomationType
 
 class SmartTypeSpinnerAdapter(context: Context, automationTypeList: List<Int>): ArrayAdapter<Int>(context, 0, automationTypeList) {
 

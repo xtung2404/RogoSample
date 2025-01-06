@@ -10,7 +10,7 @@ import com.example.rogosample.R
 import com.example.rogosample.adapter.SwitchDeviceAdapter
 import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentControlSwitchGroupBinding
-import rogo.iot.module.rogocore.basesdk.define.IoTDeviceType
+import rogo.iot.module.platform.define.IoTDeviceType
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
 

@@ -2,7 +2,7 @@ package com.example.rogosample.`object`
 
 import androidx.annotation.StringRes
 import com.example.rogosample.R
-import rogo.iot.module.rogocore.basesdk.define.IoTDeviceType
+import rogo.iot.module.platform.define.IoTDeviceType
 
 enum class DeviceLearnIr(
     val type: Int,

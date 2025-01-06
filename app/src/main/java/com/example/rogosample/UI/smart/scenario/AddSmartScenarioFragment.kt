@@ -14,14 +14,11 @@ import com.example.rogosample.`object`.Command
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.internal.notify
 import rogo.iot.module.platform.callback.RequestCallback
-import rogo.iot.module.rogocore.basesdk.define.IoTAttribute
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
 import rogo.iot.module.rogocore.sdk.entity.smart.IoTSmart
 import rogo.iot.module.rogocore.sdk.entity.smart.IoTSmartCmd
-import rogo.iot.module.rogocore.sdk.entity.smart.IoTSmartMotionNotDetected
 import rogo.iot.module.rogocore.sdk.entity.smart.IoTTargetCmd
 
 class AddSmartScenarioFragment : BaseFragment<FragmentAddSmartScenarioBinding>() {

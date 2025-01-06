@@ -11,10 +11,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.rogosample.R
 import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentControlGroupBinding
-import rogo.iot.module.platform.callback.SuccessStatus
-import rogo.iot.module.rogocore.basesdk.define.IoTAttribute
-import rogo.iot.module.rogocore.basesdk.define.IoTCmdConst
-import rogo.iot.module.rogocore.basesdk.define.IoTDeviceType
+import rogo.iot.module.platform.define.IoTAttribute
+import rogo.iot.module.platform.define.IoTCmdConst
+import rogo.iot.module.platform.define.IoTDeviceType
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.callback.AckStatusCallback
 import rogo.iot.module.rogocore.sdk.define.IoTAckStatus

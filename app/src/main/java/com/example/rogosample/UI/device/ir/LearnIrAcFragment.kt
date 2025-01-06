@@ -23,19 +23,7 @@ import com.example.rogosample.adapter.GroupSpinnerAdapter
 import com.example.rogosample.adapter.ManufacturerSpinnerAdapter
 import com.example.rogosample.adapter.TimeSpinnerAdapter
 import com.example.rogosample.base.BaseFragment
-import com.example.rogosample.base.getDeviceName
 import com.example.rogosample.databinding.FragmentLearnIrAcBinding
-import com.example.rogosample.`object`.AcControlItem
-import com.example.rogosample.`object`.DeviceLearnIr
-import rogo.iot.module.platform.callback.RequestCallback
-import rogo.iot.module.platform.callback.SuccessStatus
-import rogo.iot.module.rogocore.basesdk.define.IoTDeviceType
-import rogo.iot.module.rogocore.sdk.SmartSdk
-import rogo.iot.module.rogocore.sdk.define.ir.IoTIrPrtc
-import rogo.iot.module.rogocore.sdk.entity.IoTDevice
-import rogo.iot.module.rogocore.sdk.entity.IoTGroup
-import rogo.iot.module.rogocore.sdk.entity.IoTIrProtocolInfo
-import rogo.iot.module.rogocore.sdk.entity.IoTIrRemote
 
 class LearnIrAcFragment : BaseFragment<FragmentLearnIrAcBinding>() {
     override val layoutId: Int

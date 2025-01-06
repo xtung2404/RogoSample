@@ -15,26 +15,17 @@ import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentConfigZigbeeBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import no.nordicsemi.android.ble.callback.SuccessCallback
 import rogo.iot.module.platform.callback.RequestCallback
-import rogo.iot.module.rogocore.basesdk.define.IoTDeviceSubType
-import rogo.iot.module.rogocore.basesdk.define.IoTDeviceType
+import rogo.iot.module.platform.define.IoTDeviceSubType
+import rogo.iot.module.platform.define.IoTDeviceType
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.callback.CheckDeviceAvailableCallback
-import rogo.iot.module.rogocore.sdk.callback.DiscoveryIoTBleCallback
 import rogo.iot.module.rogocore.sdk.callback.PairZigbeeDeviceCallback
-//import rogo.iot.module.rogocore.sdk.callback.DiscoveryIoTZigbeeCallback
-//import rogo.iot.module.rogocore.sdk.callback.GetZigbeeAvailableCallback
-//import rogo.iot.module.rogocore.sdk.callback.SuccessCallback
-import rogo.iot.module.rogocore.sdk.entity.IoTBleScanned
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
 import rogo.iot.module.rogocore.sdk.entity.IoTGroup
 import rogo.iot.module.rogocore.sdk.entity.IoTPairedZigbeeDevice
-//import rogo.iot.module.rogocore.sdk.entity.IoTZigbeePaired
-import rogo.iot.module.rogocore.sdk.entity.SetupDeviceInfo
 
 class ConfigZigbeeFragment : BaseFragment<FragmentConfigZigbeeBinding>() {
     override val layoutId: Int
@@ -78,13 +69,13 @@ class ConfigZigbeeFragment : BaseFragment<FragmentConfigZigbeeBinding>() {
 
         }
         CoroutineScope(Dispatchers.Main).launch {
-            SmartSdk.configZigbeeDeviceHandler().checkNetworkAvailable(object: CheckDeviceAvailableCallback  {
+            SmartSdk.configZigbeeDeviceHandler().checkZigbeeGatewayAvailable (object: CheckDeviceAvailableCallback  {
                 override fun onDeviceAvailable(p0: String?) {
                     deviceList.add(SmartSdk.deviceHandler().get(p0))
                 }
             })
             delay(5000)
-            SmartSdk.configZigbeeDeviceHandler().cancelCheckNetworkAvailable()
+            SmartSdk.configZigbeeDeviceHandler().cancelCheckZigbeeGatewayAvailable()
             deviceSpinnerAdapter = DeviceSpinnerAdapter(requireContext(), deviceList)
             binding.spinnerHub.adapter = deviceSpinnerAdapter
         }
@@ -102,7 +93,11 @@ class ConfigZigbeeFragment : BaseFragment<FragmentConfigZigbeeBinding>() {
         stopDiscovery()
         gatewayId = (binding.spinnerHub.selectedItem as IoTDevice).uuid
         deviceMap.clear()
-        SmartSdk.configZigbeeDeviceHandler().startPairingZigbee(gatewayId, scanningTime, devType, object : PairZigbeeDeviceCallback {
+        SmartSdk.configZigbeeDeviceHandler().startPairZigbeeDevice(gatewayId, scanningTime, devType, object : PairZigbeeDeviceCallback {
+            override fun onPairingStatus(p0: Int) {
+
+            }
+
             override fun onPairedDevice(p0: IoTPairedZigbeeDevice?) {
                 device = p0
                 binding.edtDeviceName.setText(p0!!.ioTProductModel.name)
@@ -111,6 +106,10 @@ class ConfigZigbeeFragment : BaseFragment<FragmentConfigZigbeeBinding>() {
             }
 
             override fun onPairedUnknownDevice(p0: String?, p1: String?, p2: String?) {
+
+            }
+
+            override fun onNotDevicePaired() {
 
             }
         })
@@ -123,22 +122,25 @@ class ConfigZigbeeFragment : BaseFragment<FragmentConfigZigbeeBinding>() {
         }
     }
     private fun stopDiscovery() {
-        SmartSdk.configZigbeeDeviceHandler().stopPairingZigbee(gatewayId)
+        SmartSdk.configZigbeeDeviceHandler().stopPairZigbeeDevice(gatewayId)
     }
     private fun setUp() {
+        dialogLoading.show()
         device?.let {
-            SmartSdk.configZigbeeDeviceHandler().addZigbeeDevice(
+            SmartSdk.configZigbeeDeviceHandler().syncDeviceToCloud(
                 gatewayId, it,binding.edtDeviceName.text.toString(),
                 (binding.spinnerGroup.selectedItem as IoTGroup).uuid,
                 deviceSubType,
                 object: RequestCallback<IoTDevice> {
                     override fun onFailure(errorCode: Int, message: String?) {
+                        dialogLoading.dismiss()
                         message?.let {
                             showNoti(it)
                         }
                     }
 
                     override fun onSuccess(item: IoTDevice?) {
+                        dialogLoading.dismiss()
                         showNoti(getString(R.string.connect_to, item!!.label))
                     }
                 }

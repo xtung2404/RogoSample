@@ -160,6 +160,9 @@
         <action
             android:id="@+id/action_splashFragment_to_locationFunctionFragment3"
             app:destination="@id/locationFunctionFragment" />
+        <action
+            android:id="@+id/action_splashFragment_to_generalFunction2"
+            app:destination="@id/generalFunction" />
     </fragment>
     <fragment
         android:id="@+id/editLocationFragment"

@@ -10,7 +10,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "rogo.iot.app.thingedges"
+        applicationId = "rogo.iot.app.thingedgesrogosample"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -131,14 +131,15 @@ dependencies {
 //    implementation(group = "", name = "rogocomponent", ext = "jar")
 
 //    implementation(files("libs/rogocore-release"))
-    implementation(group = "", name = "rogobase", ext = "jar")
-    implementation(group = "", name = "rogocomponent", ext = "jar")
+//    implementation(group = "", name = "rogobase", ext = "jar")
+//    implementation(group = "", name = "rogocomponent", ext = "jar")
     implementation(group = "", name = "rogocore", ext = "jar")
     implementation(group = "", name = "rogocloudapi", ext = "jar")
     implementation(group = "", name = "rogoplatform", ext = "jar")
     implementation(group = "", name = "rogoplatformandroid-release", ext = "aar")
     implementation(group = "", name = "rogoutils", ext = "jar")
     implementation(group = "", name = "rogosigmesh", ext = "jar")
+    implementation(group = "", name = "rogocli", ext = "jar")
 
 
 //    implementation(group = "", name = "thinguikit", ext = "jar")

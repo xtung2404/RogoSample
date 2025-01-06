@@ -5,7 +5,7 @@ import com.example.rogosample.R
 import com.example.rogosample.adapter.SmartTypeSpinnerAdapter
 import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentAddSmartAutomationBinding
-import rogo.iot.module.rogocore.basesdk.define.IoTAutomationType
+import rogo.iot.module.platform.define.IoTAutomationType
 
 class AddSmartAutomationFragment : BaseFragment<FragmentAddSmartAutomationBinding>() {
     override val layoutId: Int

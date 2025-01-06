@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import rogo.iot.module.platform.ILogR
 import rogo.iot.module.platform.callback.RequestCallback
-import rogo.iot.module.rogocore.basesdk.define.IoTAttribute
+import rogo.iot.module.platform.define.IoTAttribute
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.define.IoTSmartType
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice

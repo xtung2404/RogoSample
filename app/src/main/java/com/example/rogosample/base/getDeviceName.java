@@ -4,7 +4,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import rogo.iot.module.rogocore.basesdk.define.IoTManufacturer;
+import rogo.iot.module.platform.define.IoTManufacturer;
+
 
 public class getDeviceName {
     public static HashMap<String, Integer> getClassInfo() throws ClassNotFoundException, IllegalAccessException {

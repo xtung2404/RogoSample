@@ -19,11 +19,11 @@ import com.example.rogosample.databinding.FragmentEditSmartAdvanceBinding
 import com.example.rogosample.`object`.Command
 import com.example.rogosample.`object`.ELement
 import rogo.iot.module.platform.callback.RequestCallback
-import rogo.iot.module.rogocore.basesdk.define.IoTAttribute
-import rogo.iot.module.rogocore.basesdk.define.IoTAutomationType
-import rogo.iot.module.rogocore.basesdk.define.IoTCondition
-import rogo.iot.module.rogocore.basesdk.define.IoTTriggerTimeCfg
-import rogo.iot.module.rogocore.basesdk.define.IoTTriggerType
+import rogo.iot.module.platform.define.IoTAttribute
+import rogo.iot.module.platform.define.IoTAutomationType
+import rogo.iot.module.platform.define.IoTCondition
+import rogo.iot.module.platform.define.IoTTriggerTimeCfg
+import rogo.iot.module.platform.define.IoTTriggerType
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.define.IoTSmartType
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
