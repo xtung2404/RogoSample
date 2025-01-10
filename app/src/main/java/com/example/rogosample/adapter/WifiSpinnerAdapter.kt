@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.rogosample.R
+import rogo.iot.module.platform.entity.IoTWifiInfo
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
 
-class WifiSpinnerAdapter(context: Context, wifiList: List<String?>)
-    : ArrayAdapter<String>(context, 0, wifiList){
+class WifiSpinnerAdapter(context: Context, wifiList: List<IoTWifiInfo?>)
+    : ArrayAdapter<IoTWifiInfo>(context, 0, wifiList){
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         return getCustomView(position, convertView, parent)
     }
@@ -27,7 +28,7 @@ class WifiSpinnerAdapter(context: Context, wifiList: List<String?>)
         }
         val textViewName: TextView = convertedView!!.findViewById(R.id.txt_function)
         getItem(position)?.let {
-            textViewName.text = it
+            textViewName.text = it.ssid
         }
         return convertedView
     }

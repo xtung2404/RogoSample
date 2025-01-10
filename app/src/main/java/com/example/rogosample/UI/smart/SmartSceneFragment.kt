@@ -12,7 +12,7 @@ import com.example.rogosample.adapter.FunctionAdapter
 import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentSmartSceneBinding
 import com.example.rogosample.`object`.Function
-import rogo.iot.module.rogocore.sdk.define.IoTSmartType
+import rogo.iot.module.platform.define.IoTSmartType
 
 class SmartSceneFragment: BaseFragment<FragmentSmartSceneBinding>() {
     override val layoutId: Int

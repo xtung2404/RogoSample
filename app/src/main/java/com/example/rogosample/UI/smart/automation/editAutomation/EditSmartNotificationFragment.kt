@@ -15,8 +15,8 @@ import rogo.iot.module.platform.callback.RequestCallback
 import rogo.iot.module.platform.define.IoTAutomationType
 import rogo.iot.module.platform.define.IoTCondition
 import rogo.iot.module.platform.define.IoTDeviceType
+import rogo.iot.module.platform.define.IoTSmartType
 import rogo.iot.module.rogocore.sdk.SmartSdk
-import rogo.iot.module.rogocore.sdk.define.IoTSmartType
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
 import rogo.iot.module.rogocore.sdk.entity.smart.IoTSmart
 import rogo.iot.module.rogocore.sdk.entity.smart.IoTSmartNotification
@@ -42,7 +42,8 @@ class EditSmartNotificationFragment : BaseFragment<FragmentEditSmartNotification
         TimeSpinnerAdapter(requireContext(), (0..59).toList())
     }
     private val smartSpinnerAdapter by lazy {
-        SmartSpinnerAdapter(requireContext(), SmartSdk.smartFeatureHandler().getSmartByType(IoTSmartType.TYPE_AUTOMATION).filter {
+        SmartSpinnerAdapter(requireContext(), SmartSdk.smartFeatureHandler().getSmartByType(
+            IoTSmartType.TYPE_AUTOMATION).filter {
             it.subType == IoTAutomationType.TYPE_NOTIFICATION
         })
     }

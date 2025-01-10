@@ -285,6 +285,9 @@
         <action
             android:id="@+id/action_addDeviceFragment_to_configRfDeviceFragment"
             app:destination="@id/configRfDeviceFragment" />
+        <action
+            android:id="@+id/action_addDeviceFragment_to_configWifiDeviceDirectFragment"
+            app:destination="@id/configWifiDeviceDirectFragment" />
     </fragment>
     <fragment
         android:id="@+id/deviceFragment"
@@ -569,6 +572,14 @@
         android:label="ConfigRfDeviceFragment" >
         <action
             android:id="@+id/action_configRfDeviceFragment_to_addDeviceFragment"
+            app:destination="@id/addDeviceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/configWifiDeviceDirectFragment"
+        android:name="com.example.rogosample.UI.device.ConfigWifiDeviceDirectFragment"
+        android:label="ConfigWifiDeviceDirectFragment" >
+        <action
+            android:id="@+id/action_configWifiDeviceDirectFragment_to_addDeviceFragment"
             app:destination="@id/addDeviceFragment" />
     </fragment>
 </navigation>

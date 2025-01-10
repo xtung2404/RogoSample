@@ -30,7 +30,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
             }
             toolbar.txtTitle.text = resources.getString(R.string.sign_in)
             edtUsername.setText("")
-            edtEmail.setText("phamtung240402@gmail.com")
+            edtEmail.setText("tungrogo24@gmail.com")
             edtPassword.setText("123456")
         }
     }

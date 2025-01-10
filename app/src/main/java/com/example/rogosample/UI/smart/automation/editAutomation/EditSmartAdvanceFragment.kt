@@ -22,10 +22,10 @@ import rogo.iot.module.platform.callback.RequestCallback
 import rogo.iot.module.platform.define.IoTAttribute
 import rogo.iot.module.platform.define.IoTAutomationType
 import rogo.iot.module.platform.define.IoTCondition
+import rogo.iot.module.platform.define.IoTSmartType
 import rogo.iot.module.platform.define.IoTTriggerTimeCfg
 import rogo.iot.module.platform.define.IoTTriggerType
 import rogo.iot.module.rogocore.sdk.SmartSdk
-import rogo.iot.module.rogocore.sdk.define.IoTSmartType
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
 import rogo.iot.module.rogocore.sdk.entity.smart.IoTSmart
 import rogo.iot.module.rogocore.sdk.entity.smart.IoTSmartCmd

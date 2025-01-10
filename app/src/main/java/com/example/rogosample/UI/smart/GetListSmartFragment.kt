@@ -10,9 +10,8 @@ import com.example.rogosample.R
 import com.example.rogosample.adapter.SmartSceneAdapter
 import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentGetListScenarioBinding
+import rogo.iot.module.platform.define.IoTSmartType
 import rogo.iot.module.rogocore.sdk.SmartSdk
-import rogo.iot.module.rogocore.sdk.define.IoTSmartType
-import rogo.iot.module.rogocore.sdk.entity.smart.IoTSmartSchedule
 
 class GetListScenarioFragment : BaseFragment<FragmentGetListScenarioBinding>() {
     override val layoutId: Int

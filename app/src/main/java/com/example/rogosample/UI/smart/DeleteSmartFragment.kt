@@ -6,8 +6,8 @@ import com.example.rogosample.adapter.SmartSpinnerAdapter
 import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentDeleteSmartBinding
 import rogo.iot.module.platform.callback.RequestCallback
+import rogo.iot.module.platform.define.IoTSmartType
 import rogo.iot.module.rogocore.sdk.SmartSdk
-import rogo.iot.module.rogocore.sdk.define.IoTSmartType
 import rogo.iot.module.rogocore.sdk.entity.smart.IoTSmart
 
 class DeleteSmartFragment : BaseFragment<FragmentDeleteSmartBinding>() {
