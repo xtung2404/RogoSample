@@ -121,6 +121,7 @@ class ConfigRfDeviceFragment : BaseFragment<FragmentConfigRfDeviceBinding>() {
                 override fun onNoDevicePaired() {
                     stopDiscovery()
                     dialogLoading.dismiss()
+                    ILogR.D("No available")
                 }
 
             }

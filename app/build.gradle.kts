@@ -107,10 +107,10 @@ dependencies {
 
 
 
-    implementation ("com.firebaseui:firebase-ui-auth:$firebase_ui")
-    implementation ("com.google.firebase:firebase-messaging:$firebase_message_ver")
-    implementation ("com.google.firebase:firebase-auth:$firebase_auth_ver")
-    implementation ("com.google.firebase:firebase-iid:21.1.0")
+//    implementation ("com.firebaseui:firebase-ui-auth:$firebase_ui")
+//    implementation ("com.google.firebase:firebase-messaging:$firebase_message_ver")
+//    implementation ("com.google.firebase:firebase-auth:$firebase_auth_ver")
+//    implementation ("com.google.firebase:firebase-iid:21.1.0")
 
     implementation ("com.airbnb.android:lottie:$lottie")
 
