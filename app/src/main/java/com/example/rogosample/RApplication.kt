@@ -9,6 +9,7 @@ class RApplication: Application() {
     override fun onCreate() {
         super.onCreate()
         SmartSdk.isForceStagingSvr = true
+//        SmartSdk.isForceProduction = true
         SmartSdk.isSupportModelDevelopment = true
         SmartSdk.isV2DeviceBleConfig = true
 //        SmartSdk().initV2(

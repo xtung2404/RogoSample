@@ -113,7 +113,7 @@ class ConfigRfDeviceFragment : BaseFragment<FragmentConfigRfDeviceBinding>() {
                             device = it
                             binding.edtDeviceName.setText(it.name)
                             binding.lnDevice.visibility = View.VISIBLE
-                            stopDiscovery()
+//                            stopDiscovery()
                         }
                     }
                 }

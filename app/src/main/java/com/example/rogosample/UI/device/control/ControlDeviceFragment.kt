@@ -18,12 +18,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import rogo.iot.module.platform.ILogR
 import rogo.iot.module.platform.callback.RequestCallback
+import rogo.iot.module.platform.callback.SuccessRequestCallback
 import rogo.iot.module.platform.callback.SuccessStatus
 import rogo.iot.module.platform.define.IoTAttribute
 import rogo.iot.module.platform.define.IoTCmdConst
 import rogo.iot.module.platform.define.IoTDeviceType
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.callback.AckStatusCallback
+import rogo.iot.module.rogocore.sdk.callback.SuccessStatusCallback
 import rogo.iot.module.rogocore.sdk.define.IoTAckStatus
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
 import rogo.iot.module.rogocore.sdk.entity.IoTSelfTestResult
@@ -74,19 +76,19 @@ class ControlDeviceFragment : BaseFragment<FragmentControlDeviceBinding>() {
                 } else {
                     lnElement.visibility = View.VISIBLE
                 }
-                if (it.containtFeature(IoTAttribute.ONOFF)) {
+                if (it.containtFeature(IoTAttribute.ACT_ONOFF)) {
                     lnOnoff.visibility = View.VISIBLE
                 }
-                if (it.containtFeature(IoTAttribute.BRIGHTNESS)) {
+                if (it.containtFeature(IoTAttribute.ACT_BRIGHTNESS)) {
                     lnBrightness.visibility = View.VISIBLE
                 }
-                if (it.containtFeature(IoTAttribute.OPEN_CLOSE_CTL)) {
+                if (it.containtFeature(IoTAttribute.ACT_OPEN_CLOSE)) {
                     lnOpenclose.visibility = View.VISIBLE
                 }
-                if (it.containtFeature(IoTAttribute.LOCK_UNLOCK)) {
+                if (it.containtFeature(IoTAttribute.ACT_LOCK_UNLOCK)) {
                     lnLockUnlock.visibility = View.VISIBLE
                 }
-                if (it.containtFeature(IoTAttribute.COLOR_HSV)) {
+                if (it.containtFeature(IoTAttribute.ACT_COLOR_HSV)) {
                     lnSaturation.visibility = View.VISIBLE
                 }
                 if (it.devType == IoTDeviceType.GATEWAY) {
@@ -231,7 +233,6 @@ class ControlDeviceFragment : BaseFragment<FragmentControlDeviceBinding>() {
                 }
 
             })
-
             btnLocateDevicePostion.setOnClickListener {
                 dialogLoading.show()
                 SmartSdk.controlHandler().locatePositionDevice(
@@ -249,40 +250,17 @@ class ControlDeviceFragment : BaseFragment<FragmentControlDeviceBinding>() {
                 )
             }
 
-            btnLocateElmPostion.setOnClickListener {
-                dialogLoading.show()
-                SmartSdk.controlHandler().locatePositionDevice(
-                    (ioTDevice?.uuid),
-                    (spinnerElement.selectedItem as Map.Entry<Int, String>).key,
-                    30,
-                    object : SuccessStatus {
-                        override fun onStatus(p0: Boolean) {
-                            CoroutineScope(Dispatchers.Main).launch {
-                                dialogLoading.dismiss()
-                                showNoti(p0.toString())
-                            }
-                        }
-
-                    }
-                )
-            }
-
             btnRequestSelfTest.setOnClickListener {
                 dialogLoading.show()
+
                 SmartSdk.controlHandler().requestSelfTestDevice(
                     ioTDevice?.uuid,
-                    (spinnerElement.selectedItem as Map.Entry<Int, String>).key,
                     30,
-                    object : RequestCallback<HashMap<String, IoTSelfTestResult>> {
-                        override fun onSuccess(p0: HashMap<String, IoTSelfTestResult>?) {
+                    object : SuccessRequestCallback{
+                        override fun onSuccess() {
                             CoroutineScope(Dispatchers.Main).launch {
                                 dialogLoading.dismiss()
                                 showNoti(R.string.success)
-                                p0?.let {
-                                    it.forEach {
-                                        ILogR.D("ControlRF", it.key, Gson().toJson(it.value))
-                                    }
-                                }
                             }
                         }
 
@@ -297,9 +275,8 @@ class ControlDeviceFragment : BaseFragment<FragmentControlDeviceBinding>() {
             }
             btnRequestSelfTestNwk.setOnClickListener {
                 dialogLoading.show()
-                SmartSdk.controlHandler().requestSelfTestDevice(
+                SmartSdk.controlHandler().requestSelfTestDeviceNwk(
                     ioTDevice?.uuid,
-                    (spinnerElement.selectedItem as Map.Entry<Int, String>).key,
                     30,
                     object : RequestCallback<HashMap<String, IoTSelfTestResult>> {
                         override fun onSuccess(p0: HashMap<String, IoTSelfTestResult>?) {
