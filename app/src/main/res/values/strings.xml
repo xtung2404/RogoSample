@@ -78,6 +78,7 @@
     <string name="delete_device">Delete device</string>
     <string name="locate_device_postion">Locate device postion</string>
     <string name="locate_element_postition">Locate element postion</string>
+    <string name="silence_alarm">Silence alarm</string>
     <string name="request_self_test">Request self test</string>
     <string name="request_self_test_network">Request self test network</string>
     <string name="delete_element_device">Delete element device</string>
@@ -111,6 +112,17 @@
     <string name="select_button_to_learn">Select button to learn</string>
     <string name="select_wifi_ssd">Select Wifi SSD</string>
     <string name="device_name">Device name</string>
+    <string name="current_state">Current state</string>
+    <string name="state">State</string>
+    <string name="current_battery">Current battery</string>
+    <string name="is_online">Is online?</string>
+    <string name="has_issues">Has issues?</string>
+    <string name="current_lux">Current lux</string>
+    <string name="current_temp">Current temp</string>
+    <string name="current_issues">Current issues</string>
+    <string name="firmware">Firmware</string>
+    <string name="current_firmware">Current Firmware</string>
+    <string name="newest_firmware">Newest Firmware</string>
     <string name="detecting_device">Detecting device</string>
     <string name="select_group_to_add_device">Select group to add device</string>
     <string name="device_sub_type">DeviceSubType</string>
@@ -209,6 +221,7 @@
     <string name="choose_smart">Choose smart</string>
     <string name="update_smart_name">Update smart name</string>
     <string name="update_command">Update command</string>
+    <string name="update">Update</string>
     <string name="update_element">Update element</string>
     <string name="update_device">Update device</string>
     <string name="edit_smart">Edit smart</string>

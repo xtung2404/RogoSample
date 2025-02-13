@@ -25,6 +25,7 @@ import rogo.iot.module.platform.define.IoTCmdConst
 import rogo.iot.module.platform.define.IoTDeviceType
 import rogo.iot.module.rogocore.sdk.SmartSdk
 import rogo.iot.module.rogocore.sdk.callback.AckStatusCallback
+import rogo.iot.module.rogocore.sdk.callback.SelfTestDeviceAckCallback
 import rogo.iot.module.rogocore.sdk.callback.SuccessStatusCallback
 import rogo.iot.module.rogocore.sdk.define.IoTAckStatus
 import rogo.iot.module.rogocore.sdk.entity.IoTDevice
@@ -250,14 +251,31 @@ class ControlDeviceFragment : BaseFragment<FragmentControlDeviceBinding>() {
                 )
             }
 
+            btnSilenceAlarm.setOnClickListener {
+                dialogLoading.show()
+                SmartSdk.controlHandler().silenceAlarm(
+                    ioTDevice?.uuid,
+                    object : SuccessStatus {
+                        override fun onStatus(p0: Boolean) {
+                            CoroutineScope(Dispatchers.Main).launch {
+                                dialogLoading.dismiss()
+                                showNoti(
+                                    if (p0) R.string.success else R.string.failure
+                                )
+                            }
+                        }
+
+                    }
+                )
+            }
+
             btnRequestSelfTest.setOnClickListener {
                 dialogLoading.show()
-
                 SmartSdk.controlHandler().requestSelfTestDevice(
                     ioTDevice?.uuid,
                     30,
-                    object : SuccessRequestCallback{
-                        override fun onSuccess() {
+                    object : SelfTestDeviceAckCallback{
+                        override fun onReplyAckSuccess() {
                             CoroutineScope(Dispatchers.Main).launch {
                                 dialogLoading.dismiss()
                                 showNoti(R.string.success)
@@ -273,6 +291,7 @@ class ControlDeviceFragment : BaseFragment<FragmentControlDeviceBinding>() {
                     }
                 )
             }
+
             btnRequestSelfTestNwk.setOnClickListener {
                 dialogLoading.show()
                 SmartSdk.controlHandler().requestSelfTestDeviceNwk(

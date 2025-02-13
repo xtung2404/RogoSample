@@ -13,285 +13,320 @@
         android:orientation="vertical"
         android:paddingHorizontal="10dp"
         android:paddingTop="5dp">
-        <include layout="@layout/toolbar"
-            android:id="@+id/toolbar"/>
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="@string/device_name"
             android:textColor="@color/white"
             android:textSize="12sp"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp"/>
+            android:textStyle="bold" />
+
         <TextView
+            android:id="@+id/txt_device_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txt_device_name"
-            android:textSize="14sp"
             android:layout_marginTop="8dp"
             android:paddingVertical="16dp"
             android:paddingStart="8dp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/white"/>
+            android:background="@color/white" />
+
         <LinearLayout
+            android:id="@+id/ln_element"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/ln_element"
             android:orientation="vertical"
             android:visibility="gone">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="@string/select_element"
                 android:textColor="@color/white"
                 android:textSize="12sp"
-                android:textStyle="bold"
-                android:layout_marginTop="8dp"/>
+                android:textStyle="bold" />
+
             <Spinner
                 android:id="@+id/spinner_element"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:paddingVertical="8dp"/>
+                android:paddingVertical="8dp" />
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/ln_onoff"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/ln_onoff"
             android:orientation="vertical"
             android:visibility="gone">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="@string/onoff"
                 android:textColor="@color/white"
                 android:textSize="12sp"
-                android:textStyle="bold"
-                android:layout_marginTop="8dp"/>
+                android:textStyle="bold" />
+
             <Switch
+                android:id="@+id/switch_onoff"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:id="@+id/switch_onoff"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"/>
+                android:layout_marginTop="8dp" />
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/ln_openclose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/ln_openclose"
             android:orientation="vertical"
             android:visibility="gone">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="@string/openclose"
                 android:textColor="@color/white"
                 android:textSize="12sp"
-                android:textStyle="bold"
-                android:layout_marginTop="8dp"/>
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
                 <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:id="@+id/btn_close"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_yellow_20dp"
                     android:text="@string/close"
-                    android:textSize="14sp"
-                    android:textColor="@color/white"
-                    android:background="@drawable/btn_yellow_20dp"
                     android:textAllCaps="true"
-                    android:layout_margin="4dp"/>
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
                 <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:id="@+id/btn_stop"
-                    android:text="@string/stop"
-                    android:textSize="14sp"
-                    android:textColor="@color/white"
-                    android:background="@drawable/btn_yellow_20dp"
-                    android:textAllCaps="true"
-                    android:layout_margin="4dp"/>
-                <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
                     android:layout_weight="1"
-                    android:id="@+id/btn_open"
-                    android:text="@string/open"
-                    android:textSize="14sp"
-                    android:textColor="@color/white"
                     android:background="@drawable/btn_yellow_20dp"
+                    android:text="@string/stop"
                     android:textAllCaps="true"
-                    android:layout_margin="4dp"/>
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_open"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_yellow_20dp"
+                    android:text="@string/open"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/ln_lock_unlock"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/ln_lock_unlock"
             android:orientation="vertical"
             android:visibility="gone">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="@string/lock_unlock"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginTop="8dp"/>
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
                 <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:id="@+id/btn_lock"
-                    android:text="@string/close"
-                    android:textSize="14sp"
-                    android:textColor="@color/white"
-                    android:background="@drawable/btn_yellow_20dp"
-                    android:textAllCaps="true"
-                    android:layout_margin="4dp"/>
-                <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
                     android:layout_weight="1"
-                    android:id="@+id/btn_unlock"
-                    android:text="@string/unlock"
-                    android:textSize="14sp"
-                    android:textColor="@color/white"
                     android:background="@drawable/btn_yellow_20dp"
+                    android:text="@string/close"
                     android:textAllCaps="true"
-                    android:layout_margin="4dp"/>
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_unlock"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_yellow_20dp"
+                    android:text="@string/unlock"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/ln_brightness"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/ln_brightness"
             android:orientation="vertical"
             android:visibility="gone">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="@string/brightness"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginTop="8dp"/>
+                android:textStyle="bold" />
+
             <SeekBar
+                android:id="@+id/sb_brightness"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:id="@+id/sb_brightness"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
                 android:max="100"
-                android:min="0"/>
+                android:min="0" />
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/ln_saturation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/ln_saturation"
             android:orientation="vertical"
             android:visibility="gone">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="@string/saturation"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginTop="8dp"/>
+                android:textStyle="bold" />
+
             <SeekBar
+                android:id="@+id/sb_saturation"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:id="@+id/sb_saturation"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
-                android:min="0"
-                android:max="360"/>
+                android:max="360"
+                android:min="0" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="@string/color"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginTop="8dp"/>
+                android:textStyle="bold" />
+
             <SeekBar
+                android:id="@+id/sb_color"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:id="@+id/sb_color"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
-                android:min="1"
-                android:max="5"/>
+                android:max="5"
+                android:min="1" />
         </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/ln_rf_control"
-        android:orientation="vertical"
-        android:visibility="visible">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/rf_control"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginTop="8dp"/>
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_locate_device_postion"
-            android:text="@string/locate_device_postion"
-            android:textSize="14sp"
-            android:textColor="@color/white"
-            android:background="@drawable/btn_yellow_20dp"
-            android:textAllCaps="true"
-            android:layout_marginTop="8dp"/>
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_locate_elm_postion"
-            android:text="@string/locate_element_postition"
-            android:textSize="14sp"
-            android:textColor="@color/white"
-            android:background="@drawable/btn_yellow_20dp"
-            android:textAllCaps="true"
-            android:layout_marginTop="8dp"/>
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_request_self_test"
-            android:text="@string/request_self_test"
-            android:textSize="14sp"
-            android:textColor="@color/white"
-            android:background="@drawable/btn_yellow_20dp"
-            android:textAllCaps="true"
-            android:layout_marginTop="8dp"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_request_self_test_nwk"
+        <LinearLayout
+            android:id="@+id/ln_rf_control"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/btn_yellow_20dp"
-            android:text="@string/request_self_test_network"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
-    </LinearLayout>
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/rf_control"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_locate_device_postion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/btn_yellow_20dp"
+                android:text="@string/locate_device_postion"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_silence_alarm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/btn_yellow_20dp"
+                android:text="@string/silence_alarm"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_request_self_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/btn_yellow_20dp"
+                android:text="@string/request_self_test"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_request_self_test_nwk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/btn_yellow_20dp"
+                android:text="@string/request_self_test_network"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
     </LinearLayout>
 </layout>

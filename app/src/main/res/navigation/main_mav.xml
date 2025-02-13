@@ -299,6 +299,9 @@
         <action
             android:id="@+id/action_deviceFragment_to_controlDeviceFragment"
             app:destination="@id/controlDeviceFragment" />
+        <action
+            android:id="@+id/action_deviceFragment_to_stateDeviceFragment"
+            app:destination="@id/stateDeviceFragment" />
     </fragment>
     <fragment
         android:id="@+id/configBoxFragment"
@@ -581,5 +584,13 @@
         <action
             android:id="@+id/action_configWifiDeviceDirectFragment_to_addDeviceFragment"
             app:destination="@id/addDeviceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stateDeviceFragment"
+        android:name="com.example.rogosample.UI.device.state.StateDeviceFragment"
+        android:label="StateDeviceFragment" >
+        <action
+            android:id="@+id/action_stateDeviceFragment_to_deviceFragment"
+            app:destination="@id/deviceFragment" />
     </fragment>
 </navigation>

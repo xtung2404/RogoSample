@@ -169,7 +169,7 @@ class EditSmartScenarioFragment : BaseFragment<FragmentEditSmartScenarioBinding>
                                 * Show the command and the value of the command of SmartScenario
                                 * */
                                 when (ioTTargetCmd?.cmd?.toList()?.first()) {
-                                    IoTAttribute.BRIGHTNESS_KELVIN -> {
+                                    IoTAttribute.ACT_BRIGHTNESS_KELVIN -> {
                                         spinnerCommand.post(object: Runnable {
                                             override fun run() {
                                                 spinnerCommand.setSelection(
@@ -213,7 +213,7 @@ class EditSmartScenarioFragment : BaseFragment<FragmentEditSmartScenarioBinding>
                                         sbKelvin.progress = ioTTargetCmd?.cmd?.toList()?.get(2)!!
                                     }
 
-                                    IoTAttribute.COLOR_HSV -> {
+                                    IoTAttribute.ACT_COLOR_HSV -> {
                                         lnBrightness.visibility = View.GONE
                                         lnSaturation.visibility = View.VISIBLE
                                         spinnerCommand.post(object: Runnable {

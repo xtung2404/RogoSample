@@ -21,9 +21,14 @@ class DeviceFragment : BaseFragment<FragmentDeviceBinding>() {
         get() = R.layout.fragment_device
 
     private val deviceAdapter by lazy {
-        DeviceAdapter(onItemClick = {
-            findNavController().navigate(R.id.controlDeviceFragment, bundleOf("uuid" to it))
-        })
+        DeviceAdapter(
+            onControlSelected = {
+                findNavController().navigate(R.id.controlDeviceFragment, bundleOf("uuid" to it))
+        },
+            onStateSelected = {
+                findNavController().navigate(R.id.stateDeviceFragment, bundleOf("uuid" to it))
+            }
+        )
     }
 
     override fun initVariable() {

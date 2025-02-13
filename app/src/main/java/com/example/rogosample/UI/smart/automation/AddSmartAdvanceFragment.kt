@@ -300,7 +300,7 @@ class AddSmartAdvanceFragment : BaseFragment<FragmentAddSmartAdvanceBinding>() {
                         }
                         deviceExtList = SmartSdk.deviceHandler().all.filter { device ->
                             if (ioTCommand == Command.SYNCON || ioTCommand == Command.SYNCOFF) {
-                                device.containtFeature(IoTAttribute.ONOFF)
+                                device.containtFeature(IoTAttribute.ACT_ONOFF)
                             } else {
                                 device.containtFeature(ioTCommand.cmdAttribute)
                             }

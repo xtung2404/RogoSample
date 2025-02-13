@@ -336,7 +336,7 @@ class EditSmartAdvanceFragment : BaseFragment<FragmentEditSmartAdvanceBinding>()
                                 )
                             }
                             when (ioTSmartTrigger.value.toList().first()) {
-                                IoTAttribute.BRIGHTNESS_KELVIN -> {
+                                IoTAttribute.ACT_BRIGHTNESS_KELVIN -> {
                                     lnBrightness.visibility = View.VISIBLE
                                     lnSaturation.visibility = View.GONE
                                     spinnerCommand.post(object : Runnable {
@@ -354,7 +354,7 @@ class EditSmartAdvanceFragment : BaseFragment<FragmentEditSmartAdvanceBinding>()
                                     sbKelvin.progress = ioTSmartTrigger.value.toList()[2]
                                 }
 
-                                IoTAttribute.COLOR_HSV -> {
+                                IoTAttribute.ACT_COLOR_HSV -> {
                                     lnBrightness.visibility = View.GONE
                                     lnSaturation.visibility = View.VISIBLE
                                     spinnerCommand.post(object : Runnable {
@@ -432,7 +432,7 @@ class EditSmartAdvanceFragment : BaseFragment<FragmentEditSmartAdvanceBinding>()
                                 * Show the command and the value of the command of SmartScenario
                                 * */
                                 when (ioTTargetCmd?.cmd?.toList()?.first()) {
-                                    IoTAttribute.BRIGHTNESS_KELVIN -> {
+                                    IoTAttribute.ACT_BRIGHTNESS_KELVIN -> {
                                         spinnerCommandExt.post(object : Runnable {
                                             override fun run() {
                                                 spinnerCommandExt.setSelection(
@@ -448,7 +448,7 @@ class EditSmartAdvanceFragment : BaseFragment<FragmentEditSmartAdvanceBinding>()
                                         sbKelvinExt.progress = ioTTargetCmd?.cmd?.toList()?.get(2)!!
                                     }
 
-                                    IoTAttribute.COLOR_HSV -> {
+                                    IoTAttribute.ACT_COLOR_HSV -> {
                                         lnBrightnessExt.visibility = View.GONE
                                         lnSaturationExt.visibility = View.VISIBLE
                                         spinnerCommandExt.post(object : Runnable {

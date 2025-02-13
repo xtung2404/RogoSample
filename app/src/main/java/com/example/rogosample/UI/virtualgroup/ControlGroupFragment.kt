@@ -37,19 +37,19 @@ class ControlGroupFragment : BaseFragment<FragmentControlGroupBinding>() {
                 currentGroup = SmartSdk.groupHandler().get(it.getString("ioTGroup", null))
                 SmartSdk.groupHandler().getGroupCtlMembers(currentGroup.uuid).forEach {groupMember ->
                     val device = SmartSdk.deviceHandler().get(groupMember.deviceId)
-                    if (device.containtFeature(IoTAttribute.ONOFF)) {
+                    if (device.containtFeature(IoTAttribute.ACT_ONOFF)) {
                         lnOnoff.visibility = View.VISIBLE
                     }
-                    if (device.containtFeature(IoTAttribute.BRIGHTNESS)) {
+                    if (device.containtFeature(IoTAttribute.ACT_BRIGHTNESS)) {
                         lnBrightness.visibility = View.VISIBLE
                     }
-                    if (device.containtFeature(IoTAttribute.OPEN_CLOSE_CTL)) {
+                    if (device.containtFeature(IoTAttribute.ACT_OPEN_CLOSE)) {
                         lnOpenclose.visibility = View.VISIBLE
                     }
-                    if (device.containtFeature(IoTAttribute.LOCK_UNLOCK)) {
+                    if (device.containtFeature(IoTAttribute.ACT_LOCK_UNLOCK)) {
                         lnLockUnlock.visibility = View.VISIBLE
                     }
-                    if (device.containtFeature(IoTAttribute.COLOR_HSV)) {
+                    if (device.containtFeature(IoTAttribute.ACT_COLOR_HSV)) {
                         lnSaturation.visibility = View.VISIBLE
                     }
                 }

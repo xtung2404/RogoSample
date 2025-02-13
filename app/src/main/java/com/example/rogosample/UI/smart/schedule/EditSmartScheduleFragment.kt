@@ -339,7 +339,7 @@ class EditSmartScheduleFragment : BaseFragment<FragmentEditSmartScheduleBinding>
                             spinnerHour.setSelection(ioTSmartSchedule.appTime / 60)
                             spinnerMinute.setSelection(ioTSmartSchedule.appTime % 60)
                             when (ioTTargetCmd?.cmd?.toList()?.first()) {
-                                IoTAttribute.BRIGHTNESS_KELVIN -> {
+                                IoTAttribute.ACT_BRIGHTNESS_KELVIN -> {
                                     spinnerCommand.post(object : Runnable {
                                         override fun run() {
                                             spinnerCommand.setSelection(
@@ -385,7 +385,7 @@ class EditSmartScheduleFragment : BaseFragment<FragmentEditSmartScheduleBinding>
                                     sbKelvin.progress = ioTTargetCmd?.cmd?.toList()?.get(2)!!
                                 }
 
-                                IoTAttribute.COLOR_HSV -> {
+                                IoTAttribute.ACT_COLOR_HSV -> {
                                     lnBrightness.visibility = View.GONE
                                     lnSaturation.visibility = View.VISIBLE
                                     spinnerCommand.post(object : Runnable {

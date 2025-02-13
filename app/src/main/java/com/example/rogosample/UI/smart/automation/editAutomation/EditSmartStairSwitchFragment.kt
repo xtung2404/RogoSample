@@ -47,7 +47,7 @@ class EditSmartStairSwitchFragment : BaseFragment<FragmentEditSmartStairSwitchBi
 
     private val deviceFirstSpinnerAdapter by lazy {
         DeviceSpinnerAdapter(requireContext(), SmartSdk.deviceHandler().all.filter {
-            it.containtFeature(IoTAttribute.ONOFF) && it.devType == IoTDeviceType.SWITCH
+            it.containtFeature(IoTAttribute.ACT_ONOFF) && it.devType == IoTDeviceType.SWITCH
         })
     }
     private val elementFirstCheckAdapter by lazy {
@@ -167,7 +167,7 @@ class EditSmartStairSwitchFragment : BaseFragment<FragmentEditSmartStairSwitchBi
                         deviceSecondSpinnerAdapter = DeviceSpinnerAdapter(
                             requireContext(),
                             SmartSdk.deviceHandler().all.filter { device ->
-                                device.containtFeature(IoTAttribute.ONOFF) && device.devType == IoTDeviceType.SWITCH && device != ioTDevice
+                                device.containtFeature(IoTAttribute.ACT_ONOFF) && device.devType == IoTDeviceType.SWITCH && device != ioTDevice
                             })
                         spinnerSwitchSecond.adapter = deviceSecondSpinnerAdapter
                     }

@@ -10,14 +10,14 @@ enum class Command(
     val cmdType: Int,
     @StringRes val cmdName: Int
 ) {
-    ON(IoTAttribute.ONOFF, IoTCmdConst.POWER_ON, R.string.power_on),
-    OFF(IoTAttribute.ONOFF, IoTCmdConst.POWER_OFF, R.string.power_off),
-    SYNCON(IoTAttribute.SYNC_ONOFF_NORMAL, 0, R.string.sync_on),
-    SYNCOFF(IoTAttribute.SYNC_ONOFF_REVERSING, 0, R.string.sync_off),
-    OPEN(IoTAttribute.OPEN_CLOSE_CTL, IoTCmdConst.OPENCLOSE_MODE_OPEN, R.string.open),
-    CLOSE(IoTAttribute.OPEN_CLOSE_CTL, IoTCmdConst.OPENCLOSE_MODE_CLOSE, R.string.close),
-    BRIGHTNESS(IoTAttribute.BRIGHTNESS_KELVIN, -1, R.string.brightness),
-    COLOR(IoTAttribute.COLOR_HSV, -2, R.string.color),
+    ON(IoTAttribute.ACT_ONOFF, IoTCmdConst.POWER_ON, R.string.power_on),
+    OFF(IoTAttribute.ACT_ONOFF, IoTCmdConst.POWER_OFF, R.string.power_off),
+    SYNCON(IoTAttribute.ACT_SYNC_ONOFF_NORMAL, 0, R.string.sync_on),
+    SYNCOFF(IoTAttribute.ACT_SYNC_ONOFF_REVERSING, 0, R.string.sync_off),
+    OPEN(IoTAttribute.ACT_OPEN_CLOSE, IoTCmdConst.OPENCLOSE_MODE_OPEN, R.string.open),
+    CLOSE(IoTAttribute.ACT_OPEN_CLOSE, IoTCmdConst.OPENCLOSE_MODE_CLOSE, R.string.close),
+    BRIGHTNESS(IoTAttribute.ACT_BRIGHTNESS, -1, R.string.brightness),
+    COLOR(IoTAttribute.ACT_COLOR_HSV, -2, R.string.color),
     AIRCONTROL(IoTAttribute.AC, -3, R.string.air_con);
 
     companion object {
