@@ -12,6 +12,7 @@ import com.example.rogosample.R
 import com.example.rogosample.adapter.DeviceAdapter
 import com.example.rogosample.base.BaseFragment
 import com.example.rogosample.databinding.FragmentDeviceBinding
+import com.google.gson.Gson
 import org.bouncycastle.jcajce.provider.asymmetric.util.BaseKeyFactorySpi
 import rogo.iot.module.platform.ILogR
 import rogo.iot.module.rogocore.sdk.SmartSdk
@@ -19,7 +20,7 @@ import rogo.iot.module.rogocore.sdk.SmartSdk
 class DeviceFragment : BaseFragment<FragmentDeviceBinding>() {
     override val layoutId: Int
         get() = R.layout.fragment_device
-
+    private val TAG = "DeviceFragment"
     private val deviceAdapter by lazy {
         DeviceAdapter(
             onControlSelected = {
@@ -50,7 +51,9 @@ class DeviceFragment : BaseFragment<FragmentDeviceBinding>() {
                 * Get all devices
                 * */
                 val list = SmartSdk.deviceHandler().all.toMutableList()
-                ILogR.D("device", list)
+                list.forEach {
+                    ILogR.D(TAG, "device", Gson().toJson(it))
+                }
                 if(list.isEmpty()) {
                     lnDevices.visibility = View.GONE
                     lnEmpty.visibility = View.VISIBLE

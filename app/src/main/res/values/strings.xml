@@ -116,9 +116,13 @@
     <string name="state">State</string>
     <string name="current_battery">Current battery</string>
     <string name="is_online">Is online?</string>
+    <string name="is_wall_mounted">Is wall mounted</string>
     <string name="has_issues">Has issues?</string>
     <string name="current_lux">Current lux</string>
     <string name="current_temp">Current temp</string>
+    <string name="test_alarm">Test alarm</string>
+    <string name="state_of_sub_devices">State of sub devices</string>
+    <string name="history_of_device">History of device</string>
     <string name="current_issues">Current issues</string>
     <string name="firmware">Firmware</string>
     <string name="current_firmware">Current Firmware</string>
