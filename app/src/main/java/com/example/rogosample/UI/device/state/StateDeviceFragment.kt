@@ -87,7 +87,6 @@ class StateDeviceFragment : BaseFragment<FragmentStateDeviceBinding>() {
                         binding.txtWallMount.text = if (p2[1] == 1) "true" else "false"
                     }
                 }
-
             }
         }
 
