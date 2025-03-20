@@ -19,7 +19,6 @@ class RApplication: Application() {
 //        )
             //FPT
 //        SmartSdk().initV2(
-//            AndroidIoTPlatform(this, false),
 //            "f78f5dd2fc594475a27bef7c2caf9ab4",
 //            "41d96be770b2902f801b1689c5edae29c16a068e8f87",
 //        )
