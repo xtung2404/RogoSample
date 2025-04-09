@@ -55,6 +55,7 @@ class ConfigWifiDeviceDirectFragment : BaseFragment<FragmentConfigIRBinding>() {
     override fun initAction() {
         super.initAction()
         binding.apply {
+//            ILogR.D(TAG, "DEVICE_INFO", Gson().toJson(SmartSdk.getProductModel("00000018340400D6")))
             btnStartScan.setOnClickListener {
                 dialogLoading.show()
                 startScan()
@@ -73,7 +74,7 @@ class ConfigWifiDeviceDirectFragment : BaseFragment<FragmentConfigIRBinding>() {
             btnSetWifi.setOnClickListener {
                 SmartSdk.configWileDirectDeviceHandler().requestConnectWifiNetwork(
                     0,
-                    (spinnerWifi.selectedItem as IoTWifiInfo).ssid,
+                    edtSsid.text.toString(),
                     edtPassword.text.toString(),
                     true,
                     object : SuccessRequestCallback {
@@ -120,8 +121,15 @@ class ConfigWifiDeviceDirectFragment : BaseFragment<FragmentConfigIRBinding>() {
         SmartSdk.discoverySmartDeviceHandler().discovery(object : DiscoverySmartDeviceCallback {
             override fun onSmartDeviceFound(ioTDirectDeviceInfo: IoTDirectDeviceInfo?) {
                 ioTDirectDeviceInfo?.let {
-                    if (SmartSdk.getProductModel(it.productId) != null && it.rssi > -90) {
-                        if (it.typeConnect != IoTDirectDeviceInfo.TypeConnect.MESH) {
+                    ILogR.D("onDeviceFound", Gson().toJson(it), it.typeConnect)
+//                    if (SmartSdk.getProductModel(it.productId) != null && it.rssi > -90) {
+//                        if (it.typeConnect != IoTDirectDeviceInfo.TypeConnect.MESH) {
+//                            deviceMap[it.mac] = it
+//                        }
+//                    }
+                    if (SmartSdk.getProductModel(it.productId) != null && it.productId == "00000018340400D6") {
+                        ILogR.D(TAG, "ONDEVICEWILEFOUND", Gson().toJson(it), it.typeConnect)
+                        if (it.typeConnect == IoTDirectDeviceInfo.TypeConnect.WILEDIRECTLAN) {
                             deviceMap[it.mac] = it
                         }
                     }
@@ -130,10 +138,10 @@ class ConfigWifiDeviceDirectFragment : BaseFragment<FragmentConfigIRBinding>() {
 
         })
         CoroutineScope(Dispatchers.Main).launch {
-            delay(15000)
+            delay(20000)
+            stopDiscovery()
             if (deviceMap.isNotEmpty()) {
                 pickBestDevice()
-                stopDiscovery()
                 dialogLoading.dismiss()
             } else {
                 dialogLoading.dismiss()

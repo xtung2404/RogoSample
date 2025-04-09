@@ -1,6 +1,8 @@
 package com.example.rogosample.UI.device.state
 
 import android.view.View
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import androidx.navigation.fragment.findNavController
 import com.example.rogosample.R
 import com.example.rogosample.adapter.DeviceStateAdapter
@@ -118,6 +120,8 @@ class StateDeviceFragment : BaseFragment<FragmentStateDeviceBinding>() {
                             lnStateSubDevices.visibility = View.VISIBLE
                             rvSubDevicesState.adapter = deviceStateAdapter
                             pingStateSubDevices()
+//                            pingDeviceState()
+
                         }
                         else -> {
                             pingDeviceState()
@@ -167,6 +171,30 @@ class StateDeviceFragment : BaseFragment<FragmentStateDeviceBinding>() {
         }
     }
 
+    override fun initAction() {
+        super.initAction()
+        binding.apply {
+            spinnerElement.onItemSelectedListener = object : OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    parent?.let {
+                        val elm = it.selectedItem as Map.Entry<Int, String>
+                        pingDeviceState(elm.key)
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+
+            }
+        }
+    }
+
     private fun pingDeviceState() {
         SmartSdk.stateHandler().pingDeviceState(
             ioTDevice!!.uuid,
@@ -200,6 +228,62 @@ class StateDeviceFragment : BaseFragment<FragmentStateDeviceBinding>() {
                             if (ioTDevice!!.containtFeature(IoTAttribute.ACT_ONOFF)) {
                                 lnCurrentState.visibility = View.VISIBLE
                                 txtCurrentState.text = if (currentState.isOn) context?.getString(R.string.power_on) else context?.getString(R.string.power_off)
+                            }
+                            if (ioTDevice!!.containtFeature(IoTAttribute.EVT_OPEN_CLOSE)) {
+                                lnCurrentState.visibility = View.VISIBLE
+                                txtCurrentState.text = if (currentState.isDoorOpen(ioTDevice!!.elementIds.first())) context?.getString(R.string.open) else context?.getString(R.string.close)
+                            }
+                            if (ioTDevice!!.containtFeature(IoTAttribute.EVT_WALL_MOUNTED)) {
+                                lnWallMount.visibility = View.VISIBLE
+                                txtWallMount.text = if (currentState.isWallMounted(ioTDevice!!.elementIds.first())) "true" else "false"
+                            }
+                            if (ioTDevice!!.containtFeature(IoTAttribute.ACT_LOCK_UNLOCK)) {
+                                lnCurrentState.visibility = View.VISIBLE
+                                txtCurrentState.text = if (currentState.isLocked(ioTDevice!!.elementIds.first())) context?.getString(R.string.open) else context?.getString(R.string.close)
+                            }
+                        }
+                    }
+                }
+
+                override fun onFailure(p0: Int, p1: String?) {
+                    ILogR.D("Ping state", "onFailure", p0, p1)
+                }
+
+            })
+    }
+    private fun pingDeviceState(elm: Int) {
+        SmartSdk.stateHandler().pingDeviceState(
+            ioTDevice!!.uuid,
+            object : SuccessRequestCallback {
+                override fun onSuccess() {
+                    ILogR.D("Ping state", "onSuccess")
+                    CoroutineScope(Dispatchers.Main).launch {
+                        val currentState = SmartSdk.stateHandler().getObjState(ioTDevice!!.uuid)
+                        ILogR.D(TAG, "CURRENT_STATE", Gson().toJson(currentState), currentState.isOn)
+                        binding.apply {
+                            if (ioTDevice!!.containtFeature(IoTAttribute.EVT_ONLINE_STATUS)) {
+                                lnOnline.visibility = View.VISIBLE
+                                txtOnline.text = if (currentState.getOnlineStatus(ioTDevice!!.elementIds.first()) == 1) "true" else "false"
+                            }
+                            if (ioTDevice!!.containtFeature(IoTAttribute.EVT_BATTERY)) {
+                                lnCurrentBattery.visibility = View.VISIBLE
+                                txtCurrentBattery.text = currentState.battery.toString()
+                            }
+                            if (ioTDevice!!.containtFeature(IoTAttribute.EVT_LUX)) {
+                                lnCurrentLux.visibility = View.VISIBLE
+                                txtCurrentLux.text = currentState.lux.toString()
+                            }
+                            if (ioTDevice!!.containtFeature(IoTAttribute.INFO_CURRENT_ISSUES_STATUS)) {
+                                lnHasIssues.visibility = View.VISIBLE
+                                txtHasIssues.text = if (currentState.isHasIssues) "true" else "false"
+                            }
+                            if (ioTDevice!!.containtFeature(IoTAttribute.EVT_TEMP)) {
+                                lnCurrentTemp.visibility = View.VISIBLE
+                                txtCurrentTemp.text = currentState.temp.toString()
+                            }
+                            if (ioTDevice!!.containtFeature(IoTAttribute.ACT_ONOFF)) {
+                                lnCurrentState.visibility = View.VISIBLE
+                                txtCurrentState.text = if (currentState.isOn(elm)) context?.getString(R.string.power_on) else context?.getString(R.string.power_off)
                             }
                             if (ioTDevice!!.containtFeature(IoTAttribute.EVT_OPEN_CLOSE)) {
                                 lnCurrentState.visibility = View.VISIBLE
