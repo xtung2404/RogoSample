@@ -37,7 +37,7 @@ class ConfigRfDeviceFragment : BaseFragment<FragmentConfigRfDeviceBinding>() {
         get() = R.layout.fragment_config_rf_device
     private val TAG = "ConfigRfDeviceFragment"
     private val deviceList = arrayListOf<IoTDevice>()
-    private var scanningTime = 26
+    private var scanningTime = 10
     private val deviceRfFoundList = arrayListOf<IoTPairedRfDevice>()
     private var device: IoTPairedRfDevice?= null
     private var gatewayId = ""

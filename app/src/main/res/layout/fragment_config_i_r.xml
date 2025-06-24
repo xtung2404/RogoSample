@@ -127,7 +127,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/select_wifi_ssd"
+                    android:text="@string/wifi_list"
                     android:textColor="@color/white"
                     android:textSize="12sp"
                     android:textStyle="bold"
@@ -138,6 +138,14 @@
                     android:id="@+id/spinner_wifi"
                     android:background="@drawable/bg_input_black_10dp"
                     android:layout_marginTop="5dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/selected_wifi_ssid"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"/>
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

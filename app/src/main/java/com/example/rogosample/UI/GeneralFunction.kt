@@ -124,7 +124,7 @@ class GeneralFunction : BaseFragment<FragmentGeneralFunctionBinding>() {
         super.initVariable()
         binding.apply {
             toolbar.btnBack.setOnClickListener {
-                findNavController().popBackStack()
+                findNavController().navigate(R.id.locationFunctionFragment)
             }
         }
     }

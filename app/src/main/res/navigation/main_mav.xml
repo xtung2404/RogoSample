@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_functionFragment_to_locationFunctionFragment"
             app:destination="@id/locationFunctionFragment" />
+        <action
+            android:id="@+id/action_functionFragment_to_locationFunctionFragment2"
+            app:destination="@id/locationFunctionFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -103,6 +106,12 @@
         <action
             android:id="@+id/action_locationFunctionFragment_to_splashFragment"
             app:destination="@id/splashFragment" />
+        <action
+            android:id="@+id/action_locationFunctionFragment_to_functionFragment2"
+            app:destination="@id/functionFragment" />
+        <action
+            android:id="@+id/action_locationFunctionFragment_to_functionFragment3"
+            app:destination="@id/functionFragment" />
     </fragment>
     <fragment
         android:id="@+id/addLocationFragment"
@@ -163,6 +172,9 @@
         <action
             android:id="@+id/action_splashFragment_to_generalFunction2"
             app:destination="@id/generalFunction" />
+        <action
+            android:id="@+id/action_splashFragment_to_locationFunctionFragment4"
+            app:destination="@id/locationFunctionFragment" />
     </fragment>
     <fragment
         android:id="@+id/editLocationFragment"

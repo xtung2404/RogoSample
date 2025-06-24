@@ -296,7 +296,7 @@ class ControlDeviceFragment : BaseFragment<FragmentControlDeviceBinding>() {
                 dialogLoading.show()
                 SmartSdk.controlHandler().requestSelfTestDeviceNwk(
                     ioTDevice?.uuid,
-                    30,
+                    180,
                     object : RequestCallback<HashMap<String, IoTSelfTestResult>> {
                         override fun onSuccess(p0: HashMap<String, IoTSelfTestResult>?) {
                             CoroutineScope(Dispatchers.Main).launch {

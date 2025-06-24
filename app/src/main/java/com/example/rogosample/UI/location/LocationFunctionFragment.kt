@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
 import com.example.rogosample.R
 import com.example.rogosample.adapter.FunctionAdapter
@@ -38,11 +39,14 @@ class LocationFunctionFragment : BaseFragment<FragmentLocationFunctionBinding>()
     override fun initVariable() {
         super.initVariable()
         binding.apply {
-            if(findNavController().previousBackStackEntry?.destination?.id == R.id.splashFragment) {
-                findNavController().navigate(R.id.functionFragment)
-            }
+//            if(findNavController().previousBackStackEntry?.destination?.id == R.id.splashFragment) {
+//                findNavController().navigate(R.id.functionFragment)
+//            }
             toolbar.btnBack.setOnClickListener {
                 findNavController().popBackStack()
+            }
+            btnToAuthen.setOnClickListener {
+                findNavController().navigate(R.id.functionFragment)
             }
         }
     }

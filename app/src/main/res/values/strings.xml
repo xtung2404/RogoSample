@@ -111,6 +111,7 @@
     <string name="select_add_ir_remote_type">Select add Ir Remote type</string>
     <string name="select_button_to_learn">Select button to learn</string>
     <string name="select_wifi_ssd">Select Wifi SSD</string>
+    <string name="selected_wifi_ssid">Selected WiFi ssid</string>
     <string name="device_name">Device name</string>
     <string name="current_state">Current state</string>
     <string name="state">State</string>
@@ -166,6 +167,7 @@
     <string name="curtain">Curtain</string>
     <string name="gate">Gate</string>
     <string name="wifi_problem">There\'s something wrong with wifi</string>
+    <string name="wifi_list">WiFi list</string>
     <string name="num_0">Number 0</string>
     <string name="num_1">Number 1</string>
     <string name="num_2">Number 2</string>

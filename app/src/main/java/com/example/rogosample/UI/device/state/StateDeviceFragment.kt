@@ -112,7 +112,7 @@ class StateDeviceFragment : BaseFragment<FragmentStateDeviceBinding>() {
                 it.elementInfos.entries.forEach {
                     ILogR.D(TAG, it.key, it.value.label, it.value.devType, Arrays.toString(it.value.attrs))
                 }
-                ILogR.D(TAG, "PRODUCT_MODEL", Gson().toJson(SmartSdk.getProductModel(it.productId)))
+                ILogR.D(TAG, "PRODUCT_MODEL", it.mac, Gson().toJson(SmartSdk.getProductModel(it.productId)))
                 SmartSdk.registerDeviceStateCallback(smartDeviceStateCallback)
                 CoroutineScope(Dispatchers.Main).launch {
                     when (it.devType) {

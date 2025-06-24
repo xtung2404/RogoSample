@@ -18,7 +18,7 @@ enum class Command(
     CLOSE(IoTAttribute.ACT_OPEN_CLOSE, IoTCmdConst.OPENCLOSE_MODE_CLOSE, R.string.close),
     BRIGHTNESS(IoTAttribute.ACT_BRIGHTNESS, -1, R.string.brightness),
     COLOR(IoTAttribute.ACT_COLOR_HSV, -2, R.string.color),
-    AIRCONTROL(IoTAttribute.AC, -3, R.string.air_con);
+    AIRCONTROL(IoTAttribute.ACT_AC, -3, R.string.air_con);
 
     companion object {
         fun getCmdList() = arrayListOf<Command>(

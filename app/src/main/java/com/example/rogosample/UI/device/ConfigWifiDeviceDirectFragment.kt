@@ -1,6 +1,8 @@
 package com.example.rogosample.UI.device
 
 import android.view.View
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import androidx.navigation.fragment.findNavController
 import com.example.rogosample.R
 import com.example.rogosample.adapter.GroupSpinnerAdapter
@@ -55,7 +57,6 @@ class ConfigWifiDeviceDirectFragment : BaseFragment<FragmentConfigIRBinding>() {
     override fun initAction() {
         super.initAction()
         binding.apply {
-//            ILogR.D(TAG, "DEVICE_INFO", Gson().toJson(SmartSdk.getProductModel("00000018340400D6")))
             btnStartScan.setOnClickListener {
                 dialogLoading.show()
                 startScan()
@@ -68,6 +69,26 @@ class ConfigWifiDeviceDirectFragment : BaseFragment<FragmentConfigIRBinding>() {
             btnAddDevice.setOnClickListener {
                 setUp()
             }
+
+            spinnerWifi.onItemSelectedListener = object : OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    parent?.let {
+                        val selectedWiFi = it.getItemAtPosition(position) as IoTWifiInfo
+                        binding.edtSsid.setText(selectedWiFi.ssid)
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+
+            }
+
             /*
             * set up Internet for IR
             * */
@@ -122,17 +143,17 @@ class ConfigWifiDeviceDirectFragment : BaseFragment<FragmentConfigIRBinding>() {
             override fun onSmartDeviceFound(ioTDirectDeviceInfo: IoTDirectDeviceInfo?) {
                 ioTDirectDeviceInfo?.let {
                     ILogR.D("onDeviceFound", Gson().toJson(it), it.typeConnect)
-//                    if (SmartSdk.getProductModel(it.productId) != null && it.rssi > -90) {
-//                        if (it.typeConnect != IoTDirectDeviceInfo.TypeConnect.MESH) {
-//                            deviceMap[it.mac] = it
-//                        }
-//                    }
-                    if (SmartSdk.getProductModel(it.productId) != null && it.productId == "00000018340400D6") {
-                        ILogR.D(TAG, "ONDEVICEWILEFOUND", Gson().toJson(it), it.typeConnect)
-                        if (it.typeConnect == IoTDirectDeviceInfo.TypeConnect.WILEDIRECTLAN) {
+                    if (SmartSdk.getProductModel(it.productId) != null && it.rssi > -90) {
+                        if (it.typeConnect != IoTDirectDeviceInfo.TypeConnect.MESH) {
                             deviceMap[it.mac] = it
                         }
                     }
+//                    if (SmartSdk.getProductModel(it.productId) != null && it.productId == "00000018340400D6") {
+//                        ILogR.D(TAG, "ONDEVICEWILEFOUND", Gson().toJson(it), it.typeConnect)
+//                        if (it.typeConnect == IoTDirectDeviceInfo.TypeConnect.WILEDIRECTLAN) {
+//                            deviceMap[it.mac] = it
+//                        }
+//                    }
                 }
             }
 
@@ -196,9 +217,10 @@ class ConfigWifiDeviceDirectFragment : BaseFragment<FragmentConfigIRBinding>() {
         SmartSdk.configWileDirectDeviceHandler().connectAndIdentifyDevice(ioTDirectDeviceInfo, object : SetupWileDirectDeviceCallback {
             override fun onDeviceIdentifiedAndReadySetup(
                 p0: String?,
-                p1: MutableCollection<IoTNetworkConnectivity>?
+                p1: String?,
+                p2: MutableCollection<IoTNetworkConnectivity>?
             ) {
-                ILogR.D(TAG, "onDeviceIdentifiedAndReadySetup", p0, Gson().toJson(p1))
+                ILogR.D(TAG, "onDeviceIdentifiedAndReadySetup", p0, p1,Gson().toJson(p1))
                 wifiList.clear()
                 SmartSdk.configWileDirectDeviceHandler().scanWifi(10, object : RequestCallback<Collection<IoTWifiInfo>> {
                     override fun onSuccess(p0: Collection<IoTWifiInfo>?) {
