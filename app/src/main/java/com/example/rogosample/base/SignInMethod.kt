@@ -1,12 +1,12 @@
 package com.example.rogosample.base
 
-import com.google.firebase.auth.AuthCredential
+//import com.google.firebase.auth.AuthCredential
 import rogo.iot.module.rogocore.basesdk.auth.method.IAuthForgotMethod
 import rogo.iot.module.rogocore.basesdk.auth.method.IAuthSignInMethod
 import rogo.iot.module.rogocore.basesdk.auth.method.IAuthSignUpMethod
 
 sealed class SignInMethod: IAuthSignInMethod {
-    class signInWithCredential(var credential: AuthCredential): SignInMethod()
+//    class signInWithCredential(var credential: AuthCredential): SignInMethod()
 
     class signInWithEmail(var email: String, password: String): SignInMethod()
 
